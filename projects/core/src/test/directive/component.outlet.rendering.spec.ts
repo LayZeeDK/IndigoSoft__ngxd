@@ -118,20 +118,20 @@ describe('NgxComponentOutlet check rendering component', () => {
   }));
 });
 
-// tslint:disable-next-line:component-selector
+// eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'app-comp-dynamic', template: 'Dynamic Component' })
 class DynamicComponent {}
 
-// tslint:disable-next-line:component-selector
+// eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'app-comp-another-dynamic', template: 'Dynamic Another Component' })
 class AnotherDynamicComponent {}
 
-// tslint:disable-next-line:component-selector
+// eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'app-test-host', template: '' })
 class TestHostComponent {}
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-test-comp',
   template: `
     <app-test-host

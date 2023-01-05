@@ -80,13 +80,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/demo-app/src/tsconfig.app.json",
-              "projects/demo-app/src/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": ["projects/demo-app/**/*.ts", "projects/demo-app/**/*.html"]
           }
         }
       }
@@ -120,10 +116,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["projects/core/tsconfig.lib.json", "projects/core/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "**/test/**"]
+            "lintFilePatterns": ["projects/core/**/*.ts", "projects/core/**/*.html"]
           }
         }
       }
@@ -157,16 +152,21 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["projects/forms/tsconfig.lib.json", "projects/forms/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": ["projects/forms/**/*.ts", "projects/forms/**/*.html"]
           }
         }
       }
     }
   },
   "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    },
     "@schematics/angular:component": {
       "prefix": "app",
       "skipTests": true,
@@ -194,5 +194,8 @@
     "@schematics/angular:service": {
       "skipTests": true
     }
+  },
+  "cli": {
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

@@ -31,7 +31,7 @@ describe('NgxComponentOutlet check custom projectable nodes', () => {
 });
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-comp-dynamic',
   template: 'Dynamic Component name: {{ name }} <ng-content></ng-content>',
 })
@@ -40,7 +40,7 @@ class DynamicComponent {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-test-host',
   template: '',
 })
@@ -49,7 +49,7 @@ class TestHostComponent {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-test-comp',
   template: `
     <app-test-host
@@ -78,7 +78,7 @@ class TestComponent {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-component',
   template: `
     <app-test-comp [name]="'Angular'">
