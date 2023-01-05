@@ -221,7 +221,9 @@ class TestComponent {
 
   @ViewChild(BaseHostComponent, /* TODO: add static flag */ {}) hostComponent: any;
 
-  @ViewChild(TemplateRef, /* TODO: add static flag */ {}) set templateRef(templateRef: TemplateRef<any>) {
+  @ViewChild(TemplateRef, /* TODO: add static flag */ {}) set templateRef(
+    templateRef: TemplateRef<any>
+  ) {
     if (this.viewContainerRef && templateRef) {
       this.projectableNodes = [this.viewContainerRef.createEmbeddedView(templateRef).rootNodes];
     }
@@ -241,29 +243,29 @@ class TestComponent {
 class AppComponent {}
 
 @NgModule({
-    imports: [NgxdModule],
-    declarations: [
-        AppComponent,
-        DynamicComponent,
-        AnotherDynamicComponent,
-        DifferentPropertiesDynamicComponent,
-        EmptyDynamicComponent,
-        WithGetterDynamicComponent,
-        WithSetterDynamicComponent,
-        WithGetterAndSetterDynamicComponent,
-        TestComponent,
-        TestHostComponent,
-        WithGetterTestHostComponent,
-        WithSetterTestHostComponent,
-        WithGetterAndSetterTestHostComponent,
-    ],
-    exports: [
-        AppComponent,
-        TestComponent,
-        TestHostComponent,
-        WithGetterTestHostComponent,
-        WithSetterTestHostComponent,
-        WithGetterAndSetterTestHostComponent,
-    ]
+  imports: [NgxdModule],
+  declarations: [
+    AppComponent,
+    DynamicComponent,
+    AnotherDynamicComponent,
+    DifferentPropertiesDynamicComponent,
+    EmptyDynamicComponent,
+    WithGetterDynamicComponent,
+    WithSetterDynamicComponent,
+    WithGetterAndSetterDynamicComponent,
+    TestComponent,
+    TestHostComponent,
+    WithGetterTestHostComponent,
+    WithSetterTestHostComponent,
+    WithGetterAndSetterTestHostComponent,
+  ],
+  exports: [
+    AppComponent,
+    TestComponent,
+    TestHostComponent,
+    WithGetterTestHostComponent,
+    WithSetterTestHostComponent,
+    WithGetterAndSetterTestHostComponent,
+  ],
 })
 class TestModule {}

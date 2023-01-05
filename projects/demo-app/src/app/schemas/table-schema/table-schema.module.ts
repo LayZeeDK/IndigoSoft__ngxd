@@ -11,9 +11,9 @@ import { TableSchemaBuilder } from './table-schema.builder';
 import { TableSchemaComponent } from './table-schema.component';
 
 @NgModule({
-    imports: [CommonModule, DynamicFormModule, MatDialogModule, MatButtonModule, MatCardModule],
-    declarations: [TableSchemaComponent, TableColumnSchemaModalComponent],
-    exports: [TableSchemaComponent],
-    providers: [TableSchemaBuilder]
+  imports: [CommonModule, DynamicFormModule, MatDialogModule, MatButtonModule, MatCardModule],
+  declarations: [TableSchemaComponent, TableColumnSchemaModalComponent],
+  exports: [TableSchemaComponent],
+  providers: [TableSchemaBuilder],
 })
 export class TableSchemaModule {}
