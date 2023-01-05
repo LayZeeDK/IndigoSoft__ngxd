@@ -19,8 +19,8 @@
     "test:forms": "ng test forms",
     "lint": "ng lint",
     "lint:core": "ng lint core",
-    "format": "npm run lint -- --fix",
-    "format:core": "npm run lint:core -- --fix",
+    "format": "prettier --config .prettierrc --write **/*.*",
+    "format:check": "prettier --config .prettierrc --check **/*.*",
     "hooks:install": "node node_modules/husky/husky.js install",
     "hooks:uninstall": "node node_modules/husky/husky.js uninstall"
   },
@@ -71,6 +71,7 @@
     }
   },
   "lint-staged": {
+    "*": "prettier --write",
     "*.ts": [
       "tslint --fix",
       "git add"
