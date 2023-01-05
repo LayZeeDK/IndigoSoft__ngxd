@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { Hero } from '@app/components';
 import { DynamicEntityObject } from '@app/dynamics';
 import { AbstractControlSchema, FormSchemaBuilder } from '@ngxd/forms';
@@ -52,7 +52,7 @@ export class EntitySchemaService implements OnDestroy {
   private extractValue(schema: AbstractControlSchema, form: AbstractControl): Observable<Hero> {
     return form.valueChanges.pipe(
       map(() => {
-        const rawValue = (<FormGroup>form).getRawValue();
+        const rawValue = (<UntypedFormGroup>form).getRawValue();
 
         return this.builder.extract(schema, rawValue);
       })

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { UntypedFormArray } from '@angular/forms';
 import { FormArraySchema } from '@ngxd/forms';
 import { DynamicFormArrayComponentBase, provideFormArray } from '@app/dynamics';
 
@@ -10,7 +10,7 @@ import { DynamicFormArrayComponentBase, provideFormArray } from '@app/dynamics';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormArrayComponent extends DynamicFormArrayComponentBase {
-  @Input() array: FormArray;
+  @Input() array: UntypedFormArray;
   @Input() schema: FormArraySchema;
 
   trackByIndex(index): string {

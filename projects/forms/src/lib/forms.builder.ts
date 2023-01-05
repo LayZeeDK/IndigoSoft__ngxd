@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormBuilder, ValidatorFn } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, UntypedFormBuilder, ValidatorFn } from '@angular/forms';
 import { AbstractControlSchema, FormArraySchema, FormControlSchema, FormGroupSchema } from './forms.models';
 
 @Injectable()
 export class FormSchemaBuilder {
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: UntypedFormBuilder) {}
 
     group(
         schema: Partial<AbstractControlSchema>,

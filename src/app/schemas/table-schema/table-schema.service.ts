@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { AbstractControl, FormArray } from '@angular/forms';
+import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import { TableSchema } from '@app/components';
 import { AbstractControlSchema, FormArraySchema } from '@ngxd/forms';
 import { BehaviorSubject, concat, Observable, of } from 'rxjs';
@@ -47,7 +47,7 @@ export class TableSchemaService implements OnDestroy {
   }
 
   private extractValue(form: AbstractControl): Observable<TableSchema> {
-    return form.valueChanges.pipe(map(() => (<FormArray>form).getRawValue()));
+    return form.valueChanges.pipe(map(() => (<UntypedFormArray>form).getRawValue()));
   }
 
   private extractFormIsInvalid(form: AbstractControl): Observable<boolean> {
