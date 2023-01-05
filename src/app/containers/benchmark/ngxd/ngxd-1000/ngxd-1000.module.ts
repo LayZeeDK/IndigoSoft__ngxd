@@ -8,7 +8,7 @@ import {
   Output,
   Injectable,
 } from '@angular/core';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 
 import { NgxdModule } from '@ngxd/core';
 import { TOP_100_COMPONENTS } from '../../components/top-100-components';

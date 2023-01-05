@@ -51,21 +51,21 @@ class DynamicComponentBase {
 const DYNAMIC_COMPONENT_TEMPLATE =
   'component: {{componentName}} name: {{ name }}, label: {{ label }}';
 
-@Component({ selector: 'app-comp-dynamic-on-changes', template: DYNAMIC_COMPONENT_TEMPLATE })
+@Component({ selector: 'app-comp-dynamic-on-changes', template: DDYNAMIC_COMPONENT_TEMPLATED })
 class OnChangesDynamicComponent extends DynamicComponentBase implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.log('ngOnChanges', changes);
   }
 }
 
-@Component({ selector: 'app-comp-dynamic-on-init', template: DYNAMIC_COMPONENT_TEMPLATE })
+@Component({ selector: 'app-comp-dynamic-on-init', template: DDYNAMIC_COMPONENT_TEMPLATED })
 class OnInitDynamicComponent extends DynamicComponentBase implements OnInit {
   ngOnInit(): void {
     this.log('ngOnInit');
   }
 }
 
-@Component({ selector: 'app-comp-dynamic-do-check', template: DYNAMIC_COMPONENT_TEMPLATE })
+@Component({ selector: 'app-comp-dynamic-do-check', template: DDYNAMIC_COMPONENT_TEMPLATED })
 class DoCheckDynamicComponent extends DynamicComponentBase implements DoCheck {
   ngDoCheck(): void {
     this.log('ngDoCheck');
@@ -74,7 +74,7 @@ class DoCheckDynamicComponent extends DynamicComponentBase implements DoCheck {
 
 @Component({
   selector: 'app-comp-dynamic-on-changes-on-init',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class OnChangesOnInitDynamicComponent extends DynamicComponentBase implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
@@ -88,7 +88,7 @@ class OnChangesOnInitDynamicComponent extends DynamicComponentBase implements On
 
 @Component({
   selector: 'app-comp-dynamic-on-changes-do-check',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class OnChangesDoCheckDynamicComponent extends DynamicComponentBase implements OnChanges, DoCheck {
   ngOnChanges(changes: SimpleChanges): void {
@@ -100,7 +100,7 @@ class OnChangesDoCheckDynamicComponent extends DynamicComponentBase implements O
   }
 }
 
-@Component({ selector: 'app-comp-dynamic-on-init-do-check', template: DYNAMIC_COMPONENT_TEMPLATE })
+@Component({ selector: 'app-comp-dynamic-on-init-do-check', template: DDYNAMIC_COMPONENT_TEMPLATED })
 class OnInitDoCheckDynamicComponent extends DynamicComponentBase implements OnInit, DoCheck {
   ngOnInit(): void {
     this.log('ngOnInit');
@@ -113,7 +113,7 @@ class OnInitDoCheckDynamicComponent extends DynamicComponentBase implements OnIn
 
 @Component({
   selector: 'app-comp-dynamic-on-changes-on-init-do-check',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class OnChangesOnInitDoCheckDynamicComponent extends DynamicComponentBase
   implements OnChanges, OnInit, DoCheck {
@@ -130,7 +130,7 @@ class OnChangesOnInitDoCheckDynamicComponent extends DynamicComponentBase
   }
 }
 
-@Component({ selector: 'app-comp-dynamic-full-lifecycle', template: DYNAMIC_COMPONENT_TEMPLATE })
+@Component({ selector: 'app-comp-dynamic-full-lifecycle', template: DDYNAMIC_COMPONENT_TEMPLATED })
 class FullLifecycleDynamicComponent extends DynamicComponentBase
   implements
     OnChanges,
@@ -176,43 +176,43 @@ class FullLifecycleDynamicComponent extends DynamicComponentBase
 
 @Component({
   selector: 'app-comp-dynamic-child-of-on-changes',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class ChildOfOnChangesDynamicComponent extends OnChangesDynamicComponent {}
 
-@Component({ selector: 'app-comp-dynamic-child-of-on-init', template: DYNAMIC_COMPONENT_TEMPLATE })
+@Component({ selector: 'app-comp-dynamic-child-of-on-init', template: DDYNAMIC_COMPONENT_TEMPLATED })
 class ChildOfOnInitDynamicComponent extends OnInitDynamicComponent {}
 
-@Component({ selector: 'app-comp-dynamic-child-of-do-check', template: DYNAMIC_COMPONENT_TEMPLATE })
+@Component({ selector: 'app-comp-dynamic-child-of-do-check', template: DDYNAMIC_COMPONENT_TEMPLATED })
 class ChildOfDoCheckDynamicComponent extends DoCheckDynamicComponent {}
 
 @Component({
   selector: 'app-comp-dynamic-child-of-on-changes-on-init',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class ChildOfOnChangesOnInitDynamicComponent extends OnChangesOnInitDynamicComponent {}
 
 @Component({
   selector: 'app-comp-dynamic-child-of-on-changes-do-check',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class ChildOfOnChangesDoCheckDynamicComponent extends OnChangesDoCheckDynamicComponent {}
 
 @Component({
   selector: 'app-comp-dynamic-child-of-on-init-do-check',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class ChildOfOnInitDoCheckDynamicComponent extends OnInitDoCheckDynamicComponent {}
 
 @Component({
   selector: 'app-comp-dynamic-child-of-on-changes-on-init-do-check',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class ChildOfOnChangesOnInitDoCheckDynamicComponent extends OnChangesOnInitDoCheckDynamicComponent {}
 
 @Component({
   selector: 'app-comp-dynamic-child-of-full-lifecycle',
-  template: DYNAMIC_COMPONENT_TEMPLATE,
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
 })
 class ChildOfFullLifecycleDynamicComponent extends FullLifecycleDynamicComponent {}
 

@@ -3,11 +3,11 @@
 $width: 500px;
 $height: 600px;
 
-.mat-card-image {
+.mat-mdc-card-image {
   height: $height;
 }
 
-.mat-card {
+.mat-mdc-card {
   max-width: $width;
   min-height: $height;
   margin: 20px;
