@@ -2,7 +2,7 @@ import { AfterViewChecked, EventEmitter, Input, Output, Directive } from '@angul
 import { Observable } from 'rxjs';
 import { Item, Items, ItemsService, MeasureService, MeasureType } from './benchmark.service';
 
-@Directive() // tslint:disable-next-line:directive-class-suffix
+@Directive() // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class BenchmarkComponentBase implements AfterViewChecked {
   @Input() count: number;
   @Input() repeat: number;
