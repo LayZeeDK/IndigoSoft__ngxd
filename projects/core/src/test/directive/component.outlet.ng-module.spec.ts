@@ -1,6 +1,6 @@
 import { Compiler, Component, Injector, NgModule, NgModuleFactory } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { NgxdModule } from '../../../index';
+import { NgxdModule } from '@ngxd/core';
 
 describe('NgxComponentOutlet check custom ngModule', () => {
   let fixture: ComponentFixture<TestComponent>;
