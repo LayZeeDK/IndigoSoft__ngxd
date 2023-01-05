@@ -10,14 +10,14 @@ import { NgxComponentOutletDirective } from './directive/component.outlet';
 import { NgxComponentOutletResolvePipe } from './helpers/resolve.pipe';
 
 @NgModule({
-    declarations: [
-        NgxComponentOutletDirective,
-        NgxComponentOutletResolvePipe,
-        OnInitOnlyComponent,
-        DoCheckOnlyComponent,
-        OnInitAndDoCheckComponent,
-    ],
-    exports: [NgxComponentOutletDirective, NgxComponentOutletResolvePipe],
-    providers: [NgxComponentOutletAdapterBuilder]
+  declarations: [
+    NgxComponentOutletDirective,
+    NgxComponentOutletResolvePipe,
+    OnInitOnlyComponent,
+    DoCheckOnlyComponent,
+    OnInitAndDoCheckComponent,
+  ],
+  exports: [NgxComponentOutletDirective, NgxComponentOutletResolvePipe],
+  providers: [NgxComponentOutletAdapterBuilder],
 })
 export class NgxdModule {}

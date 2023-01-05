@@ -749,29 +749,29 @@ class TestComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, NgxdModule],
-    declarations: [
-        DynamicComponent,
-        AnotherDynamicComponent,
-        DifferentPropertiesDynamicComponent,
-        EmptyDynamicComponent,
-        WithGetterDynamicComponent,
-        WithSetterDynamicComponent,
-        WithGetterAndSetterDynamicComponent,
-        TestComponent,
-        TestHostComponent,
-        WithGetterTestHostComponent,
-        WithSetterTestHostComponent,
-        WithGetterAndSetterTestHostComponent,
-        WithMethodCallInSetterTestHostComponent,
-    ],
-    exports: [
-        TestComponent,
-        TestHostComponent,
-        WithGetterTestHostComponent,
-        WithSetterTestHostComponent,
-        WithGetterAndSetterTestHostComponent,
-        WithMethodCallInSetterTestHostComponent,
-    ]
+  imports: [CommonModule, NgxdModule],
+  declarations: [
+    DynamicComponent,
+    AnotherDynamicComponent,
+    DifferentPropertiesDynamicComponent,
+    EmptyDynamicComponent,
+    WithGetterDynamicComponent,
+    WithSetterDynamicComponent,
+    WithGetterAndSetterDynamicComponent,
+    TestComponent,
+    TestHostComponent,
+    WithGetterTestHostComponent,
+    WithSetterTestHostComponent,
+    WithGetterAndSetterTestHostComponent,
+    WithMethodCallInSetterTestHostComponent,
+  ],
+  exports: [
+    TestComponent,
+    TestHostComponent,
+    WithGetterTestHostComponent,
+    WithSetterTestHostComponent,
+    WithGetterAndSetterTestHostComponent,
+    WithMethodCallInSetterTestHostComponent,
+  ],
 })
 class TestModule {}

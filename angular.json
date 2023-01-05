@@ -15,22 +15,13 @@
             "outputPath": "dist/demo-app",
             "index": "projects/demo-app/src/index.html",
             "main": "projects/demo-app/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/demo-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/demo-app/src/favicon.ico",
-              "projects/demo-app/src/assets"
-            ],
-            "styles": [
-              "projects/demo-app/src/styles.scss"
-            ],
+            "assets": ["projects/demo-app/src/favicon.ico", "projects/demo-app/src/assets"],
+            "styles": ["projects/demo-app/src/styles.scss"],
             "scripts": [],
-            "lazyModules": [
-              "src/app/components/lazy/lazy.module.ts"
-            ]
+            "lazyModules": ["src/app/components/lazy/lazy.module.ts"]
           },
           "configurations": {
             "production": {
@@ -80,19 +71,11 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/demo-app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/demo-app/src/favicon.ico",
-              "projects/demo-app/src/assets"
-            ],
-            "styles": [
-              "projects/demo-app/src/styles.scss"
-            ],
+            "assets": ["projects/demo-app/src/favicon.ico", "projects/demo-app/src/assets"],
+            "styles": ["projects/demo-app/src/styles.scss"],
             "scripts": []
           }
         },
@@ -103,9 +86,7 @@
               "projects/demo-app/src/tsconfig.app.json",
               "projects/demo-app/src/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -135,23 +116,14 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/core/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/core/tsconfig.lib.json",
-              "projects/core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "**/test/**"
-            ]
+            "tsConfig": ["projects/core/tsconfig.lib.json", "projects/core/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "**/test/**"]
           }
         }
       }
@@ -181,22 +153,14 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/forms/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/forms/tsconfig.lib.json",
-              "projects/forms/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["projects/forms/tsconfig.lib.json", "projects/forms/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

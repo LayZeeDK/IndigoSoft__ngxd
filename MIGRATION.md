@@ -1,5 +1,5 @@
 # NGX Dynamic v0.x to v7 Update Guide
- 
+
 NGX Dynamic v7 will arriving soon! While this is a major version change (from 0.x to 7.x).
 
 ## Backwards compatibility
@@ -17,14 +17,13 @@ You no longer need to specify all inputs and all outputs for your dynamic compon
 
 ```html
 <!-- host component -->
-<app-dynamic
-    <!-- dynamic component -->
-    [ngxComponentOutlet]="component"
-    <!-- regular input -->
-    [entity]="entity"
-    <!-- regular output -->
-    (action)="onAction($event)"
-></app-dynamic>
+<app-dynamic <!-- dynamic component -->
+  [ngxComponentOutlet]="component"
+  <!-- regular input -->
+  [entity]="entity"
+  <!-- regular output -->
+  (action)="onAction($event)" ></app-dynamic
+>
 ```
 
 becomes
@@ -38,6 +37,7 @@ becomes
 Support for custom context has been added. It can be used with `*ngFor` directive.
 Context has a higher priority than the inputs in the component.
 See an example:
+
 ```html
 <ng-container *ngFor=“let color of colors”
   <ng-container
@@ -61,6 +61,7 @@ Detailed documentation on them will be published later.
 Use `@ngxd/core` instead of the `ngx-component-outlet` package.
 
 And replace module imports.
+
 ```typescript
 import { NgxComponentOutletModule } from 'ngx-component-outlet';
 
@@ -74,6 +75,7 @@ import { NgxComponentOutletModule } from 'ngx-component-outlet';
 ```
 
 Becomes
+
 ```typescript
 import { NgxdModule } from '@ngxd/core';
 
@@ -87,16 +89,16 @@ import { NgxdModule } from '@ngxd/core';
 ### Don't use manual bindings.
 
 Using dynamic components through manual binding is an outdated way to use the directive.
+
 ```html
 <!-- host component -->
-<app-dynamic
-    <!-- dynamic component -->
-    [ngxComponentOutlet]="component"
-    <!-- regular input -->
-    [entity]="entity"
-    <!-- regular output -->
-    (action)="onAction($event)"
-></app-dynamic>
+<app-dynamic <!-- dynamic component -->
+  [ngxComponentOutlet]="component"
+  <!-- regular input -->
+  [entity]="entity"
+  <!-- regular output -->
+  (action)="onAction($event)" ></app-dynamic
+>
 ```
 
 ### Use `*ngxComponentOutlet` via `ng-container`.

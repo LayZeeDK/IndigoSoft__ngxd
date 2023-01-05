@@ -1,4 +1,22 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, DoCheck, Inject, Input, NgModule, OnChanges, OnDestroy, OnInit, SimpleChanges, Type, Injectable, Directive } from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  DoCheck,
+  Inject,
+  Input,
+  NgModule,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  Type,
+  Injectable,
+  Directive,
+} from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { NgxdModule } from '@ngxd/core';
 import { TestCaseBuilder } from '../../testing/test-case/index';
@@ -100,7 +118,10 @@ class OnChangesDoCheckDynamicComponent extends DynamicComponentBase implements O
   }
 }
 
-@Component({ selector: 'app-comp-dynamic-on-init-do-check', template: DDYNAMIC_COMPONENT_TEMPLATED })
+@Component({
+  selector: 'app-comp-dynamic-on-init-do-check',
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
+})
 class OnInitDoCheckDynamicComponent extends DynamicComponentBase implements OnInit, DoCheck {
   ngOnInit(): void {
     this.log('ngOnInit');
@@ -180,10 +201,16 @@ class FullLifecycleDynamicComponent extends DynamicComponentBase
 })
 class ChildOfOnChangesDynamicComponent extends OnChangesDynamicComponent {}
 
-@Component({ selector: 'app-comp-dynamic-child-of-on-init', template: DDYNAMIC_COMPONENT_TEMPLATED })
+@Component({
+  selector: 'app-comp-dynamic-child-of-on-init',
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
+})
 class ChildOfOnInitDynamicComponent extends OnInitDynamicComponent {}
 
-@Component({ selector: 'app-comp-dynamic-child-of-do-check', template: DDYNAMIC_COMPONENT_TEMPLATED })
+@Component({
+  selector: 'app-comp-dynamic-child-of-do-check',
+  template: DDYNAMIC_COMPONENT_TEMPLATED,
+})
 class ChildOfDoCheckDynamicComponent extends DoCheckDynamicComponent {}
 
 @Component({
@@ -295,15 +322,15 @@ const TEST_COMPONENTS = [
 const STRATEGIES = [ChangeDetectionStrategy.Default, ChangeDetectionStrategy.OnPush];
 
 @NgModule({
-    imports: [NgxdModule],
-    declarations: [
-        DYNAMIC_COMPONENTS,
-        CHILDREN_DYNAMIC_COMPONENTS,
-        TEST_COMPONENTS,
-        TestHostComponent,
-    ],
-    exports: [TEST_COMPONENTS],
-    providers: [HookLogger, TestCaseBuilder]
+  imports: [NgxdModule],
+  declarations: [
+    DYNAMIC_COMPONENTS,
+    CHILDREN_DYNAMIC_COMPONENTS,
+    TEST_COMPONENTS,
+    TestHostComponent,
+  ],
+  exports: [TEST_COMPONENTS],
+  providers: [HookLogger, TestCaseBuilder],
 })
 class TestModule {}
 
