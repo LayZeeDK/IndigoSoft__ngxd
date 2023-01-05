@@ -1,6 +1,6 @@
 import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, DoCheck, Inject, Input, NgModule, OnChanges, OnDestroy, OnInit, SimpleChanges, Type, Injectable, Directive } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { NgxdModule } from '../../../index';
+import { NgxdModule } from '@ngxd/core';
 import { TestCaseBuilder } from '../../testing/test-case/index';
 
 const ANGULAR = 'Angular';

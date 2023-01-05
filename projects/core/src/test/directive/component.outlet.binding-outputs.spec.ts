@@ -12,7 +12,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { NgxdModule } from '../../../index';
+import { NgxdModule } from '@ngxd/core';
 
 describe('NgxComponentOutlet check binding outputs', () => {
   let fixture: ComponentFixture<TestComponent>;

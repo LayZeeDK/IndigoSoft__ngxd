@@ -22,8 +22,7 @@
     "format": "npm run lint -- --fix",
     "format:core": "npm run lint:core -- --fix",
     "hooks:install": "node node_modules/husky/husky.js install",
-    "hooks:uninstall": "node node_modules/husky/husky.js uninstall",
-    "e2e": "ng e2e"
+    "hooks:uninstall": "node node_modules/husky/husky.js uninstall"
   },
   "dependencies": {
     "@angular/animations": "15.0.0",
@@ -65,7 +64,6 @@
     "lint-staged": "11.0.0",
     "ng-packagr": "15.0.0",
     "prettier": "1.16.4",
-    "protractor": "7.0.0",
     "ts-node": "10.0.0",
     "tslib": "2.3.1",
     "tslint": "6.1.3",
