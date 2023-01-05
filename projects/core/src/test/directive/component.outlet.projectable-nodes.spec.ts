@@ -89,9 +89,8 @@ class TestComponent {
 class AppComponent {}
 
 @NgModule({
-  imports: [NgxdModule],
-  declarations: [AppComponent, DynamicComponent, TestComponent, TestHostComponent],
-  exports: [AppComponent, TestComponent, TestHostComponent],
-  entryComponents: [DynamicComponent],
+    imports: [NgxdModule],
+    declarations: [AppComponent, DynamicComponent, TestComponent, TestHostComponent],
+    exports: [AppComponent, TestComponent, TestHostComponent]
 })
 class TestModule {}

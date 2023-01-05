@@ -241,38 +241,29 @@ class TestComponent {
 class AppComponent {}
 
 @NgModule({
-  imports: [NgxdModule],
-  declarations: [
-    AppComponent,
-    DynamicComponent,
-    AnotherDynamicComponent,
-    DifferentPropertiesDynamicComponent,
-    EmptyDynamicComponent,
-    WithGetterDynamicComponent,
-    WithSetterDynamicComponent,
-    WithGetterAndSetterDynamicComponent,
-    TestComponent,
-    TestHostComponent,
-    WithGetterTestHostComponent,
-    WithSetterTestHostComponent,
-    WithGetterAndSetterTestHostComponent,
-  ],
-  exports: [
-    AppComponent,
-    TestComponent,
-    TestHostComponent,
-    WithGetterTestHostComponent,
-    WithSetterTestHostComponent,
-    WithGetterAndSetterTestHostComponent,
-  ],
-  entryComponents: [
-    DynamicComponent,
-    AnotherDynamicComponent,
-    DifferentPropertiesDynamicComponent,
-    EmptyDynamicComponent,
-    WithGetterDynamicComponent,
-    WithSetterDynamicComponent,
-    WithGetterAndSetterDynamicComponent,
-  ],
+    imports: [NgxdModule],
+    declarations: [
+        AppComponent,
+        DynamicComponent,
+        AnotherDynamicComponent,
+        DifferentPropertiesDynamicComponent,
+        EmptyDynamicComponent,
+        WithGetterDynamicComponent,
+        WithSetterDynamicComponent,
+        WithGetterAndSetterDynamicComponent,
+        TestComponent,
+        TestHostComponent,
+        WithGetterTestHostComponent,
+        WithSetterTestHostComponent,
+        WithGetterAndSetterTestHostComponent,
+    ],
+    exports: [
+        AppComponent,
+        TestComponent,
+        TestHostComponent,
+        WithGetterTestHostComponent,
+        WithSetterTestHostComponent,
+        WithGetterAndSetterTestHostComponent,
+    ]
 })
 class TestModule {}

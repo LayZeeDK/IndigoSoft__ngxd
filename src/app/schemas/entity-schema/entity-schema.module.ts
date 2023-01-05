@@ -10,8 +10,7 @@ import { EntitySchemaModalComponent } from './entity-schema-modal.component';
 import { EntitySchemaComponent } from './entity-schema.component';
 
 @NgModule({
-  imports: [CommonModule, DynamicFormModule, MatDialogModule, MatButtonModule, MatCardModule],
-  declarations: [EntitySchemaComponent, EntitySchemaModalComponent],
-  entryComponents: [EntitySchemaModalComponent],
+    imports: [CommonModule, DynamicFormModule, MatDialogModule, MatButtonModule, MatCardModule],
+    declarations: [EntitySchemaComponent, EntitySchemaModalComponent]
 })
 export class EntitySchemaModule {}

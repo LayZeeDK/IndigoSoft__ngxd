@@ -295,16 +295,15 @@ const TEST_COMPONENTS = [
 const STRATEGIES = [ChangeDetectionStrategy.Default, ChangeDetectionStrategy.OnPush];
 
 @NgModule({
-  imports: [NgxdModule],
-  declarations: [
-    DYNAMIC_COMPONENTS,
-    CHILDREN_DYNAMIC_COMPONENTS,
-    TEST_COMPONENTS,
-    TestHostComponent,
-  ],
-  exports: [TEST_COMPONENTS],
-  entryComponents: [DYNAMIC_COMPONENTS, CHILDREN_DYNAMIC_COMPONENTS],
-  providers: [HookLogger, TestCaseBuilder],
+    imports: [NgxdModule],
+    declarations: [
+        DYNAMIC_COMPONENTS,
+        CHILDREN_DYNAMIC_COMPONENTS,
+        TEST_COMPONENTS,
+        TestHostComponent,
+    ],
+    exports: [TEST_COMPONENTS],
+    providers: [HookLogger, TestCaseBuilder]
 })
 class TestModule {}
 
