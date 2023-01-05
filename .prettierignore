@@ -1,0 +1,15 @@
+# Add files here to ignore them from prettier formatting
+
+/dist
+/coverage
+/.angular
+
+.editorconfig
+.gitattributes
+.gitignore
+.gitkeep
+.prettierignore
+
+**/*.ico
+**/*.png
+**/*.svg
