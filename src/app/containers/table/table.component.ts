@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 import { EntitiesService, Hero, TableSchema, TableService } from '@app/components';
 import { DynamicEntityObject } from '@app/dynamics';
