@@ -12,7 +12,7 @@ export type DynamicFn<TType, TComponent> = (
 export function Dynamic<TType, TComponent>({
   token,
 }: { token?: InjectionToken<NgxdProvider<TType, TComponent>> } = {}): DynamicFn<TType, TComponent> {
-  return function(provider: NgxdProvider<TType, TComponent>): ValueProvider {
+  return function (provider: NgxdProvider<TType, TComponent>): ValueProvider {
     return { provide: token, useValue: provider, multi: true };
   };
 }

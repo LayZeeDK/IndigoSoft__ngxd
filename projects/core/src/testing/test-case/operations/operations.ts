@@ -7,7 +7,7 @@ export class Operations extends Executable {
   }
 
   execute<TComponent>(fixture: ComponentFixture<TComponent>) {
-    this.operations.forEach(operation => operation.execute(fixture));
+    this.operations.forEach((operation) => operation.execute(fixture));
 
     return this;
   }

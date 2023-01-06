@@ -2,7 +2,7 @@
 export namespace TableColumnTypes {
   export function getTypes(): { key; value }[] {
     return Object.values(TableColumnTypes)
-      .filter(_ => typeof _ === 'string')
+      .filter((_) => typeof _ === 'string')
       .map((key: string) => ({ key, value: TableColumnTypes[key] }));
   }
 }

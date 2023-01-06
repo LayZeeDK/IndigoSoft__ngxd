@@ -24,9 +24,8 @@ export class DynamicComponentFactoryResolver implements ComponentFactoryResolver
   ) {}
 
   resolveComponentFactory<T>(component: Type<T>): DynamicComponentFactory<T> {
-    const componentFactory: ComponentFactory<
-      T
-    > = this.componentFactoryResolver.resolveComponentFactory(component);
+    const componentFactory: ComponentFactory<T> =
+      this.componentFactoryResolver.resolveComponentFactory(component);
 
     return new DynamicComponentFactory(
       this.viewContainerRef,

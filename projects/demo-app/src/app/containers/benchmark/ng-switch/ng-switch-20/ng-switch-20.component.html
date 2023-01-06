@@ -2,7 +2,7 @@
 <button mat-button (click)="clear()">Clear</button>
 <button mat-button (click)="auto()">Auto {{ left > 0 ? left : repeat }}</button>
 
-<div *ngFor="let item of (items$ | async); trackBy: trackById" [ngSwitch]="item.type">
+<div *ngFor="let item of items$ | async; trackBy: trackById" [ngSwitch]="item.type">
   <app-dynamic-00001 *ngSwitchCase="1" [id]="item.id" (event)="onEvent($event)"></app-dynamic-00001>
   <app-dynamic-00002 *ngSwitchCase="2" [id]="item.id" (event)="onEvent($event)"></app-dynamic-00002>
   <app-dynamic-00003 *ngSwitchCase="3" [id]="item.id" (event)="onEvent($event)"></app-dynamic-00003>

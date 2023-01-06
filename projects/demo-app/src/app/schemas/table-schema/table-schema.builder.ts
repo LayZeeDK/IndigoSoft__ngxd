@@ -26,7 +26,7 @@ export class TableSchemaBuilder {
   formSchema(schema: TableSchema): FormArraySchema {
     return this.fsb.array(
       { label: 'Table Schema' },
-      schema.map(column => this.groupSchema(column))
+      schema.map((column) => this.groupSchema(column))
     );
   }
 

@@ -33,22 +33,22 @@ export class HeroSchemaBuilder extends SchemaBuilder {
         rank: new DropdownControl({
           key: 'rank',
           label: 'Rank',
-          options: RANKS.map(icon => new DropdownControlOptions({ key: icon, value: icon })),
+          options: RANKS.map((icon) => new DropdownControlOptions({ key: icon, value: icon })),
           validator: [Validators.required],
         }),
         icon: new DropdownControl({
           key: 'icon',
           label: 'Icon',
-          options: ICONS.map(icon => new DropdownControlOptions({ key: icon, value: icon })),
+          options: ICONS.map((icon) => new DropdownControlOptions({ key: icon, value: icon })),
           validator: [Validators.required],
         }),
         abilities: this.fsb.array(
           { key: 'abilities', label: 'Abilities' },
-          entity.abilities.map(ability => this.builder.schema(ability))
+          entity.abilities.map((ability) => this.builder.schema(ability))
         ),
         items: this.fsb.array(
           { key: 'items', label: 'Items' },
-          entity.items.map(item => this.builder.schema(item))
+          entity.items.map((item) => this.builder.schema(item))
         ),
       }
     );

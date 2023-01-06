@@ -27,7 +27,7 @@ export class DynamicLazyComponent extends DynamicLazyComponentBase {
   @Input() override name: string;
 
   resolver$: Observable<LazyComponentResolver> = defer(() => this.lazyLoadModule()).pipe(
-    map(ngModule => createNgModule(ngModule, this.injector).injector.get(LazyComponentResolver))
+    map((ngModule) => createNgModule(ngModule, this.injector).injector.get(LazyComponentResolver))
   );
 
   constructor(

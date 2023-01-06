@@ -21,7 +21,7 @@ enum LifecycleStrategyType {
   OnInitAndDoCheck,
 }
 
-type LifecycleComponent = OnInit & DoCheck | OnInit | DoCheck | any;
+type LifecycleComponent = (OnInit & DoCheck) | OnInit | DoCheck | any;
 
 interface StrategyConfig {
   componentType?: Type<LifecycleComponent>;

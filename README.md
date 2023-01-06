@@ -74,9 +74,7 @@ export class AppModule {}
 
 ```typescript
 @Component({
-  template: `
-    <ng-container *ngxComponentOutlet="component"></ng-container>
-  `,
+  template: ` <ng-container *ngxComponentOutlet="component"></ng-container> `,
   // using @ngxd/core 👆
 })
 class MyComponent {
@@ -99,9 +97,7 @@ A simple variant of binding through the parent component.
 
 ```typescript
 @Component({
-  template: `
-    <ng-container *ngxComponentOutlet="component"></ng-container>
-  `,
+  template: ` <ng-container *ngxComponentOutlet="component"></ng-container> `,
   // using @ngxd/core 👆
 })
 class MyComponent {
@@ -169,7 +165,7 @@ If you have a bunch of components, then you go to switch between them. To do thi
 If you need to load and display a dynamic component lazily, then you can use lazy import and pass it to the async pipe.
 
 ```typescript
-component = import('./my-lazy-component').then(m => m.MyLazyComponent);
+component = import('./my-lazy-component').then((m) => m.MyLazyComponent);
 ```
 
 ```html
@@ -185,7 +181,7 @@ component = import('./my-lazy-component').then(m => m.MyLazyComponent);
 You can also load a bunch of components lazily and render them.
 
 ```typescript
-resolver = import('./my-lazy-resolver').then(m => m.myLazyResolver);
+resolver = import('./my-lazy-resolver').then((m) => m.myLazyResolver);
 ```
 
 ```html

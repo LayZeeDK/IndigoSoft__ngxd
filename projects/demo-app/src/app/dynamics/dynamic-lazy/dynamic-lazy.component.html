@@ -1,6 +1,6 @@
 <ng-container
   *ngxComponentOutlet="
-    (resolver$ | async | resolve: name);
-    ngModuleFactory: (ngModuleFactory$ | async)
+    resolver$ | async | resolve : name;
+    ngModuleFactory: ngModuleFactory$ | async
   "
 ></ng-container>

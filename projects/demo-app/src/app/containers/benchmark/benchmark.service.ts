@@ -28,7 +28,7 @@ export class ItemsService {
     const items: Items = Array.from(
       { length: count },
       (_, i) => this.items$.value.length + i + 1
-    ).map(id => ({ id, type: (id % this.total) + 1 }));
+    ).map((id) => ({ id, type: (id % this.total) + 1 }));
 
     this.items$.next(this.items$.value.concat(items));
   }

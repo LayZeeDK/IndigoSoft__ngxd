@@ -87,7 +87,7 @@ export class NgxComponentOutletAdapterRef<TComponent> {
     }
 
     const unattachedProps = this.propertyDefs.filter(
-      propertyDef =>
+      (propertyDef) =>
         !(
           contextProps.indexOf(propertyDef.outsidePropName) > -1 ||
           this.getBindingDef(propertyDef.outsidePropName)
@@ -100,11 +100,11 @@ export class NgxComponentOutletAdapterRef<TComponent> {
   }
 
   private getPropertyDef(outsidePropName: string): PropertyDef<TComponent> {
-    return this.propertyDefs.find(_ => _.outsidePropName === outsidePropName);
+    return this.propertyDefs.find((_) => _.outsidePropName === outsidePropName);
   }
 
   private getBindingDef(outsidePropName: string): BindingDef<TComponent> {
-    return this.bindingDefs.find(_ => _.outsidePropName === outsidePropName);
+    return this.bindingDefs.find((_) => _.outsidePropName === outsidePropName);
   }
 
   private attachHost(): void {
@@ -125,7 +125,7 @@ export class NgxComponentOutletAdapterRef<TComponent> {
 
   private detachHostInput(bindingDef: BindingDef<TComponent>): void {
     this.hostAdapter.detachInput(bindingDef);
-    this.bindingDefs = this.bindingDefs.filter(_ => _ !== bindingDef);
+    this.bindingDefs = this.bindingDefs.filter((_) => _ !== bindingDef);
   }
 
   private attachInputs(): void {
@@ -147,7 +147,7 @@ export class NgxComponentOutletAdapterRef<TComponent> {
       context[bindingDef.outsidePropName] = defaultValue;
     }
 
-    const subscription = hostAdapter.getInputAdapter(bindingDef).changes.subscribe(value => {
+    const subscription = hostAdapter.getInputAdapter(bindingDef).changes.subscribe((value) => {
       context[bindingDef.outsidePropName] = value;
     });
 

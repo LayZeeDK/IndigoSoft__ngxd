@@ -7,9 +7,7 @@ export class Ability implements DynamicEntityObject {
   amount: number;
 
   constructor({ id, name, icon, amount }: Partial<Ability>) {
-    this.id = Math.random()
-      .toString()
-      .slice(2, 8);
+    this.id = Math.random().toString().slice(2, 8);
     this.name = name;
     this.icon = icon;
     this.amount = amount || 0;

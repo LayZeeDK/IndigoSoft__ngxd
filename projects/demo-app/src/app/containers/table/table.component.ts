@@ -43,9 +43,9 @@ export class TablePageComponent {
       .afterClosed()
       .pipe(
         take(1),
-        filter(_ => _)
+        filter((_) => _)
       )
-      .subscribe(createdColumn => this.table.createColumn(createdColumn));
+      .subscribe((createdColumn) => this.table.createColumn(createdColumn));
   }
 
   onCreateEntity() {
@@ -67,9 +67,9 @@ export class TablePageComponent {
       .afterClosed()
       .pipe(
         take(1),
-        filter(_ => _)
+        filter((_) => _)
       )
-      .subscribe(createdEntity => this.entities.createEntity(createdEntity));
+      .subscribe((createdEntity) => this.entities.createEntity(createdEntity));
   }
 
   onEditEntity(entity: DynamicEntityObject) {
@@ -82,9 +82,9 @@ export class TablePageComponent {
       .afterClosed()
       .pipe(
         take(1),
-        filter(_ => _)
+        filter((_) => _)
       )
-      .subscribe(updatedEntity => this.entities.updateEntity(updatedEntity));
+      .subscribe((updatedEntity) => this.entities.updateEntity(updatedEntity));
   }
 
   onDeleteEntity(entity: DynamicEntityObject) {
