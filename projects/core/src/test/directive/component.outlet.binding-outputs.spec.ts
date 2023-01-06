@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/component-selector */
 import {
   Component,
   EventEmitter,
@@ -42,6 +43,7 @@ class DynamicComponent implements OnInit, OnChanges {
   @Input() name: string;
   @Input() label: string;
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
 
   inputsOnChanges: any;
@@ -66,6 +68,7 @@ class AnotherDynamicComponent {
   @Input() name: string;
   @Input() label: string;
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
 }
 
@@ -74,9 +77,13 @@ class AnotherDynamicComponent {
   template: 'Dynamic Different Properties Component name: {{ customName }}, label: {{ label }}',
 })
 class DifferentPropertiesDynamicComponent {
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('name') customName: string;
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('customLabel') label: string;
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('action') customAction: EventEmitter<any> = new EventEmitter<any>();
+  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
   @Output('customSubmit') submit: EventEmitter<any> = new EventEmitter<any>();
 }
 
@@ -99,6 +106,7 @@ class WithGetterDynamicComponent {
 class WithSetterDynamicComponent {
   private _customName: string;
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('name') set customName(name: string) {
     this._customName = name;
   }
@@ -136,6 +144,7 @@ class TestHostComponent extends BaseHostComponent {
   @Input() name: string;
   @Input() label: string;
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
 }
 

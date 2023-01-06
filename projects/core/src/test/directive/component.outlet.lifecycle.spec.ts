@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/component-selector */
 import {
   AfterContentChecked,
   AfterContentInit,
