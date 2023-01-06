@@ -8,12 +8,24 @@ export const ROUTES: Route[] = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', loadChildren: 'app/containers/entities/entities.module#EntitiesPageModule' },
-      { path: 'table', loadChildren: 'app/containers/table/table.module#TablePageModule' },
-      { path: 'lazy', loadChildren: 'app/containers/lazy/lazy.module#LazyPageModule' },
+      {
+        path: '',
+        loadChildren: () =>
+          import('@app/containers/entities/entities.module').then(m => m.EntitiesPageModule),
+      },
+      {
+        path: 'table',
+        loadChildren: () =>
+          import('@app/containers/table/table.module').then(m => m.TablePageModule),
+      },
+      {
+        path: 'lazy',
+        loadChildren: () => import('@app/containers/lazy/lazy.module').then(m => m.LazyPageModule),
+      },
       {
         path: 'benchmark',
-        loadChildren: 'app/containers/benchmark/benchmark.module#BenchmarkPageModule',
+        loadChildren: () =>
+          import('@app/containers/benchmark/benchmark.module').then(m => m.BenchmarkPageModule),
       },
     ],
   },
