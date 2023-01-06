@@ -126,7 +126,7 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
     return (this.componentRef as any)._elDef;
   }
 
-  private _onDestroy: Function;
+  private _onDestroy: () => void;
   private componentAdapterRef: NgxComponentOutletAdapterRef<T>;
 
   constructor(
@@ -161,7 +161,7 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
     this.componentAdapterRef.dispose();
   }
 
-  onDestroy(callback: Function): void {
+  onDestroy(callback: () => void): void {
     this._onDestroy = callback;
   }
 
