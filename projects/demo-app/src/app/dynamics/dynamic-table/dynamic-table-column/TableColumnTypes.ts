@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace TableColumnTypes {
   export function getTypes(): { key; value }[] {
     return Object.values(TableColumnTypes)
