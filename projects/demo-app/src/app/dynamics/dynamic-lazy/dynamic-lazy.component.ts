@@ -1,20 +1,22 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  createNgModule,
   Inject,
   InjectionToken,
   Injector,
   Input,
-  NgModuleFactory,
-  NgModuleFactoryLoader,
+  Type,
 } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { defer, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DynamicLazyComponentBase } from './dynamic-lazy.base';
 import { LazyComponentResolver } from './dynamic-lazy.resolver';
 
-export const LAZY_MODULE_PATH = new InjectionToken<string>('LAZY_MODULE_PATH');
+export const LAZY_LOAD_MODULE = new InjectionToken<() => Promise<Type<unknown>>>(
+  'LAZY_LOAD_MODULE'
+);
 
 @Component({
   selector: 'app-dynamic-lazy',
@@ -22,21 +24,14 @@ export const LAZY_MODULE_PATH = new InjectionToken<string>('LAZY_MODULE_PATH');
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicLazyComponent extends DynamicLazyComponentBase {
-  @Input() name: string;
+  @Input() override name: string;
 
-  ngModuleFactory$: Observable<NgModuleFactory<any>> = from(
-    this.ngModuleFactoryLoader.load(this.lazyModulePath)
-  );
-
-  resolver$: Observable<LazyComponentResolver> = this.ngModuleFactory$.pipe(
-    map(ngModuleFactory =>
-      ngModuleFactory.create(this.injector).injector.get(LazyComponentResolver)
-    )
+  resolver$: Observable<LazyComponentResolver> = defer(() => this.lazyLoadModule()).pipe(
+    map(ngModule => createNgModule(ngModule, this.injector).injector.get(LazyComponentResolver))
   );
 
   constructor(
-    @Inject(LAZY_MODULE_PATH) private lazyModulePath: string,
-    private ngModuleFactoryLoader: NgModuleFactoryLoader,
+    @Inject(LAZY_LOAD_MODULE) private lazyLoadModule: () => Promise<Type<unknown>>,
     private injector: Injector
   ) {
     super();

@@ -13,7 +13,9 @@ import { LazyRouting } from './lazy.routing';
   imports: [
     CommonModule,
     LazyRouting,
-    DynamicLazyModule.forChild('src/app/components/lazy/lazy.module#LazyModule'),
+    DynamicLazyModule.forChild(() =>
+      import('@app/components/lazy/lazy.module').then(m => m.LazyModule)
+    ),
     MatCardModule,
     MatToolbarModule,
     MatGridListModule,
