@@ -25,6 +25,7 @@ import { EntitySchemaService } from './entity-schema.service';
 })
 export class EntitySchemaComponent implements OnInit, OnChanges, OnDestroy {
   @Input() schema: DynamicEntityObject;
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() invalid: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() schemaChange: EventEmitter<DynamicEntityObject> = new EventEmitter<
     DynamicEntityObject
