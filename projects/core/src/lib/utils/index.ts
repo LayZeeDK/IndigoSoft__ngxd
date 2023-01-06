@@ -72,7 +72,7 @@ export function getPropertyDescriptor(context: any, name: string): PropertyDescr
   return void 0;
 }
 
-export function deletePropertyDescriptor(context: any, name: string) {
+export function deletePropertyDescriptor(context: any, name: string): void {
   const descriptor = Object.getOwnPropertyDescriptor(context, name);
 
   if (descriptor) {
