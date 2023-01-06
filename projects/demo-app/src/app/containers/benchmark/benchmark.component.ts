@@ -10,7 +10,7 @@ export class MeasuresDataSource extends DataSource<Measures> {
   }
 
   connect(): Observable<Measures[]> {
-    return this.measures$.pipe(map(_ => Array.of(_)));
+    return this.measures$.pipe(map((_) => Array.of(_)));
   }
 
   disconnect(): void {

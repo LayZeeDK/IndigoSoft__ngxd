@@ -8,11 +8,7 @@ export class Item implements DynamicEntityObject {
   abilities: DynamicEntityObject[];
 
   constructor({ id, name, rank, icon, abilities }: Partial<Item>) {
-    this.id =
-      id ||
-      Math.random()
-        .toString()
-        .slice(2, 8);
+    this.id = id || Math.random().toString().slice(2, 8);
     this.name = name;
     this.rank = rank;
     this.icon = icon;

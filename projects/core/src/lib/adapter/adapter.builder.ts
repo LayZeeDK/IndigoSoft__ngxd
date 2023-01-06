@@ -22,9 +22,8 @@ export class NgxComponentOutletAdapterBuilder {
     host: TComponent,
     componentFactoryResolver: ComponentFactoryResolver
   ): NgxComponentOutletAdapterRef<TComponent> {
-    const componentFactory: ComponentFactory<
-      TComponent
-    > = componentFactoryResolver.resolveComponentFactory(componentType);
+    const componentFactory: ComponentFactory<TComponent> =
+      componentFactoryResolver.resolveComponentFactory(componentType);
 
     const componentRef: ComponentRef<TComponent> = componentFactory.create(
       injector,

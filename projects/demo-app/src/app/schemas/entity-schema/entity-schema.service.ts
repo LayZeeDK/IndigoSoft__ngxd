@@ -10,9 +10,8 @@ import { CompositeSchemaBuilder } from '../composite-schema';
 @Injectable()
 export class EntitySchemaService implements OnDestroy {
   private form$: BehaviorSubject<AbstractControl> = new BehaviorSubject<AbstractControl>(null);
-  private formSchema$: BehaviorSubject<AbstractControlSchema> = new BehaviorSubject<
-    AbstractControlSchema
-  >(null);
+  private formSchema$: BehaviorSubject<AbstractControlSchema> =
+    new BehaviorSubject<AbstractControlSchema>(null);
 
   constructor(private fsb: FormSchemaBuilder, private builder: CompositeSchemaBuilder) {}
 

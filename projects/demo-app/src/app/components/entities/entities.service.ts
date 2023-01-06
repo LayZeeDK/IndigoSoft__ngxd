@@ -24,12 +24,12 @@ export class EntitiesService {
 
   updateEntity(updatedEntity: DynamicEntityObject) {
     this.entities$.next(
-      this.entities$.value.map(item => (item.id !== updatedEntity.id ? item : updatedEntity))
+      this.entities$.value.map((item) => (item.id !== updatedEntity.id ? item : updatedEntity))
     );
   }
 
   deleteEntity(deletedEntity: DynamicEntityObject) {
-    this.entities$.next(this.entities$.value.filter(item => item.id !== deletedEntity.id));
+    this.entities$.next(this.entities$.value.filter((item) => item.id !== deletedEntity.id));
   }
 
   getEntities(): Observable<DynamicEntityObject[]> {

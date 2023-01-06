@@ -137,8 +137,10 @@ class OnInitDoCheckDynamicComponent extends DynamicComponentBase implements OnIn
   selector: 'app-comp-dynamic-on-changes-on-init-do-check',
   template: DYNAMIC_COMPONENT_TEMPLATE,
 })
-class OnChangesOnInitDoCheckDynamicComponent extends DynamicComponentBase
-  implements OnChanges, OnInit, DoCheck {
+class OnChangesOnInitDoCheckDynamicComponent
+  extends DynamicComponentBase
+  implements OnChanges, OnInit, DoCheck
+{
   ngOnChanges(changes: SimpleChanges): void {
     this.log('ngOnChanges', changes);
   }
@@ -153,7 +155,8 @@ class OnChangesOnInitDoCheckDynamicComponent extends DynamicComponentBase
 }
 
 @Component({ selector: 'app-comp-dynamic-full-lifecycle', template: DYNAMIC_COMPONENT_TEMPLATE })
-class FullLifecycleDynamicComponent extends DynamicComponentBase
+class FullLifecycleDynamicComponent
+  extends DynamicComponentBase
   implements
     OnChanges,
     OnInit,
@@ -162,7 +165,8 @@ class FullLifecycleDynamicComponent extends DynamicComponentBase
     AfterContentChecked,
     AfterViewInit,
     AfterViewChecked,
-    OnDestroy {
+    OnDestroy
+{
   ngAfterContentChecked(): void {
     this.log('ngAfterContentChecked');
   }
@@ -375,11 +379,11 @@ describe('NgxComponentOutlet check lifecycle hooks', () => {
   });
 
   describe('should calls lifecycle hooks', () => {
-    STRATEGIES.forEach(strategy => {
+    STRATEGIES.forEach((strategy) => {
       describe(`ChangeDetectionStrategy ${strategy ? 'Default' : 'OnPush'}`, () => {
-        TEST_COMPONENTS.forEach(testComponent => {
+        TEST_COMPONENTS.forEach((testComponent) => {
           describe(`with ${testComponent.prototype.constructor.name}`, () => {
-            DYNAMIC_COMPONENTS.forEach(component => {
+            DYNAMIC_COMPONENTS.forEach((component) => {
               beforeEach(() => {
                 TestBed.overrideComponent(component, { set: { changeDetection: strategy } });
               });
@@ -395,11 +399,11 @@ describe('NgxComponentOutlet check lifecycle hooks', () => {
   });
 
   describe('should call lifecycle hooks of extendable class', () => {
-    STRATEGIES.forEach(strategy => {
+    STRATEGIES.forEach((strategy) => {
       describe(`ChangeDetectionStrategy ${strategy ? 'Default' : 'OnPush'}`, () => {
-        TEST_COMPONENTS.forEach(testComponent => {
+        TEST_COMPONENTS.forEach((testComponent) => {
           describe(`with ${testComponent.prototype.constructor.name}`, () => {
-            CHILDREN_DYNAMIC_COMPONENTS.forEach(component => {
+            CHILDREN_DYNAMIC_COMPONENTS.forEach((component) => {
               beforeEach(() => {
                 TestBed.overrideComponent(component, { set: { changeDetection: strategy } });
               });

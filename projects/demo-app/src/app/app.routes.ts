@@ -11,21 +11,22 @@ export const ROUTES: Route[] = [
       {
         path: '',
         loadChildren: () =>
-          import('@app/containers/entities/entities.module').then(m => m.EntitiesPageModule),
+          import('@app/containers/entities/entities.module').then((m) => m.EntitiesPageModule),
       },
       {
         path: 'table',
         loadChildren: () =>
-          import('@app/containers/table/table.module').then(m => m.TablePageModule),
+          import('@app/containers/table/table.module').then((m) => m.TablePageModule),
       },
       {
         path: 'lazy',
-        loadChildren: () => import('@app/containers/lazy/lazy.module').then(m => m.LazyPageModule),
+        loadChildren: () =>
+          import('@app/containers/lazy/lazy.module').then((m) => m.LazyPageModule),
       },
       {
         path: 'benchmark',
         loadChildren: () =>
-          import('@app/containers/benchmark/benchmark.module').then(m => m.BenchmarkPageModule),
+          import('@app/containers/benchmark/benchmark.module').then((m) => m.BenchmarkPageModule),
       },
     ],
   },

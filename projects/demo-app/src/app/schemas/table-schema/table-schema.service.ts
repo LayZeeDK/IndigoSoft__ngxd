@@ -9,9 +9,8 @@ import { TableSchemaBuilder } from './table-schema.builder';
 @Injectable()
 export class TableSchemaService implements OnDestroy {
   private form$: BehaviorSubject<AbstractControl> = new BehaviorSubject<AbstractControl>(null);
-  private formSchema$: BehaviorSubject<AbstractControlSchema> = new BehaviorSubject<
-    AbstractControlSchema
-  >(null);
+  private formSchema$: BehaviorSubject<AbstractControlSchema> =
+    new BehaviorSubject<AbstractControlSchema>(null);
 
   constructor(private builder: TableSchemaBuilder) {}
 

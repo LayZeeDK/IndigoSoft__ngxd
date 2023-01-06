@@ -71,13 +71,13 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-table *ngIf="(columns$ | async) as columns" [dataSource]="dataSource">
+          <mat-table *ngIf="columns$ | async as columns" [dataSource]="dataSource">
             <ng-container *ngFor="let column of columns" [matColumnDef]="column">
               <mat-header-cell *matHeaderCellDef>{{ column }}</mat-header-cell>
               <mat-cell *matCellDef="let element">
-                {{ element[column].time | number: '.2-2' }}ms
+                {{ element[column].time | number : '.2-2' }}ms
                 <span class="average" *ngIf="element[column].count > 1">
-                  (avg. {{ element[column].average | number: '.2-2' }}ms)
+                  (avg. {{ element[column].average | number : '.2-2' }}ms)
                 </span>
               </mat-cell>
             </ng-container>

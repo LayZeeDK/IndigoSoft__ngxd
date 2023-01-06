@@ -9,11 +9,7 @@ export class Hero implements DynamicEntityObject {
   items: DynamicEntityObject[];
 
   constructor({ id, name, rank, icon, abilities, items }: Partial<Hero>) {
-    this.id =
-      id ||
-      Math.random()
-        .toString()
-        .slice(2, 8);
+    this.id = id || Math.random().toString().slice(2, 8);
     this.name = name;
     this.rank = rank;
     this.icon = icon;

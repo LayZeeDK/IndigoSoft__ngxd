@@ -54,7 +54,7 @@ export class AbilitySchemaBuilder extends SchemaBuilder {
         icon: new DropdownControl({
           key: 'icon',
           label: 'Icon',
-          options: ICONS.map(icon => new DropdownControlOptions({ key: icon, value: icon })),
+          options: ICONS.map((icon) => new DropdownControlOptions({ key: icon, value: icon })),
           validator: [Validators.required],
         }),
       }

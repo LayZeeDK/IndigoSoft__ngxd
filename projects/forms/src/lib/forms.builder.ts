@@ -38,7 +38,7 @@ export class FormSchemaBuilder {
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): FormArraySchema {
-    const controls = controlsConfig.map(c => this._createControl(c));
+    const controls = controlsConfig.map((c) => this._createControl(c));
     return new FormArraySchema(schema, controls, validator, asyncValidator);
   }
 
@@ -77,11 +77,11 @@ export class FormSchemaBuilder {
     }
   }
 
-  private _reduceControls(controlsConfig: {
-    [k: string]: any;
-  }): { [key: string]: AbstractControlSchema } {
+  private _reduceControls(controlsConfig: { [k: string]: any }): {
+    [key: string]: AbstractControlSchema;
+  } {
     const controls: { [key: string]: AbstractControlSchema } = {};
-    Object.keys(controlsConfig).forEach(controlName => {
+    Object.keys(controlsConfig).forEach((controlName) => {
       controls[controlName] = this._createControl(controlsConfig[controlName]);
     });
     return controls;
@@ -110,12 +110,14 @@ export class FormSchemaBuilder {
   }
 
   private _mapForm(schema: FormArraySchema): AbstractControl[] {
-    return schema.controls.map(control => this.form(control));
+    return schema.controls.map((control) => this.form(control));
   }
 
   private _reduceForm(schema: FormGroupSchema): { [key: string]: AbstractControl } {
     const controls: { [key: string]: AbstractControl } = {};
-    Object.keys(schema.controls).forEach(key => (controls[key] = this.form(schema.controls[key])));
+    Object.keys(schema.controls).forEach(
+      (key) => (controls[key] = this.form(schema.controls[key]))
+    );
     return controls;
   }
 }

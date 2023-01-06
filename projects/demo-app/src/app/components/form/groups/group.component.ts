@@ -10,7 +10,7 @@ import { AbstractControlSchema, FormGroupSchema } from '@ngxd/forms';
 })
 export class FormGroupComponent extends DynamicFormGroupComponentBase {
   toArray<T>(object: { [key: string]: T }): T[] {
-    return Object.keys(object).map(key => object[key]);
+    return Object.keys(object).map((key) => object[key]);
   }
 
   trackByKey(index, schema: AbstractControlSchema): string {
