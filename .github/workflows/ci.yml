@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push: {}
+  pull_request: {}
+
+env:
+  NODE_OPTIONS: --max-old-space-size=6144
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - run: npm run format:check
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - run: npx ng lint core
+      - run: npx ng lint forms
+      - run: npx ng lint demo-app
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - run: npx ng test core --browsers=ChromeHeadlessNoSandbox --watch=false
+      - run: npx ng test forms --browsers=ChromeHeadlessNoSandbox --watch=false
+      - run: npx ng test demo-app --browsers=ChromeHeadlessNoSandbox --watch=false
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - run: npx ng build core
+      - run: npx ng build forms
+      - run: npx ng build demo-app
