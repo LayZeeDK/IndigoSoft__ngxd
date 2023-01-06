@@ -13,7 +13,9 @@ export class MeasuresDataSource extends DataSource<Measures> {
     return this.measures$.pipe(map(_ => Array.of(_)));
   }
 
-  disconnect(): void {}
+  disconnect(): void {
+    // No-op
+  }
 }
 
 @Component({
