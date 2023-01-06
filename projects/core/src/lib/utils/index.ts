@@ -10,18 +10,18 @@ import {
 
 export const PRIVATE_PREFIX = '__ngxOnChanges_';
 
-export type Disposable = Function;
+export type Disposable = () => void;
 
 export function hasOnChangesHook(component: unknown): component is OnChanges {
-  return component && hasProperty(component, 'ngOnChanges');
+  return !!component && hasProperty(component, 'ngOnChanges');
 }
 
 export function hasDoCheckHook(component: unknown): component is DoCheck {
-  return component && hasProperty(component, 'ngDoCheck');
+  return !!component && hasProperty(component, 'ngDoCheck');
 }
 
 export function hasOnInitHook(component: unknown): component is OnInit {
-  return component && hasProperty(component, 'ngOnInit');
+  return !!component && hasProperty(component, 'ngOnInit');
 }
 
 export function createComponentRef<T>(
