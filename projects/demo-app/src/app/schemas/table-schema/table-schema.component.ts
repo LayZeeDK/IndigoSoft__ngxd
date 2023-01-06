@@ -25,6 +25,7 @@ import { TableSchemaService } from './table-schema.service';
 })
 export class TableSchemaComponent implements OnInit, OnChanges, OnDestroy {
   @Input() schema: TableSchema;
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() invalid: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() schemaChange: EventEmitter<TableSchema> = new EventEmitter<TableSchema>();
 
