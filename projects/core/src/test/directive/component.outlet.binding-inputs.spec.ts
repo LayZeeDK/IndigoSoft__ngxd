@@ -759,7 +759,7 @@ class TestComponent {
   component: any = DynamicComponent;
   activatedComponent: any;
 
-  @ViewChild(BaseHostComponent, /* TODO: add static flag */ {}) hostComponent: any;
+  @ViewChild(BaseHostComponent, { static: true }) hostComponent: any;
 }
 
 @NgModule({
