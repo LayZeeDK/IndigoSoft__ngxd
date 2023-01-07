@@ -1,4 +1,4 @@
-import { Injectable, Type } from '@angular/core';
+import { Directive, Type } from '@angular/core';
 import { BenchmarkComponentBase } from '../benchmark.base';
 import { ItemsService, MeasureService } from '../benchmark.service';
 
@@ -14,7 +14,7 @@ export abstract class ComponentResolver {
   }
 }
 
-@Injectable()
+@Directive()
 export abstract class NgxdBenchmarkComponent extends BenchmarkComponentBase {
   constructor(public resolver: ComponentResolver, items: ItemsService, measures: MeasureService) {
     super(items, measures, 'ngxd');
