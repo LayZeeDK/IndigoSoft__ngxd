@@ -24,7 +24,7 @@ export const LAZY_LOAD_MODULE = new InjectionToken<() => Promise<Type<unknown>>>
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicLazyComponent extends DynamicLazyComponentBase {
-  @Input() name: string;
+  @Input() override name: string;
 
   resolver$: Observable<LazyComponentResolver> = defer(() => this.lazyLoadModule()).pipe(
     map((ngModule) => createNgModule(ngModule, this.injector).injector.get(LazyComponentResolver))

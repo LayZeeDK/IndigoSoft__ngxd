@@ -10,7 +10,7 @@ import { Item } from './Item';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemEntityComponent extends DynamicEntityComponentBase {
-  @Input() entity: Item;
+  @Input() override entity: Item;
 
   trackById(index, { id }): string {
     return id;

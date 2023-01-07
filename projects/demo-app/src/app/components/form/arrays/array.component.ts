@@ -10,8 +10,8 @@ import { DynamicFormArrayComponentBase, provideFormArray } from '@app/dynamics';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormArrayComponent extends DynamicFormArrayComponentBase {
-  @Input() array: UntypedFormArray;
-  @Input() schema: FormArraySchema;
+  @Input() override array: UntypedFormArray;
+  @Input() override schema: FormArraySchema;
 
   trackByIndex(index): string {
     return String(index);

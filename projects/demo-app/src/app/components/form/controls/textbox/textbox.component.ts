@@ -8,7 +8,7 @@ import { TextboxControl } from './TextboxControl';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextboxControlComponent extends DynamicFormControlComponentBase {
-  @Input() schema: TextboxControl;
+  @Input() override schema: TextboxControl;
 }
 
 export const COMPONENT = TextboxControlComponent;

@@ -10,9 +10,9 @@ import { TableColumn } from './TableColumn';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicTableColumnComponent extends DynamicTableColumnComponentBase {
-  @Input() row: any;
-  @Input() column: TableColumn;
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Input() override row: any;
+  @Input() override column: TableColumn;
+  @Output() override action: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(public resolver: TableColumnComponentResolver) {
     super();
