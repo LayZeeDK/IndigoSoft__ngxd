@@ -2,28 +2,42 @@ import { isDevMode } from '@angular/core';
 import { Subject } from 'rxjs';
 import { getPropertyDescriptor, PRIVATE_CONTEXT_PREFIX } from '../utils';
 
-export const PRIVATE_HOST_INPUT_ADAPTER = PRIVATE_CONTEXT_PREFIX + 'HOST_INPUT_ADAPTER';
+const PRIVATE_HOST_INPUT_ADAPTER = PRIVATE_CONTEXT_PREFIX + 'HOST_INPUT_ADAPTER';
+const hostInputAdapters = new WeakMap<object, Map<string, HostInputAdapter<object, any>>>();
 
-export class HostInputAdapter<TComponent> {
-  changes: Subject<any>;
-  defaultDescriptor: PropertyDescriptor;
-  value: any;
+export class HostInputAdapter<TComponent extends object, TInputValue> {
+  static for<TComponent extends object, TInputValue>(
+    host: TComponent,
+    name: string
+  ): HostInputAdapter<TComponent, TInputValue> {
+    const inputAdapters =
+      hostInputAdapters.get(host) ?? new Map<string, HostInputAdapter<TComponent, TInputValue>>();
+    hostInputAdapters.set(host, inputAdapters);
+
+    const inputAdapterKey = PRIVATE_HOST_INPUT_ADAPTER + name;
+    if (inputAdapters.has(inputAdapterKey)) {
+      return inputAdapters.get(inputAdapterKey) as HostInputAdapter<TComponent, TInputValue>;
+    } else {
+      const inputAdapter = new HostInputAdapter<TComponent, TInputValue>(host, name);
+      inputAdapters.set(inputAdapterKey, inputAdapter);
+
+      return inputAdapter;
+    }
+  }
+
+  changes: Subject<TInputValue>;
+  defaultDescriptor?: PropertyDescriptor;
+  value?: TInputValue;
   refCount: number;
   disposed = false;
 
-  constructor(private host: TComponent, private name: string) {
-    if (PRIVATE_HOST_INPUT_ADAPTER + name in host) {
-      return host[PRIVATE_HOST_INPUT_ADAPTER + name];
-    }
-
-    host[PRIVATE_HOST_INPUT_ADAPTER + name] = this;
-
-    this.changes = new Subject<any>();
+  private constructor(private host: TComponent, private name: string) {
+    this.changes = new Subject<TInputValue>();
     this.defaultDescriptor = getPropertyDescriptor(host, name);
 
     if (this.defaultDescriptor && this.defaultDescriptor.get && !this.defaultDescriptor.set) {
       if (isDevMode()) {
-        const constructorName = (host as any).constructor.name;
+        const constructorName = host.constructor.name;
         console.log(`You should use get and set descriptors both with dynamic components:
 ERROR: not found '${name}' input, it has setter only, please add getter!
 
@@ -39,16 +53,16 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
     }
     this.refCount = 0;
 
-    const defaultValue = host[name];
+    const defaultValue = host[name as keyof TComponent];
 
     Object.defineProperty(host, name, {
-      get: () => {
+      get: (): TInputValue | undefined => {
         if (this.defaultDescriptor && this.defaultDescriptor.get) {
           return this.defaultDescriptor.get.call(host);
         }
         return this.value;
       },
-      set: (value: any) => {
+      set: (value: TInputValue) => {
         if (this.defaultDescriptor && this.defaultDescriptor.set) {
           this.defaultDescriptor.set.call(host, value);
         }
@@ -60,7 +74,7 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
     });
 
     if (typeof defaultValue !== 'undefined') {
-      host[name] = defaultValue;
+      host[name as keyof TComponent] = defaultValue;
     }
   }
 
@@ -77,11 +91,10 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
   }
 
   private dispose(): void {
-    const defaultValue = this.host[this.name];
+    const defaultValue = this.host[this.name as keyof TComponent];
 
     this.disposed = true;
     this.changes.complete();
-    delete this.host[PRIVATE_HOST_INPUT_ADAPTER + this.name];
 
     if (this.defaultDescriptor) {
       if (this.defaultDescriptor.writable) {
@@ -89,11 +102,11 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
       }
       Object.defineProperty(this.host, this.name, this.defaultDescriptor);
       if (this.defaultDescriptor.set) {
-        this.host[this.name] = defaultValue;
+        this.host[this.name as keyof TComponent] = defaultValue;
       }
     } else {
-      delete this.host[this.name];
-      this.host[this.name] = defaultValue;
+      delete this.host[this.name as keyof TComponent];
+      this.host[this.name as keyof TComponent] = defaultValue;
     }
   }
 }

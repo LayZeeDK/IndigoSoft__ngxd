@@ -99,7 +99,7 @@ function createLifecycleComponents(
   };
 }
 
-export function attachLifecycle<TComponent>(
+export function attachLifecycle<TComponent extends object>(
   componentRef: ComponentRef<TComponent>,
   viewContainerRef: ViewContainerRef,
   componentFactoryResolver: ComponentFactoryResolver

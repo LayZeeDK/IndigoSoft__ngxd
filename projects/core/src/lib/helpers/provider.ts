@@ -1,15 +1,15 @@
 import { InjectionToken, Type, ValueProvider } from '@angular/core';
 
-export abstract class NgxdProvider<TType, TComponent> {
+export interface NgxdProvider<TType, TComponent extends object> {
   type: TType | Type<TType>;
   component: TComponent;
 }
 
-export type DynamicFn<TType, TComponent> = (
+export type DynamicFn<TType, TComponent extends object> = (
   provider: NgxdProvider<TType, TComponent>
 ) => ValueProvider;
 
-export function Dynamic<TType, TComponent>({
+export function Dynamic<TType, TComponent extends object>({
   token,
 }: { token?: InjectionToken<NgxdProvider<TType, TComponent>> } = {}): DynamicFn<TType, TComponent> {
   return function (provider: NgxdProvider<TType, TComponent>): ValueProvider {

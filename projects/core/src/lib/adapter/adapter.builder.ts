@@ -14,14 +14,14 @@ import { NgxComponentOutletAdapterRef } from './adapter-ref';
  */
 @Injectable()
 export class NgxComponentOutletAdapterBuilder {
-  create<TComponent>(
+  create<TComponent extends object, TInputValue extends TComponent[keyof TComponent]>(
     componentType: Type<TComponent>,
     viewContainerRef: ViewContainerRef,
     injector: Injector,
-    projectableNodes: any[][],
+    projectableNodes: any[][] | undefined,
     host: TComponent,
     componentFactoryResolver: ComponentFactoryResolver
-  ): NgxComponentOutletAdapterRef<TComponent> {
+  ): NgxComponentOutletAdapterRef<TComponent, TInputValue> {
     const componentFactory: ComponentFactory<TComponent> =
       componentFactoryResolver.resolveComponentFactory(componentType);
 
@@ -30,7 +30,7 @@ export class NgxComponentOutletAdapterBuilder {
       projectableNodes
     );
 
-    const adapterRef = new NgxComponentOutletAdapterRef(
+    const adapterRef = new NgxComponentOutletAdapterRef<TComponent, TInputValue>(
       {
         componentFactory,
         componentRef,

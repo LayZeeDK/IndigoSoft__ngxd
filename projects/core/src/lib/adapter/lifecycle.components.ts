@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { runOnChangesHook } from '../utils';
+import { isObject } from '../utils/is-object';
 
 const lifeCycleComponentSymbol = Symbol('Life Cycle Component');
 
@@ -16,7 +17,11 @@ interface LifeCycleComponent {
 }
 
 export function isLifecycleComponent(component: unknown): component is LifeCycleComponent {
-  return component && component[lifeCycleComponentSymbol];
+  return (
+    isObject(component) &&
+    lifeCycleComponentSymbol in component &&
+    (component[lifeCycleComponentSymbol] as boolean)
+  );
 }
 
 @Component({
@@ -28,7 +33,7 @@ export class OnInitOnlyComponent implements LifeCycleComponent, OnInit {
   [lifeCycleComponentSymbol] = true;
 
   private context: unknown;
-  private changeDetectorRef: ChangeDetectorRef;
+  private changeDetectorRef?: ChangeDetectorRef;
 
   ngOnInit() {
     if (this.context) {
@@ -51,16 +56,14 @@ export class DoCheckOnlyComponent implements LifeCycleComponent, DoCheck {
   [lifeCycleComponentSymbol] = true;
 
   private context: unknown;
-  private changeDetectorRef: ChangeDetectorRef;
+  private changeDetectorRef?: ChangeDetectorRef;
 
   ngDoCheck() {
     if (this.context) {
       runOnChangesHook(this.context);
     }
 
-    if (this.changeDetectorRef) {
-      this.changeDetectorRef.markForCheck();
-    }
+    this.changeDetectorRef?.markForCheck();
   }
 
   attach(context: unknown, changeDetectorRef: ChangeDetectorRef): void {
@@ -78,7 +81,7 @@ export class OnInitAndDoCheckComponent implements LifeCycleComponent, OnInit, Do
   [lifeCycleComponentSymbol] = true;
 
   private context: unknown;
-  private changeDetectorRef: ChangeDetectorRef;
+  private changeDetectorRef?: ChangeDetectorRef;
 
   ngOnInit() {
     if (this.context) {
@@ -91,9 +94,7 @@ export class OnInitAndDoCheckComponent implements LifeCycleComponent, OnInit, Do
       runOnChangesHook(this.context);
     }
 
-    if (this.changeDetectorRef) {
-      this.changeDetectorRef.markForCheck();
-    }
+    this.changeDetectorRef?.markForCheck();
   }
 
   attach(context: unknown, changeDetectorRef: ChangeDetectorRef): void {

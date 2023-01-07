@@ -18,20 +18,21 @@ import {
 
 import { NgxComponentOutletAdapterBuilder } from '../adapter/adapter.builder';
 import { NgxComponentOutletAdapterRef } from '../adapter/adapter-ref';
+import { EmbeddedViewContext } from './embedded-view-context';
 
 @Directive({ selector: '[ngxComponentOutlet]' })
 export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
-  @Input() ngxComponentOutlet: Type<any> | null;
-  @Input() ngxComponentOutletInjector: Injector | null;
-  @Input() ngxComponentOutletContent: any[][] | null;
-  @Input() ngxComponentOutletContext: any | null;
-  @Input() ngxComponentOutletNgModuleFactory: NgModuleFactory<any> | null;
+  @Input() ngxComponentOutlet: Type<any> | null = null;
+  @Input() ngxComponentOutletInjector: Injector | null = null;
+  @Input() ngxComponentOutletContent: any[][] | null = null;
+  @Input() ngxComponentOutletContext: any | null = null;
+  @Input() ngxComponentOutletNgModuleFactory: NgModuleFactory<any> | null = null;
 
   @Output() ngxComponentOutletActivate = new EventEmitter<any>();
   @Output() ngxComponentOutletDeactivate = new EventEmitter<any>();
 
-  private _adapterRef: NgxComponentOutletAdapterRef<any>;
-  private _ngModuleRef: NgModuleRef<any>;
+  private _adapterRef: NgxComponentOutletAdapterRef<any> | null = null;
+  private _ngModuleRef: NgModuleRef<any> | null = null;
 
   private get componentFactoryResolver(): ComponentFactoryResolver {
     return this._ngModuleRef
@@ -39,16 +40,16 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
       : this._componentFactoryResolver;
   }
 
-  cached: any;
+  cached?: EmbeddedViewContext;
 
-  private get host(): any {
+  private get host(): EmbeddedViewContext | undefined {
     if (this.cached) {
       return this.cached;
     }
 
-    const { context } = this.changeDetectorRef as EmbeddedViewRef<any>;
+    ({ context: this.cached } = this.changeDetectorRef as EmbeddedViewRef<any>);
 
-    return (this.cached = context);
+    return this.cached;
   }
 
   private get injector(): Injector {
@@ -63,8 +64,8 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.ngxComponentOutlet || changes.ngxComponentOutletInjector) {
-      if (changes.ngxComponentOutletNgModuleFactory) {
+    if (changes['ngxComponentOutlet'] || changes['ngxComponentOutletInjector']) {
+      if (changes['ngxComponentOutletNgModuleFactory']) {
         this.destroyNgModuleRef();
         this.createNgModuleRef();
       }
@@ -73,7 +74,7 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
       this.createAdapterRef();
     }
 
-    if (changes.ngxComponentOutletContext) {
+    if (changes['ngxComponentOutletContext']) {
       this.applyContext();
     }
   }
@@ -95,20 +96,26 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
         this.ngxComponentOutlet,
         this.viewContainerRef,
         this.injector,
-        this.ngxComponentOutletContent,
+        this.ngxComponentOutletContent ?? undefined,
         this.host,
         this.componentFactoryResolver
       );
       if (this.ngxComponentOutletContext) {
         this.applyContext();
       }
-      this.ngxComponentOutletActivate.emit(this._adapterRef.componentRef.instance);
+      const component = this._adapterRef.componentRef?.instance;
+      if (component) {
+        this.ngxComponentOutletActivate.emit(component);
+      }
     }
   }
 
   private destroyAdapterRef() {
     if (this._adapterRef) {
-      this.ngxComponentOutletDeactivate.emit(this._adapterRef.componentRef.instance);
+      const component = this._adapterRef.componentRef?.instance;
+      if (component) {
+        this.ngxComponentOutletDeactivate.emit(component);
+      }
       this._adapterRef.dispose();
       this._adapterRef = null;
     }

@@ -16,31 +16,34 @@ import { NgxComponentOutletAdapterRef } from './adapter-ref';
 /**
  * @experimental
  */
-export class DynamicComponentFactoryResolver implements ComponentFactoryResolver {
+export class DynamicComponentFactoryResolver<TComponent extends object>
+  implements ComponentFactoryResolver
+{
   constructor(
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private host
+    private host: TComponent
   ) {}
 
-  resolveComponentFactory<T>(component: Type<T>): DynamicComponentFactory<T> {
-    const componentFactory: ComponentFactory<T> =
-      this.componentFactoryResolver.resolveComponentFactory(component);
+  resolveComponentFactory<T>(component: Type<T>): ComponentFactory<T> {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
 
     return new DynamicComponentFactory(
       this.viewContainerRef,
       this.componentFactoryResolver,
-      componentFactory,
+      componentFactory as unknown as ComponentFactory<TComponent>,
       this.host
-    );
+    ) as unknown as ComponentFactory<T>;
   }
 }
 
 /**
  * @experimental
  */
-export class DynamicComponentFactory<T> implements ComponentFactory<T> {
-  get componentType(): Type<any> {
+export class DynamicComponentFactory<
+  TComponent extends object
+> extends ComponentFactory<TComponent> {
+  get componentType(): Type<TComponent> {
     return this.componentFactory.componentType;
   }
 
@@ -60,24 +63,22 @@ export class DynamicComponentFactory<T> implements ComponentFactory<T> {
     return this.componentFactory.selector;
   }
 
-  get viewDefFactory(): any {
-    return (this.componentFactory as any).viewDefFactory;
-  }
-
   constructor(
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private componentFactory: ComponentFactory<T>,
-    private host: T
-  ) {}
+    private componentFactory: ComponentFactory<TComponent>,
+    private host: TComponent
+  ) {
+    super();
+  }
 
   create(
     injector: Injector,
     projectableNodes?: any[][],
     rootSelectorOrNode?: string | any,
     ngModule?: NgModuleRef<any>
-  ): ComponentRef<T> {
-    const componentRef: ComponentRef<T> = this.componentFactory.create(
+  ): ComponentRef<TComponent> {
+    const componentRef: ComponentRef<TComponent> = this.componentFactory.create(
       injector,
       projectableNodes,
       rootSelectorOrNode,
@@ -96,12 +97,12 @@ export class DynamicComponentFactory<T> implements ComponentFactory<T> {
 /**
  * @experimental
  */
-export class DynamicComponentRef<T> implements ComponentRef<T> {
+export class DynamicComponentRef<TComponent extends object> extends ComponentRef<TComponent> {
   get changeDetectorRef(): ChangeDetectorRef {
     return this.componentRef.changeDetectorRef;
   }
 
-  get componentType(): Type<T> {
+  get componentType(): Type<TComponent> {
     return this.componentRef.componentType;
   }
 
@@ -113,7 +114,7 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
     return this.componentRef.injector;
   }
 
-  get instance(): T {
+  get instance(): TComponent {
     return this.componentRef.instance;
   }
 
@@ -121,22 +122,19 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
     return this.componentRef.location;
   }
 
-  get _elDef(): any {
-    return (this.componentRef as any)._elDef;
-  }
-
-  private _onDestroy: () => void;
-  private componentAdapterRef: NgxComponentOutletAdapterRef<T>;
+  private _onDestroy: () => void = () => undefined;
+  private componentAdapterRef: NgxComponentOutletAdapterRef<TComponent>;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private componentRef: ComponentRef<T>,
-    host: T
+    private componentRef: ComponentRef<TComponent>,
+    host: TComponent
   ) {
-    const componentFactory: ComponentFactory<T> = componentFactoryResolver.resolveComponentFactory(
-      this.componentType
-    );
+    super();
+
+    const componentFactory: ComponentFactory<TComponent> =
+      componentFactoryResolver.resolveComponentFactory(this.componentType);
 
     this.componentAdapterRef = new NgxComponentOutletAdapterRef(
       {
@@ -149,7 +147,7 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
     );
   }
 
-  updateContext(context) {
+  updateContext(context: Partial<TComponent>) {
     this.componentAdapterRef.updateContext(context);
   }
 
@@ -174,7 +172,7 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
  */
 @Injectable()
 export class DynamicComponentAdapterBuilder {
-  create<TComponent>(
+  create<TComponent extends object>(
     componentType: Type<TComponent>,
     viewContainerRef: ViewContainerRef,
     injector: Injector,

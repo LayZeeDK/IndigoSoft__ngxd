@@ -7,21 +7,23 @@ import {
   Type,
   ViewContainerRef,
 } from '@angular/core';
+import { isObject } from './is-object';
+import { isSimpleChanges } from './is-simple-changes';
 
 export const PRIVATE_PREFIX = '__ngxOnChanges_';
 
 export type Disposable = () => void;
 
 export function hasOnChangesHook(component: unknown): component is OnChanges {
-  return !!component && hasProperty(component, 'ngOnChanges');
+  return hasProperty(component, 'ngOnChanges');
 }
 
 export function hasDoCheckHook(component: unknown): component is DoCheck {
-  return !!component && hasProperty(component, 'ngDoCheck');
+  return hasProperty(component, 'ngDoCheck');
 }
 
 export function hasOnInitHook(component: unknown): component is OnInit {
-  return !!component && hasProperty(component, 'ngOnInit');
+  return hasProperty(component, 'ngOnInit');
 }
 
 export function createComponentRef<T>(
@@ -34,15 +36,23 @@ export function createComponentRef<T>(
 }
 
 export function runOnChangesHook(context: unknown): void {
+  if (!isObject(context)) {
+    return;
+  }
+
   const simpleChanges = context[PRIVATE_PREFIX];
 
-  if (simpleChanges != null && hasOnChangesHook(context)) {
+  if (isSimpleChanges(simpleChanges) && hasOnChangesHook(context)) {
     context.ngOnChanges(simpleChanges);
   }
   context[PRIVATE_PREFIX] = null;
 }
 
-export function hasProperty(context: any, name: string): boolean {
+export function hasProperty(context: unknown, name: string): boolean {
+  if (!isObject(context)) {
+    return false;
+  }
+
   if (name in context) {
     return true;
   }
@@ -56,11 +66,11 @@ export function hasProperty(context: any, name: string): boolean {
   return false;
 }
 
-export function getPropertyDescriptor(context: any, name: string): PropertyDescriptor {
+export function getPropertyDescriptor(context: any, name: string): PropertyDescriptor | undefined {
   const descriptor = Object.getOwnPropertyDescriptor(context, name);
 
   if (descriptor) {
-    return Object.getOwnPropertyDescriptor(context, name);
+    return descriptor;
   }
 
   const prototype = Object.getPrototypeOf(context);
@@ -69,7 +79,7 @@ export function getPropertyDescriptor(context: any, name: string): PropertyDescr
     return getPropertyDescriptor(prototype, name);
   }
 
-  return void 0;
+  return undefined;
 }
 
 export function deletePropertyDescriptor(context: any, name: string): void {
@@ -86,7 +96,7 @@ export function deletePropertyDescriptor(context: any, name: string): void {
   }
 }
 
-export interface PropertyDef<T> {
+export interface PropertyDef<T extends object> {
   context: T;
   dynamicContext: T;
   hostContext: T;
@@ -95,7 +105,7 @@ export interface PropertyDef<T> {
 }
 
 // {propName: "insidePropName", templateName: "outsidePropName"}
-export function toPropertyDef<T>(
+export function toPropertyDef<T extends object>(
   context: T,
   dynamicContext: T,
   hostContext: T
@@ -111,6 +121,6 @@ export function toPropertyDef<T>(
 
 export const PRIVATE_CONTEXT_PREFIX = '__ngxContext__';
 
-export interface BindingDef<T> extends PropertyDef<T> {
-  defaultDescriptor: PropertyDescriptor;
+export interface BindingDef<T extends object> extends PropertyDef<T> {
+  defaultDescriptor?: PropertyDescriptor;
 }

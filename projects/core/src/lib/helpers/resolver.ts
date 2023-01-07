@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
 import { NgxdProvider } from './provider';
 
-export abstract class NgxdResolver<TType, TComponent> {
+export abstract class NgxdResolver<TType, TComponent extends object> {
   private config: Map<TType | Type<TType>, Type<TComponent>>;
 
   protected constructor(providers: NgxdProvider<TType, TComponent>[] = []) {
