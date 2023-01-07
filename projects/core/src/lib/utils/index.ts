@@ -35,6 +35,7 @@ export function createComponentRef<T>(
   return viewContainerRef.createComponent(componentFactory, viewContainerRef.length);
 }
 
+// TODO(@LayZeeDK): Is `context` actually `component` as in `hasOnChangesHook`?
 export function runOnChangesHook(context: unknown): void {
   if (!isObject(context)) {
     return;
