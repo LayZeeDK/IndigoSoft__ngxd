@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { DynamicEntityComponentBase, DynamicEntityModule } from '@app/dynamics';
+import { ChangeDetectionStrategy, Component, Input, TrackByFunction } from '@angular/core';
+import {
+  DynamicEntityComponentBase,
+  DynamicEntityModule,
+  DynamicEntityObject,
+} from '@app/dynamics';
 
 import { Item } from './Item';
 
@@ -12,9 +16,7 @@ import { Item } from './Item';
 export class ItemEntityComponent extends DynamicEntityComponentBase {
   @Input() override entity: Item;
 
-  trackById(index, { id }): string {
-    return id;
-  }
+  trackById: TrackByFunction<DynamicEntityObject> = (index, { id }) => id;
 }
 
 export const COMPONENT = ItemEntityComponent;

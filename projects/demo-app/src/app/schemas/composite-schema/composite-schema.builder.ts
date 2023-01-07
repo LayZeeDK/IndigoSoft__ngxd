@@ -46,7 +46,9 @@ export class CompositeSchemaBuilder {
 
   extract(schema: AbstractControlSchema, rawValue: any): any {
     if (schema instanceof FormArraySchema) {
-      return rawValue.map((value, index) => this.extract(schema.controls[index], value));
+      return (rawValue as Array<any>).map((value, index) =>
+        this.extract(schema.controls[index], value)
+      );
     }
 
     if (schema instanceof FormGroupSchema) {

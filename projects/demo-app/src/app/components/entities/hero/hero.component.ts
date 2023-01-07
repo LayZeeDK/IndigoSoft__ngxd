@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { DynamicEntityComponentBase, DynamicEntityModule } from '@app/dynamics';
+import { ChangeDetectionStrategy, Component, Input, TrackByFunction } from '@angular/core';
+import {
+  DynamicEntityComponentBase,
+  DynamicEntityModule,
+  DynamicEntityObject,
+} from '@app/dynamics';
 
 import { Hero } from './Hero';
 
@@ -14,9 +18,7 @@ export class HeroEntityComponent extends DynamicEntityComponentBase {
   @Input() name: string;
   @Input() forInput: string;
 
-  trackById(index, { id }): string {
-    return id;
-  }
+  trackById: TrackByFunction<DynamicEntityObject> = (index, { id }) => id;
 }
 
 export const COMPONENT = HeroEntityComponent;

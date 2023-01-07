@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, TrackByFunction } from '@angular/core';
 import { UntypedFormArray } from '@angular/forms';
-import { FormArraySchema } from '@ngxd/forms';
+import { AbstractControlSchema, FormArraySchema } from '@ngxd/forms';
 import { DynamicFormArrayComponentBase, provideFormArray } from '@app/dynamics';
 
 @Component({
@@ -13,9 +13,7 @@ export class FormArrayComponent extends DynamicFormArrayComponentBase {
   @Input() override array: UntypedFormArray;
   @Input() override schema: FormArraySchema;
 
-  trackByIndex(index): string {
-    return String(index);
-  }
+  trackByIndex: TrackByFunction<AbstractControlSchema> = (index) => String(index);
 }
 
 export const COMPONENT = FormArrayComponent;

@@ -1,5 +1,12 @@
 import { DataSource } from '@angular/cdk/table';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TrackByFunction,
+} from '@angular/core';
 
 import { TableColumn } from './dynamic-table-column';
 
@@ -22,7 +29,5 @@ export class DynamicTableComponent {
       .map(({ def }) => def);
   }
 
-  trackById(index, column: TableColumn): string {
-    return column.def;
-  }
+  trackById: TrackByFunction<TableColumn> = (index, column) => column.def;
 }

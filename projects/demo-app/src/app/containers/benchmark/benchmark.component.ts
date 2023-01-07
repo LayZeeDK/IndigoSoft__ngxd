@@ -36,7 +36,7 @@ export class BenchmarkPageComponent {
 
   constructor(private measures: MeasureService) {}
 
-  onEvent($event) {
+  onEvent($event: number) {
     console.log($event);
   }
 

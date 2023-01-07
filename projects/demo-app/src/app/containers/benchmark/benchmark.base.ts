@@ -37,7 +37,7 @@ export abstract class BenchmarkComponentBase implements AfterViewChecked {
     return item.id;
   }
 
-  onEvent($event) {
+  onEvent($event: number) {
     this.event.emit($event);
   }
 

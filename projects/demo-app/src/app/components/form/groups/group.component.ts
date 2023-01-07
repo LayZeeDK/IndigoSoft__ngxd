@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 import { DynamicFormGroupComponentBase, provideFormGroup } from '@app/dynamics';
 import { AbstractControlSchema, FormGroupSchema } from '@ngxd/forms';
 
@@ -13,9 +13,7 @@ export class FormGroupComponent extends DynamicFormGroupComponentBase {
     return Object.keys(object).map((key) => object[key]);
   }
 
-  trackByKey(index, schema: AbstractControlSchema): string {
-    return schema.key;
-  }
+  trackByKey: TrackByFunction<AbstractControlSchema> = (index, schema) => schema.key;
 }
 
 export const COMPONENT = FormGroupComponent;

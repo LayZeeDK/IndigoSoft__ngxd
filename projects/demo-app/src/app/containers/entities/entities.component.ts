@@ -16,7 +16,7 @@ export class EntitiesPageComponent {
 
   constructor(private entityDataService: EntitiesService) {}
 
-  onAction($event) {
+  onAction($event: any) {
     console.log($event);
   }
 }

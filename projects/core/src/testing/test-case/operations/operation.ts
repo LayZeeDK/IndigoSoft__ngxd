@@ -24,6 +24,8 @@ export class Operation extends Executable {
     this.operations.forEach((operation) => operation.execute(fixture));
     fixture.detectChanges();
     this.expect(fixture);
+
+    return this;
   }
 
   report<TComponent extends TestComponent>(oldState: TestCaseState): TestCaseState {

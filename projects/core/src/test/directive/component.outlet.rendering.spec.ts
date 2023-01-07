@@ -146,11 +146,11 @@ class TestComponent {
   activatedComponent: any;
   deactivatedComponent: any;
 
-  onActivate($event) {
+  onActivate($event: any) {
     this.activatedComponent = $event;
   }
 
-  onDeactivate($event) {
+  onDeactivate($event: any) {
     this.deactivatedComponent = $event;
   }
 }

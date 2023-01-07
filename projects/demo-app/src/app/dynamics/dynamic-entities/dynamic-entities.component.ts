@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TrackByFunction,
+} from '@angular/core';
 
 import { DynamicEntityObject, EntityComponentResolver } from './dynamic-entity';
 
@@ -14,7 +21,5 @@ export class DynamicEntitiesComponent {
 
   constructor(public resolver: EntityComponentResolver) {}
 
-  trackById(index, entity: DynamicEntityObject): string {
-    return entity.id;
-  }
+  trackById: TrackByFunction<DynamicEntityObject> = (index, entity) => entity.id;
 }

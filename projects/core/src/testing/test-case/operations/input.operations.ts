@@ -8,6 +8,8 @@ export class SimpleChangeInput extends Executable {
 
   execute<TComponent>(fixture: ComponentFixture<TComponent>) {
     fixture.componentInstance[this.name as keyof TComponent] = this.value;
+
+    return this;
   }
 
   report<TComponent>(state: TestCaseState): TestCaseState {
@@ -31,7 +33,7 @@ export class SimpleChangeInput extends Executable {
 export class ChangeInput extends SimpleChangeInput {}
 
 export class ResetInput extends ChangeInput {
-  constructor(protected override name) {
+  constructor(protected override name: string) {
     super(name, void 0);
   }
 }

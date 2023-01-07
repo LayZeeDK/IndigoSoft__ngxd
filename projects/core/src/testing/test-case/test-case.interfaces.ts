@@ -25,7 +25,7 @@ export interface TestCaseState {
 }
 
 export abstract class Executable {
-  abstract execute(fixture: ComponentFixture<any>);
+  abstract execute(fixture: ComponentFixture<any>): Executable;
 
   abstract report(state: TestCaseState): TestCaseState;
 }

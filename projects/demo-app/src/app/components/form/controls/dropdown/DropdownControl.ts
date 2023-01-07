@@ -1,3 +1,4 @@
+import { ValidatorFn, AsyncValidatorFn } from '@angular/forms';
 import { FormControlSchema } from '@ngxd/forms';
 
 export class DropdownControlOptions {
@@ -13,8 +14,13 @@ export class DropdownControlOptions {
 export class DropdownControl extends FormControlSchema {
   options: DropdownControlOptions[] = [];
 
-  constructor({ options, ...args }: Partial<DropdownControl>, ...config) {
-    super(args, ...config);
+  constructor(
+    { options, ...args }: Partial<DropdownControl>,
+    formState?: any,
+    validator?: ValidatorFn | ValidatorFn[] | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ) {
+    super(args, formState, validator, asyncValidator);
     this.options = options;
   }
 }
