@@ -20,7 +20,10 @@
             "inlineStyleLanguage": "scss",
             "assets": ["projects/demo-app/src/favicon.ico", "projects/demo-app/src/assets"],
             "styles": ["projects/demo-app/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/demo-app/src/styles"]
+            }
           },
           "configurations": {
             "production": {
@@ -75,7 +78,10 @@
             "inlineStyleLanguage": "scss",
             "assets": ["projects/demo-app/src/favicon.ico", "projects/demo-app/src/assets"],
             "styles": ["projects/demo-app/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/demo-app/src/styles"]
+            }
           }
         },
         "lint": {
@@ -111,7 +117,13 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/core/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "inlineStyleLanguage": "scss",
+            "styles": ["projects/demo-app/src/styles.scss"],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/demo-app/src/styles"]
+            }
           }
         },
         "lint": {
@@ -147,7 +159,13 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/forms/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "inlineStyleLanguage": "scss",
+            "styles": ["projects/demo-app/src/styles.scss"],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/demo-app/src/styles"]
+            }
           }
         },
         "lint": {
