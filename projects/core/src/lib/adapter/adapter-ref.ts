@@ -9,7 +9,7 @@ import {
   Type,
   ViewContainerRef,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, PartialObserver, Subscription } from 'rxjs';
 import { BindingDef, Disposable, PRIVATE_PREFIX, PropertyDef, toPropertyDef } from '../utils';
 import { HostAdapter } from './host.adapter';
 import { attachLifecycle } from './lifecycle.strategies';
@@ -250,9 +250,13 @@ ERROR: not found '${insidePropName}' input, it has getter only, please add sette
     );
     for (const propertyDef of propertyDefs) {
       if (propertyDef.outsidePropName in this.host) {
-        const subscription = this.componentRef.instance[
-          propertyDef.insidePropName as keyof TComponent
-        ].subscribe(this.host[propertyDef.outsidePropName as keyof TComponent]);
+        const subscription = (
+          this.componentRef.instance[
+            propertyDef.insidePropName as keyof TComponent
+          ] as Observable<any>
+        ).subscribe(
+          this.host[propertyDef.outsidePropName as keyof TComponent] as PartialObserver<any>
+        );
         this.attachedOutputs.push(subscription);
       }
     }
