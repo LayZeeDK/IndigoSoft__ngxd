@@ -11,7 +11,7 @@
     "strictFunctionTypes": true,
     "strictPropertyInitialization": false,
     "noImplicitAny": false,
-    "noImplicitThis": false,
+    "noImplicitThis": true,
     "useUnknownInCatchVariables": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
