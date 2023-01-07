@@ -266,8 +266,8 @@ class TestHostComponent {
   `,
 })
 class TestComponent {
-  name;
-  label;
+  name: string;
+  label: string;
   component: any;
   activatedComponent: any;
 }
@@ -277,8 +277,8 @@ class TestComponent {
   template: '<ng-container *ngxComponentOutlet="component"></ng-container>',
 })
 class TestNgContainerComponent {
-  name;
-  label;
+  name: string;
+  label: string;
   component: any;
   activatedComponent: any;
 }
@@ -290,8 +290,8 @@ class TestNgContainerComponent {
   `,
 })
 class TestNgContainerWithContextComponent {
-  name;
-  label;
+  name: string;
+  label: string;
   component: any;
   activatedComponent: any;
 }
