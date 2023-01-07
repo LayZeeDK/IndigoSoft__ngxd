@@ -1,10 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace TableColumnTypes {
-  export function getTypes(): { key; value }[] {
+  export function getTypes(): TableColumnTypesKeyValue[] {
     return Object.values(TableColumnTypes)
-      .filter((_) => typeof _ === 'string')
-      .map((key: string) => ({ key, value: TableColumnTypes[key] }));
+      .filter((_): _ is TableColumnTypesKeyValue['key'] => typeof _ === 'string')
+      .map((key) => ({ key, value: TableColumnTypes[key] }));
   }
+}
+
+export interface TableColumnTypesKeyValue {
+  key: Exclude<keyof typeof TableColumnTypes, 'getTypes'>;
+  value: TableColumnTypes;
 }
 
 export enum TableColumnTypes {
