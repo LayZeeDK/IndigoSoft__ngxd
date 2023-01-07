@@ -12,7 +12,7 @@
     "strictPropertyInitialization": false,
     "noImplicitAny": false,
     "noImplicitThis": true,
-    "useUnknownInCatchVariables": false,
+    "useUnknownInCatchVariables": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
