@@ -31,7 +31,7 @@ export class SimpleChangeInput extends Executable {
 export class ChangeInput extends SimpleChangeInput {}
 
 export class ResetInput extends ChangeInput {
-  constructor(protected name) {
+  constructor(protected override name) {
     super(name, void 0);
   }
 }
