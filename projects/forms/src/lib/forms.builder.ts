@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, UntypedFormBuilder, ValidatorFn } from '@angular/forms';
+import { NgxdFormsUnexpectedControlSchemaError } from './errors/unexpected-control-schema-error';
 import {
   AbstractControlSchema,
   FormArraySchema,
@@ -75,6 +76,8 @@ export class FormSchemaBuilder {
     if (schema instanceof FormArraySchema) {
       return this.fb.array(this._mapForm(schema), schema.validator, schema.asyncValidator);
     }
+
+    throw new NgxdFormsUnexpectedControlSchemaError(schema);
   }
 
   private _reduceControls(controlsConfig: { [k: string]: any }): {
