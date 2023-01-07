@@ -18,7 +18,11 @@ describe('check binding inputs', () => {
   let content: string;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [TestModule] });
+    spyOn(console, 'error');
+    spyOn(console, 'log');
+    TestBed.configureTestingModule({
+      imports: [TestModule],
+    });
   });
 
   describe('with host component', () => {
@@ -177,6 +181,16 @@ describe('check binding inputs', () => {
       expect(component.activatedComponent).toEqual(jasmine.any(WithGetterDynamicComponent));
       expect(component.activatedComponent.name).toBeUndefined();
       expect(component.activatedComponent.label).toBeUndefined();
+      expect(console.log).toHaveBeenCalledOnceWith(
+        jasmine.stringContaining(WithGetterDynamicComponent.name)
+      );
+      expect(console.log).toHaveBeenCalledOnceWith(jasmine.stringContaining('set customName'));
+      expect(console.error).toHaveBeenCalledOnceWith(jasmine.any(TypeError));
+      expect(console.error).toHaveBeenCalledOnceWith(
+        jasmine.objectContaining({
+          message: jasmine.stringContaining('Cannot set property customName'),
+        })
+      );
     }));
 
     it('should binding when dynamic component have input with setter only', fakeAsync(() => {
