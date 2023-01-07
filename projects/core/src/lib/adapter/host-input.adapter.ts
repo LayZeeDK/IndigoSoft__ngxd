@@ -1,5 +1,6 @@
 import { isDevMode } from '@angular/core';
 import { Subject } from 'rxjs';
+import { isObject } from '../objects/is-object';
 import { getPropertyDescriptor, PRIVATE_CONTEXT_PREFIX } from '../utils';
 
 export const PRIVATE_HOST_INPUT_ADAPTER = PRIVATE_CONTEXT_PREFIX + 'HOST_INPUT_ADAPTER';
@@ -12,11 +13,12 @@ export class HostInputAdapter<TComponent> {
   disposed = false;
 
   constructor(private host: TComponent, private name: string) {
-    if (PRIVATE_HOST_INPUT_ADAPTER + name in host) {
-      return host[PRIVATE_HOST_INPUT_ADAPTER + name];
+    if (isObject<HostInputAdapter<TComponent>>(host) && PRIVATE_HOST_INPUT_ADAPTER + name in host) {
+      return host[(PRIVATE_HOST_INPUT_ADAPTER + name) as keyof TComponent];
     }
 
-    host[PRIVATE_HOST_INPUT_ADAPTER + name] = this;
+    host[(PRIVATE_HOST_INPUT_ADAPTER + name) as keyof TComponent] =
+      this as TComponent[keyof TComponent];
 
     this.changes = new Subject<any>();
     this.defaultDescriptor = getPropertyDescriptor(host, name);
@@ -39,7 +41,7 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
     }
     this.refCount = 0;
 
-    const defaultValue = host[name];
+    const defaultValue = host[name as keyof TComponent];
 
     Object.defineProperty(host, name, {
       get: () => {
@@ -60,7 +62,7 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
     });
 
     if (typeof defaultValue !== 'undefined') {
-      host[name] = defaultValue;
+      host[name as keyof TComponent] = defaultValue;
     }
   }
 
@@ -77,11 +79,11 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
   }
 
   private dispose(): void {
-    const defaultValue = this.host[this.name];
+    const defaultValue = this.host[this.name as keyof TComponent];
 
     this.disposed = true;
     this.changes.complete();
-    delete this.host[PRIVATE_HOST_INPUT_ADAPTER + this.name];
+    delete this.host[(PRIVATE_HOST_INPUT_ADAPTER + this.name) as keyof TComponent];
 
     if (this.defaultDescriptor) {
       if (this.defaultDescriptor.writable) {
@@ -89,11 +91,11 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
       }
       Object.defineProperty(this.host, this.name, this.defaultDescriptor);
       if (this.defaultDescriptor.set) {
-        this.host[this.name] = defaultValue;
+        this.host[this.name as keyof TComponent] = defaultValue;
       }
     } else {
-      delete this.host[this.name];
-      this.host[this.name] = defaultValue;
+      delete this.host[this.name as keyof TComponent];
+      this.host[this.name as keyof TComponent] = defaultValue;
     }
   }
 }

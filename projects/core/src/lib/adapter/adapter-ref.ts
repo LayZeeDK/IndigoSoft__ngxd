@@ -5,6 +5,7 @@ import {
   ComponentRef,
   isDevMode,
   SimpleChange,
+  SimpleChanges,
   Type,
   ViewContainerRef,
 } from '@angular/core';
@@ -81,8 +82,13 @@ export class NgxComponentOutletAdapterRef<TComponent> {
       }
 
       const propertyDef = this.getPropertyDef(contextPropName);
-      if (propertyDef && this.context[propertyDef.outsidePropName] !== context[contextPropName]) {
-        this.context[propertyDef.outsidePropName] = context[contextPropName];
+      if (
+        propertyDef &&
+        this.context[propertyDef.outsidePropName as keyof TComponent] !==
+          context[contextPropName as keyof TComponent]
+      ) {
+        this.context[propertyDef.outsidePropName as keyof TComponent] =
+          context[contextPropName as keyof TComponent];
       }
     }
 
@@ -141,14 +147,14 @@ export class NgxComponentOutletAdapterRef<TComponent> {
     const host = this.host;
     const hostAdapter = this.hostAdapter;
     const context: Partial<TComponent> = this.context;
-    const defaultValue = host[bindingDef.outsidePropName];
+    const defaultValue = host[bindingDef.outsidePropName as keyof TComponent];
 
     if (typeof defaultValue !== 'undefined') {
-      context[bindingDef.outsidePropName] = defaultValue;
+      context[bindingDef.outsidePropName as keyof TComponent] = defaultValue;
     }
 
     const subscription = hostAdapter.getInputAdapter(bindingDef).changes.subscribe((value) => {
-      context[bindingDef.outsidePropName] = value;
+      context[bindingDef.outsidePropName as keyof TComponent] = value;
     });
 
     this.attachedInputs.push(subscription);
@@ -161,25 +167,30 @@ export class NgxComponentOutletAdapterRef<TComponent> {
         if (defaultDescriptor && defaultDescriptor.get) {
           return defaultDescriptor.get.call(bindingDef.context);
         } else {
-          return bindingDef.dynamicContext[insidePropName];
+          return bindingDef.dynamicContext[insidePropName as keyof TComponent];
         }
       },
       set: (value: any) => {
-        if (bindingDef.dynamicContext[insidePropName] === value) {
+        if (bindingDef.dynamicContext[insidePropName as keyof TComponent] === value) {
           return void 0;
         }
 
-        let simpleChanges = bindingDef.dynamicContext[PRIVATE_PREFIX];
+        const dynamicContext: TComponent & { [PRIVATE_PREFIX]?: SimpleChanges } =
+          bindingDef.dynamicContext;
+
+        let simpleChanges: SimpleChanges = dynamicContext[PRIVATE_PREFIX];
 
         if (simpleChanges == null) {
-          simpleChanges = bindingDef.dynamicContext[PRIVATE_PREFIX] = {};
+          simpleChanges = dynamicContext[PRIVATE_PREFIX] = {};
         }
 
-        const isFirstChange = !bindingDef.dynamicContext[`${PRIVATE_PREFIX}_${outsidePropName}`];
-        bindingDef.dynamicContext[`${PRIVATE_PREFIX}_${outsidePropName}`] = true;
+        const isFirstChange =
+          !bindingDef.dynamicContext[`${PRIVATE_PREFIX}_${outsidePropName}` as keyof TComponent];
+        bindingDef.dynamicContext[`${PRIVATE_PREFIX}_${outsidePropName}` as keyof TComponent] =
+          true as TComponent[keyof TComponent];
 
         simpleChanges[outsidePropName] = new SimpleChange(
-          bindingDef.dynamicContext[insidePropName],
+          bindingDef.dynamicContext[insidePropName as keyof TComponent],
           value,
           isFirstChange
         );
@@ -189,7 +200,7 @@ export class NgxComponentOutletAdapterRef<TComponent> {
         }
 
         try {
-          bindingDef.dynamicContext[insidePropName] = value;
+          bindingDef.dynamicContext[insidePropName as keyof TComponent] = value;
         } catch (e) {
           // Todo: add more debug
           if (isDevMode()) {
@@ -239,9 +250,9 @@ ERROR: not found '${insidePropName}' input, it has getter only, please add sette
     );
     for (const propertyDef of propertyDefs) {
       if (propertyDef.outsidePropName in this.host) {
-        const subscription = this.componentRef.instance[propertyDef.insidePropName].subscribe(
-          this.host[propertyDef.outsidePropName]
-        );
+        const subscription = this.componentRef.instance[
+          propertyDef.insidePropName as keyof TComponent
+        ].subscribe(this.host[propertyDef.outsidePropName as keyof TComponent]);
         this.attachedOutputs.push(subscription);
       }
     }

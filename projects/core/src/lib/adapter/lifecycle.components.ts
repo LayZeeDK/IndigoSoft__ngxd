@@ -5,6 +5,7 @@ import {
   DoCheck,
   OnInit,
 } from '@angular/core';
+import { isObject } from '../objects/is-object';
 import { runOnChangesHook } from '../utils';
 
 const lifeCycleComponentSymbol = Symbol('Life Cycle Component');
@@ -16,7 +17,7 @@ interface LifeCycleComponent {
 }
 
 export function isLifecycleComponent(component: unknown): component is LifeCycleComponent {
-  return component && component[lifeCycleComponentSymbol];
+  return isObject<boolean>(component) && component[lifeCycleComponentSymbol];
 }
 
 @Component({

@@ -16,11 +16,11 @@ import { NgxComponentOutletAdapterRef } from './adapter-ref';
 /**
  * @experimental
  */
-export class DynamicComponentFactoryResolver implements ComponentFactoryResolver {
+export class DynamicComponentFactoryResolver<TComponent> implements ComponentFactoryResolver {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private host
+    private host: TComponent
   ) {}
 
   resolveComponentFactory<T>(component: Type<T>): DynamicComponentFactory<T> {
@@ -31,7 +31,7 @@ export class DynamicComponentFactoryResolver implements ComponentFactoryResolver
       this.viewContainerRef,
       this.componentFactoryResolver,
       componentFactory,
-      this.host
+      this.host as unknown as T
     );
   }
 }
@@ -149,7 +149,7 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
     );
   }
 
-  updateContext(context) {
+  updateContext(context: T) {
     this.componentAdapterRef.updateContext(context);
   }
 

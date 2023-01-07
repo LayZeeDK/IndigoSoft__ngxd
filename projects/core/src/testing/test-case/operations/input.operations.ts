@@ -7,7 +7,7 @@ export class SimpleChangeInput extends Executable {
   }
 
   execute<TComponent>(fixture: ComponentFixture<TComponent>) {
-    fixture.componentInstance[this.name] = this.value;
+    fixture.componentInstance[this.name as keyof TComponent] = this.value;
   }
 
   report<TComponent>(state: TestCaseState): TestCaseState {

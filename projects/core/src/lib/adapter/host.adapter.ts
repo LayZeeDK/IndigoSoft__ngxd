@@ -1,3 +1,4 @@
+import { isObject } from '../objects/is-object';
 import { PropertyDef, PRIVATE_CONTEXT_PREFIX, BindingDef } from '../utils';
 import { HostInputAdapter } from './host-input.adapter';
 
@@ -9,7 +10,7 @@ export class HostAdapter<TComponent> {
   refCount: number;
 
   constructor(private host: TComponent) {
-    if (PRIVATE_HOST_ADAPTER in host) {
+    if (isObject<HostAdapter<TComponent>>(host) && PRIVATE_HOST_ADAPTER in host) {
       return host[PRIVATE_HOST_ADAPTER];
     }
 
@@ -17,7 +18,7 @@ export class HostAdapter<TComponent> {
     this.state = {};
     this.refCount = 0;
 
-    host[PRIVATE_HOST_ADAPTER] = this;
+    host[PRIVATE_HOST_ADAPTER as keyof TComponent] = this as TComponent[keyof TComponent];
   }
 
   attach(): void {
@@ -53,6 +54,6 @@ export class HostAdapter<TComponent> {
   }
 
   private dispose(): void {
-    delete this.host[PRIVATE_HOST_ADAPTER];
+    delete this.host[PRIVATE_HOST_ADAPTER as keyof TComponent];
   }
 }

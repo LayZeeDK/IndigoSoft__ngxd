@@ -4,6 +4,7 @@ import {
   DoCheck,
   OnChanges,
   OnInit,
+  SimpleChanges,
   Type,
   ViewContainerRef,
 } from '@angular/core';
@@ -33,7 +34,9 @@ export function createComponentRef<T>(
   return viewContainerRef.createComponent(componentFactory, viewContainerRef.length);
 }
 
-export function runOnChangesHook(context: unknown): void {
+export function runOnChangesHook<TComponent extends { [PRIVATE_PREFIX]?: SimpleChanges }>(
+  context: TComponent
+): void {
   const simpleChanges = context[PRIVATE_PREFIX];
 
   if (simpleChanges != null && hasOnChangesHook(context)) {
