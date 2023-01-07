@@ -63,8 +63,8 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.ngxComponentOutlet || changes.ngxComponentOutletInjector) {
-      if (changes.ngxComponentOutletNgModuleFactory) {
+    if (changes['ngxComponentOutlet'] || changes['ngxComponentOutletInjector']) {
+      if (changes['ngxComponentOutletNgModuleFactory']) {
         this.destroyNgModuleRef();
         this.createNgModuleRef();
       }
@@ -73,7 +73,7 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
       this.createAdapterRef();
     }
 
-    if (changes.ngxComponentOutletContext) {
+    if (changes['ngxComponentOutletContext']) {
       this.applyContext();
     }
   }

@@ -45,7 +45,7 @@ export class EntitySchemaComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.schema) {
+    if (changes['schema']) {
       this.service.createForm(this.schema);
     }
   }
