@@ -10,7 +10,7 @@ import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { NgxdModule } from '@ngxd/core';
 
 describe('NgxComponentOutlet check custom projectable nodes', () => {
-  let fixture: ComponentFixture<TestComponent>;
+  let fixture: ComponentFixture<AppComponent>;
   let content: string;
 
   beforeEach(() => {
@@ -18,10 +18,9 @@ describe('NgxComponentOutlet check custom projectable nodes', () => {
   });
 
   it('should render projectable nodes', fakeAsync(() => {
-    fixture = TestBed.createComponent(AppComponent) as any;
+    fixture = TestBed.createComponent(AppComponent);
 
-    // projection nodes are not supported yet
-    expect(() => fixture.detectChanges()).toThrow();
+    fixture.detectChanges();
     content = fixture.nativeElement.innerHTML;
 
     expect(content).toContain('Dynamic Component');

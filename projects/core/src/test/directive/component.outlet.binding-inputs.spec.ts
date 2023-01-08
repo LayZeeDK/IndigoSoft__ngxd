@@ -758,6 +758,7 @@ class TestComponent {
   names: string[];
   component: any = DynamicComponent;
   activatedComponent: any;
+  projectableNodes: any[][];
 
   @ViewChild(BaseHostComponent, { static: true }) hostComponent: any;
 }
