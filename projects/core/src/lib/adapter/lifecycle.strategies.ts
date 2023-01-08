@@ -106,7 +106,7 @@ export function attachLifecycle<TComponent>(
   componentFactoryResolver: ComponentFactoryResolver
 ): Disposable {
   const component = componentRef.instance;
-  const componentType: Type<TComponent> = component.constructor as Type<TComponent>;
+  const componentType: Type<TComponent> = (component as object).constructor as Type<TComponent>;
 
   const lifecycleComponents = createLifecycleComponents(
     componentType,
