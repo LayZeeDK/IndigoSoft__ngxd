@@ -30,9 +30,9 @@ const LIBRARY = 'Library';
 @Injectable()
 class HookLogger {
   hooks: {
-    ctor: Type<any>;
+    ctor?: Type<any>;
     name: string;
-    state: { name: string; label: string };
+    state: { name?: string; label?: string };
     changes?: SimpleChanges;
   }[] = [];
 

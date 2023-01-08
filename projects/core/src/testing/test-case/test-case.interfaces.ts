@@ -2,14 +2,14 @@ import { SimpleChanges, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
 export interface ComponentState {
-  name: string;
-  label: string;
+  name?: string;
+  label?: string;
 }
 
 export interface ContextState {
   host: ComponentState;
   dynamic: ComponentState;
-  type: Type<any>;
+  type?: Type<any>;
 }
 
 export interface LifecycleState {

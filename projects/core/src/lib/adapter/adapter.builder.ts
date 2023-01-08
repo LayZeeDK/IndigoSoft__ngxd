@@ -18,7 +18,7 @@ export class NgxComponentOutletAdapterBuilder {
     componentType: Type<TComponent>,
     viewContainerRef: ViewContainerRef,
     injector: Injector,
-    projectableNodes: any[][],
+    projectableNodes: any[][] | undefined = undefined,
     host: TComponent,
     componentFactoryResolver: ComponentFactoryResolver
   ): NgxComponentOutletAdapterRef<TComponent> {

@@ -95,7 +95,7 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
         this.ngxComponentOutlet,
         this.viewContainerRef,
         this.injector,
-        this.ngxComponentOutletContent,
+        this.ngxComponentOutletContent ?? undefined,
         this.host,
         this.componentFactoryResolver
       );

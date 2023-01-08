@@ -2,15 +2,15 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import { TableSchema } from '@app/components';
 import { AbstractControlSchema, FormArraySchema } from '@ngxd/forms';
-import { BehaviorSubject, concat, Observable, of } from 'rxjs';
+import { concat, Observable, of, ReplaySubject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { TableSchemaBuilder } from './table-schema.builder';
 
 @Injectable()
 export class TableSchemaService implements OnDestroy {
-  private form$: BehaviorSubject<AbstractControl> = new BehaviorSubject<AbstractControl>(null);
-  private formSchema$: BehaviorSubject<AbstractControlSchema> =
-    new BehaviorSubject<AbstractControlSchema>(null);
+  private form$: ReplaySubject<AbstractControl> = new ReplaySubject<AbstractControl>(1);
+  private formSchema$: ReplaySubject<AbstractControlSchema> =
+    new ReplaySubject<AbstractControlSchema>(1);
 
   constructor(private builder: TableSchemaBuilder) {}
 

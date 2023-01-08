@@ -18,15 +18,15 @@ export class DynamicFormComponent {
   @Input() form: AbstractControl;
   @Input() schema: AbstractControlSchema;
 
-  isControl(schema: AbstractControlSchema): boolean {
+  isControl(schema?: AbstractControlSchema): boolean {
     return schema instanceof FormControlSchema;
   }
 
-  isGroup(schema: AbstractControlSchema): boolean {
+  isGroup(schema?: AbstractControlSchema): boolean {
     return schema instanceof FormGroupSchema;
   }
 
-  isArray(schema: AbstractControlSchema): boolean {
+  isArray(schema?: AbstractControlSchema): boolean {
     return schema instanceof FormArraySchema;
   }
 }
