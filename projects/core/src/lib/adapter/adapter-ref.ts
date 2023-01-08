@@ -164,14 +164,14 @@ export class NgxComponentOutletAdapterRef<TComponent> {
   private attachContextPropertyToComponentInput(bindingDef: BindingDef<TComponent>): void {
     const { insidePropName, outsidePropName, defaultDescriptor } = bindingDef;
     Object.defineProperty(bindingDef.context, outsidePropName, {
-      get: () => {
+      get: (): TComponent[keyof TComponent] => {
         if (defaultDescriptor && defaultDescriptor.get) {
           return defaultDescriptor.get.call(bindingDef.context);
         } else {
           return bindingDef.dynamicContext[insidePropName as keyof TComponent];
         }
       },
-      set: (value: any) => {
+      set: (value: any): void => {
         if (bindingDef.dynamicContext[insidePropName as keyof TComponent] === value) {
           return void 0;
         }
