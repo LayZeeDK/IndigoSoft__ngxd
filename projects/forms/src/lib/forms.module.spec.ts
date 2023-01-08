@@ -14,7 +14,7 @@ describe(NgxdFormsModule.name, () => {
     it(`provides ${FormSchemaBuilder.name}`, () => {
       setup();
 
-      let builder: FormSchemaBuilder;
+      let builder: FormSchemaBuilder | undefined;
 
       expect(() => (builder = TestBed.inject(FormSchemaBuilder))).not.toThrow();
       expect(builder).toBeInstanceOf(FormSchemaBuilder);
