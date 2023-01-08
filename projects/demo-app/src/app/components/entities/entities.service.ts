@@ -9,7 +9,10 @@ function flatEntity(entity: DynamicEntityObject): DynamicEntityObject[] {
 }
 
 function flatEntities(entities: DynamicEntityObject[]): DynamicEntityObject[] {
-  return entities.reduce((acc, entity) => [...acc, ...flatEntity(entity)], []);
+  return entities.reduce(
+    (acc: DynamicEntityObject[], entity) => [...acc, ...flatEntity(entity)],
+    []
+  );
 }
 
 export type Entities = DynamicEntityObject[];
