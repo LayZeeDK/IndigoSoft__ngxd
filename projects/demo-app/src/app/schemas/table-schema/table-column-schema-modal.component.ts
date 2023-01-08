@@ -9,13 +9,5 @@ import { TableColumn } from '@app/dynamics';
 export class TableColumnSchemaModalComponent {
   invalid: boolean;
 
-  schema: TableSchema = [
-    new TableColumn({
-      def: null,
-      header: null,
-      type: null,
-      visible: true,
-      editable: true,
-    }),
-  ];
+  schema: TableSchema = [new TableColumn({})];
 }

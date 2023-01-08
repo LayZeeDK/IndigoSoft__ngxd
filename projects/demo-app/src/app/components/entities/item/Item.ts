@@ -1,10 +1,10 @@
 import { DynamicEntityObject } from '@app/dynamics';
 
 export class Item implements DynamicEntityObject {
-  id: string;
-  name: string;
-  rank: string;
-  icon: string;
+  id?: string;
+  name?: string;
+  rank?: string;
+  icon?: string;
   abilities: DynamicEntityObject[];
 
   constructor({ id, name, rank, icon, abilities }: Partial<Item>) {

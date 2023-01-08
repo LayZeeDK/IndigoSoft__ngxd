@@ -30,8 +30,8 @@ interface StrategyConfig {
 }
 
 interface LifecycleComponents {
-  onInitComponentRef: ComponentRef<LifecycleComponent>;
-  doCheckComponentRef: ComponentRef<LifecycleComponent>;
+  onInitComponentRef: ComponentRef<LifecycleComponent> | null;
+  doCheckComponentRef: ComponentRef<LifecycleComponent> | null;
 }
 
 const STRATEGY_CONFIG: { [key: number]: StrategyConfig } = {

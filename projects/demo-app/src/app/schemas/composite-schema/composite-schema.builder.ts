@@ -32,7 +32,7 @@ export class SchemaBuilderResolver {
       this.builders.set(ctor, builder);
     }
 
-    return this.builders.get(ctor);
+    return this.builders.get(ctor)!;
   }
 }
 

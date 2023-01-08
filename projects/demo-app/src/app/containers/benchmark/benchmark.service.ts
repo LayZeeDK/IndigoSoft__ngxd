@@ -71,7 +71,7 @@ export interface Measures {
 
 @Injectable()
 export class MeasureService {
-  measure: Measure = null;
+  measure: Measure | null = null;
   private measures$: BehaviorSubject<Measures> = new BehaviorSubject<Measures>({});
 
   constructor(private cd: ChangeDetectorRef) {}

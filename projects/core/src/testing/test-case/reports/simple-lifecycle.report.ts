@@ -7,7 +7,7 @@ export class SimpleLifecycleReport extends LifecycleReport {
   }
 
   canReport<TComponent>(oldState: ContextState, newState: ContextState): boolean {
-    return newState.type && hasProperty(newState.type.prototype, this.name);
+    return !!newState.type && hasProperty(newState.type.prototype, this.name);
   }
 
   report<TComponent>(oldState: ContextState, newState: ContextState): LifecycleState {

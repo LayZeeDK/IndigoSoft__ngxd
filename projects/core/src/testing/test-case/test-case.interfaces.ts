@@ -13,7 +13,7 @@ export interface ContextState {
 }
 
 export interface LifecycleState {
-  ctor: Type<any>;
+  ctor?: Type<any>;
   name: string;
   state: ComponentState;
   changes?: SimpleChanges;

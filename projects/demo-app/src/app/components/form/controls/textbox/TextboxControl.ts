@@ -2,7 +2,7 @@ import { AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 import { FormControlSchema } from '@ngxd/forms';
 
 export class TextboxControl extends FormControlSchema {
-  type: string;
+  type?: string;
 
   constructor(
     { type, ...args }: Partial<TextboxControl>,

@@ -1,10 +1,10 @@
 import { DynamicEntityObject } from '@app/dynamics';
 
 export class Hero implements DynamicEntityObject {
-  id: string;
-  name: string;
-  rank: string;
-  icon: string;
+  id?: string;
+  name?: string;
+  rank?: string;
+  icon?: string;
   abilities: DynamicEntityObject[];
   items: DynamicEntityObject[];
 

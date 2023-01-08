@@ -50,14 +50,10 @@ export class TablePageComponent {
 
   onCreateEntity() {
     const entity: Hero = new Hero({
-      id: null,
-      name: null,
-      rank: null,
-      icon: null,
       abilities: [],
       items: [],
     });
-    entity.id = null;
+    entity.id = undefined;
     const dialogRef = this.dialog.open(EntitySchemaModalComponent, {
       width: '100vw',
       data: entity,

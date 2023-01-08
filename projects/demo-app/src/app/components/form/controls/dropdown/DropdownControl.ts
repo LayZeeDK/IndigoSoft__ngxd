@@ -2,8 +2,8 @@ import { ValidatorFn, AsyncValidatorFn } from '@angular/forms';
 import { FormControlSchema } from '@ngxd/forms';
 
 export class DropdownControlOptions {
-  key: string;
-  value: any;
+  key?: string;
+  value?: any;
 
   constructor({ key, value }: Partial<DropdownControlOptions>) {
     this.key = key;
@@ -21,6 +21,6 @@ export class DropdownControl extends FormControlSchema {
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
     super(args, formState, validator, asyncValidator);
-    this.options = options;
+    this.options = options ?? [];
   }
 }

@@ -34,7 +34,7 @@ export function createComponentRef<T>(
   return viewContainerRef.createComponent(componentFactory, viewContainerRef.length);
 }
 
-export function runOnChangesHook<TComponent extends { [PRIVATE_PREFIX]?: SimpleChanges }>(
+export function runOnChangesHook<TComponent extends { [PRIVATE_PREFIX]?: SimpleChanges | null }>(
   context: TComponent
 ): void {
   const simpleChanges = context[PRIVATE_PREFIX];
@@ -59,7 +59,7 @@ export function hasProperty(context: any, name: string): boolean {
   return false;
 }
 
-export function getPropertyDescriptor(context: any, name: string): PropertyDescriptor {
+export function getPropertyDescriptor(context: any, name: string): PropertyDescriptor | undefined {
   const descriptor = Object.getOwnPropertyDescriptor(context, name);
 
   if (descriptor) {
@@ -115,5 +115,5 @@ export function toPropertyDef<T>(
 export const PRIVATE_CONTEXT_PREFIX = '__ngxContext__';
 
 export interface BindingDef<T> extends PropertyDef<T> {
-  defaultDescriptor: PropertyDescriptor;
+  defaultDescriptor?: PropertyDescriptor;
 }

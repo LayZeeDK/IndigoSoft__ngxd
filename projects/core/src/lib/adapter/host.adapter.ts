@@ -33,14 +33,14 @@ export class HostAdapter<TComponent> {
   }
 
   getInputAdapter(bindingDef: BindingDef<TComponent>): HostInputAdapter<TComponent> {
-    return this.inputs.get(bindingDef.outsidePropName);
+    return this.inputs.get(bindingDef.outsidePropName)!;
   }
 
   detachInput(bindingDef: BindingDef<TComponent>): void {
     const adapter = this.inputs.get(bindingDef.outsidePropName);
-    adapter.detach();
+    adapter?.detach();
 
-    if (adapter.disposed) {
+    if (!adapter || adapter.disposed) {
       this.inputs.delete(bindingDef.outsidePropName);
     }
   }

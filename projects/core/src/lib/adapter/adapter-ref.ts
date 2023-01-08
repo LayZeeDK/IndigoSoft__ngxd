@@ -64,12 +64,12 @@ export class NgxComponentOutletAdapterRef<TComponent> {
 
     if (this.componentRef) {
       this.componentRef.destroy();
-      this.componentRef = null;
+      this.componentRef = null as unknown as ComponentRef<TComponent>;
     }
 
     if (this.detachLifecycle) {
       this.detachLifecycle();
-      this.detachLifecycle = null;
+      this.detachLifecycle = null as unknown as Disposable;
     }
   }
 
@@ -87,8 +87,9 @@ export class NgxComponentOutletAdapterRef<TComponent> {
         this.context[propertyDef.outsidePropName as keyof TComponent] !==
           context[contextPropName as keyof TComponent]
       ) {
-        this.context[propertyDef.outsidePropName as keyof TComponent] =
-          context[contextPropName as keyof TComponent];
+        this.context[propertyDef.outsidePropName as keyof TComponent] = context[
+          contextPropName as keyof TComponent
+        ] as TComponent[keyof TComponent];
       }
     }
 
@@ -105,11 +106,11 @@ export class NgxComponentOutletAdapterRef<TComponent> {
     }
   }
 
-  private getPropertyDef(outsidePropName: string): PropertyDef<TComponent> {
+  private getPropertyDef(outsidePropName: string): PropertyDef<TComponent> | undefined {
     return this.propertyDefs.find((_) => _.outsidePropName === outsidePropName);
   }
 
-  private getBindingDef(outsidePropName: string): BindingDef<TComponent> {
+  private getBindingDef(outsidePropName: string): BindingDef<TComponent> | undefined {
     return this.bindingDefs.find((_) => _.outsidePropName === outsidePropName);
   }
 
@@ -120,7 +121,7 @@ export class NgxComponentOutletAdapterRef<TComponent> {
 
   private detachHost(): void {
     this.hostAdapter.detach();
-    this.hostAdapter = null;
+    this.hostAdapter = null as unknown as HostAdapter<TComponent>;
   }
 
   private attachHostInput(propertyDef: PropertyDef<TComponent>): BindingDef<TComponent> {
@@ -175,10 +176,11 @@ export class NgxComponentOutletAdapterRef<TComponent> {
           return void 0;
         }
 
-        const dynamicContext: TComponent & { [PRIVATE_PREFIX]?: SimpleChanges } =
-          bindingDef.dynamicContext;
+        const dynamicContext = bindingDef.dynamicContext as TComponent & {
+          [PRIVATE_PREFIX]?: SimpleChanges;
+        };
 
-        let simpleChanges: SimpleChanges = dynamicContext[PRIVATE_PREFIX];
+        let simpleChanges: SimpleChanges | undefined = dynamicContext[PRIVATE_PREFIX];
 
         if (simpleChanges == null) {
           simpleChanges = dynamicContext[PRIVATE_PREFIX] = {};

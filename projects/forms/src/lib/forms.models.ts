@@ -5,20 +5,20 @@ function _find(
   control: AbstractControlSchema,
   path: Array<string | number> | string,
   delimiter: string
-) {
+): AbstractControlSchema | null {
   if (path == null) {
     return null;
   }
 
   if (!(path instanceof Array)) {
-    path = (<string>path).split(delimiter);
+    path = path.split(delimiter);
   }
 
   if (path instanceof Array && path.length === 0) {
     return null;
   }
 
-  return (<Array<string | number>>path).reduce((v: AbstractControlSchema, name) => {
+  return path.reduce((v: AbstractControlSchema | null, name) => {
     if (v instanceof FormGroupSchema) {
       return name in v.controls ? v.controls[name] : null;
     }
@@ -32,12 +32,12 @@ function _find(
 }
 
 export abstract class AbstractControlSchema {
-  key: string;
-  label: string;
-  subtitle: string;
-  disabled: boolean;
+  key?: string;
+  label?: string;
+  subtitle?: string;
+  disabled?: boolean;
   schema: AbstractControlSchema;
-  $type: Type<any>;
+  $type?: Type<any>;
 
   protected constructor(schema: Partial<AbstractControlSchema>) {
     this.key = schema.key;
@@ -91,7 +91,7 @@ export class FormGroupSchema extends AbstractControlSchema {
     this.asyncValidator = (schema && schema.asyncValidator) || asyncValidator;
   }
 
-  get(path: Array<string | number> | string): AbstractControlSchema {
+  get(path: Array<string | number> | string): AbstractControlSchema | null {
     return _find(this, path, '.');
   }
 }

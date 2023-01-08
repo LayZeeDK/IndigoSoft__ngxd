@@ -3,15 +3,15 @@ import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { Hero } from '@app/components';
 import { DynamicEntityObject } from '@app/dynamics';
 import { AbstractControlSchema, FormSchemaBuilder } from '@ngxd/forms';
-import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
+import { combineLatest, merge, Observable, of, ReplaySubject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { CompositeSchemaBuilder } from '../composite-schema';
 
 @Injectable()
 export class EntitySchemaService implements OnDestroy {
-  private form$: BehaviorSubject<AbstractControl> = new BehaviorSubject<AbstractControl>(null);
-  private formSchema$: BehaviorSubject<AbstractControlSchema> =
-    new BehaviorSubject<AbstractControlSchema>(null);
+  private form$: ReplaySubject<AbstractControl> = new ReplaySubject<AbstractControl>(1);
+  private formSchema$: ReplaySubject<AbstractControlSchema> =
+    new ReplaySubject<AbstractControlSchema>(1);
 
   constructor(private fsb: FormSchemaBuilder, private builder: CompositeSchemaBuilder) {}
 

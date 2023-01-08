@@ -30,8 +30,8 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
   @Output() ngxComponentOutletActivate = new EventEmitter<any>();
   @Output() ngxComponentOutletDeactivate = new EventEmitter<any>();
 
-  private _adapterRef: NgxComponentOutletAdapterRef<any>;
-  private _ngModuleRef: NgModuleRef<any>;
+  private _adapterRef: NgxComponentOutletAdapterRef<any> | null;
+  private _ngModuleRef: NgModuleRef<any> | null;
 
   private get componentFactoryResolver(): ComponentFactoryResolver {
     return this._ngModuleRef
@@ -102,13 +102,13 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
       if (this.ngxComponentOutletContext) {
         this.applyContext();
       }
-      this.ngxComponentOutletActivate.emit(this._adapterRef.componentRef.instance);
+      this.ngxComponentOutletActivate.emit(this._adapterRef.componentRef!.instance);
     }
   }
 
   private destroyAdapterRef() {
     if (this._adapterRef) {
-      this.ngxComponentOutletDeactivate.emit(this._adapterRef.componentRef.instance);
+      this.ngxComponentOutletDeactivate.emit(this._adapterRef.componentRef!.instance);
       this._adapterRef.dispose();
       this._adapterRef = null;
     }

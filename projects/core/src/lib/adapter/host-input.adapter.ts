@@ -7,7 +7,7 @@ export const PRIVATE_HOST_INPUT_ADAPTER = PRIVATE_CONTEXT_PREFIX + 'HOST_INPUT_A
 
 export class HostInputAdapter<TComponent> {
   changes: Subject<any>;
-  defaultDescriptor: PropertyDescriptor;
+  defaultDescriptor?: PropertyDescriptor;
   value: any;
   refCount: number;
   disposed = false;

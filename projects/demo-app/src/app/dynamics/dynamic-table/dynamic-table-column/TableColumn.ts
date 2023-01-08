@@ -1,11 +1,11 @@
 import { TableColumnTypes } from './TableColumnTypes';
 
 export class TableColumn {
-  def: string;
-  header: string;
-  type: TableColumnTypes;
-  visible: boolean;
-  editable: boolean;
+  def?: string;
+  header?: string;
+  type?: TableColumnTypes;
+  visible?: boolean;
+  editable?: boolean;
 
   constructor({ def, header, type, visible, editable }: Partial<TableColumn>) {
     this.def = def;

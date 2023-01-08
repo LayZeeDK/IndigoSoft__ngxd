@@ -26,7 +26,7 @@ export class DynamicTableComponent {
     return this.schema
       .filter(({ def }) => def)
       .filter(({ visible }) => visible)
-      .map(({ def }) => def);
+      .map(({ def }) => def as string);
   }
 
   trackById: TrackByFunction<TableColumn> = (index, column) => column.def;
