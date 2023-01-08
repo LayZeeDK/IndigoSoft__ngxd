@@ -36,7 +36,7 @@ describe('demo-app', () => {
         const heading = rootFixture.debugElement.query(By.css('h1'))
           .nativeElement as HTMLHeadingElement;
 
-        return heading.textContent.trim();
+        return heading.textContent?.trim() ?? '';
       },
     };
   }

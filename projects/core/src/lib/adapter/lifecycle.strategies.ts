@@ -6,6 +6,7 @@ import {
   Type,
   ViewContainerRef,
 } from '@angular/core';
+import { NonNullish } from '../objects/non-nullish';
 import { createComponentRef, Disposable, hasOnChangesHook, hasProperty } from '../utils';
 import {
   DoCheckOnlyComponent,
@@ -107,14 +108,15 @@ export function attachLifecycle<TComponent>(
   const component = componentRef.instance;
   const componentType: Type<TComponent> = component.constructor as Type<TComponent>;
 
-  let components = createLifecycleComponents(
+  const lifecycleComponents = createLifecycleComponents(
     componentType,
     viewContainerRef,
     componentFactoryResolver
   );
-  components = {
-    onInitComponentRef: components.onInitComponentRef || componentRef,
-    doCheckComponentRef: components.doCheckComponentRef || componentRef,
+  const components: NonNullish<LifecycleComponents> = {
+    ...lifecycleComponents,
+    onInitComponentRef: lifecycleComponents.onInitComponentRef ?? componentRef,
+    doCheckComponentRef: lifecycleComponents.doCheckComponentRef ?? componentRef,
   };
 
   if (hasOnChangesHook(component)) {
