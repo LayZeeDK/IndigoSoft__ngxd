@@ -58,7 +58,7 @@ export class CompositeSchemaBuilder {
         {}
       );
 
-      return new ctor(item);
+      return ctor !== undefined ? new ctor(item) : item;
     }
 
     if (schema instanceof FormControlSchema) {
