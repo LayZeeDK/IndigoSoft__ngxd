@@ -4,7 +4,8 @@ import { NgxdProvider } from './provider';
 export abstract class NgxdResolver<TType, TComponent> {
   private config: Map<TType | Type<TType>, Type<TComponent>>;
 
-  protected constructor(providers: NgxdProvider<TType, TComponent>[] = []) {
+  protected constructor(providers: NgxdProvider<TType, TComponent>[]) {
+    providers ??= [];
     this.config = providers.reduce(
       (config, provider) => config.set(provider.type, provider.component),
       new Map()
