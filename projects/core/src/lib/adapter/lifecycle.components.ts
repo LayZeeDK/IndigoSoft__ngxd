@@ -29,7 +29,7 @@ export class OnInitOnlyComponent implements LifeCycleComponent, OnInit {
   [lifeCycleComponentSymbol] = true;
 
   private context: unknown;
-  private changeDetectorRef: ChangeDetectorRef;
+  private changeDetectorRef?: ChangeDetectorRef;
 
   ngOnInit() {
     if (this.context) {
@@ -52,7 +52,7 @@ export class DoCheckOnlyComponent implements LifeCycleComponent, DoCheck {
   [lifeCycleComponentSymbol] = true;
 
   private context: unknown;
-  private changeDetectorRef: ChangeDetectorRef;
+  private changeDetectorRef?: ChangeDetectorRef;
 
   ngDoCheck() {
     if (this.context) {
@@ -79,7 +79,7 @@ export class OnInitAndDoCheckComponent implements LifeCycleComponent, OnInit, Do
   [lifeCycleComponentSymbol] = true;
 
   private context: unknown;
-  private changeDetectorRef: ChangeDetectorRef;
+  private changeDetectorRef?: ChangeDetectorRef;
 
   ngOnInit() {
     if (this.context) {

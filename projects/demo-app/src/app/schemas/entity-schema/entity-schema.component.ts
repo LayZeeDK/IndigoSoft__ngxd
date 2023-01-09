@@ -24,7 +24,7 @@ import { EntitySchemaService } from './entity-schema.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EntitySchemaComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() schema: DynamicEntityObject;
+  @Input() schema?: DynamicEntityObject;
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() invalid: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() schemaChange: EventEmitter<DynamicEntityObject> =
@@ -45,7 +45,7 @@ export class EntitySchemaComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['schema']) {
+    if (changes['schema'] && this.schema !== undefined) {
       this.service.createForm(this.schema);
     }
   }

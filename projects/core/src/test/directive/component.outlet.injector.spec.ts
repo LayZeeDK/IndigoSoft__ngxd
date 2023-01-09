@@ -65,7 +65,7 @@ class DynamicComponent {
   `,
 })
 class TestComponent {
-  injector: Injector;
+  injector: Injector | null = null;
   component: any = DynamicComponent;
   activatedComponent: any;
 }

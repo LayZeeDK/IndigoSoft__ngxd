@@ -558,8 +558,8 @@ class BaseHostComponent {}
   template: 'Dynamic Component name: {{ name }}, label: {{ label }}',
 })
 class DynamicComponent implements OnInit, OnChanges {
-  @Input() name: string;
-  @Input() label: string;
+  @Input() name?: string;
+  @Input() label?: string;
 
   inputsOnChanges: any[] = [];
   simpleChanges: SimpleChanges[] = [];
@@ -581,8 +581,8 @@ class DynamicComponent implements OnInit, OnChanges {
   template: 'Dynamic Another Component name: {{ name }}, label: {{ label }}',
 })
 class AnotherDynamicComponent {
-  @Input() name: string;
-  @Input() label: string;
+  @Input() name?: string;
+  @Input() label?: string;
 }
 
 @Component({
@@ -592,9 +592,9 @@ class AnotherDynamicComponent {
 })
 class DifferentPropertiesDynamicComponent {
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('name') customName: string;
+  @Input('name') customName?: string;
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('customLabel') label: string;
+  @Input('customLabel') label?: string;
 }
 
 @Component({
@@ -603,10 +603,10 @@ class DifferentPropertiesDynamicComponent {
   template: 'Dynamic With Getter Component name: {{ customName }}',
 })
 class WithGetterDynamicComponent {
-  private _customName: string;
+  private _customName?: string;
 
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('name') get customName(): string {
+  @Input('name') get customName(): string | undefined {
     return this._customName;
   }
 }
@@ -617,10 +617,10 @@ class WithGetterDynamicComponent {
   template: 'Dynamic With Setter Component name: {{ customName }}',
 })
 class WithSetterDynamicComponent {
-  private _customName: string;
+  private _customName?: string;
 
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('name') set customName(name: string) {
+  @Input('name') set customName(name: string | undefined) {
     this._customName = name;
   }
 }
@@ -631,15 +631,15 @@ class WithSetterDynamicComponent {
   template: 'Dynamic With Getter And Setter Component name: {{ customName }}',
 })
 class WithGetterAndSetterDynamicComponent {
-  private _customName: string;
+  private _customName?: string;
 
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('name')
-  get customName(): string {
+  get customName(): string | undefined {
     return this._customName;
   }
 
-  set customName(name: string) {
+  set customName(name: string | undefined) {
     this._customName = name;
   }
 }
@@ -658,8 +658,8 @@ class EmptyDynamicComponent {}
   providers: [{ provide: BaseHostComponent, useExisting: TestHostComponent }],
 })
 class TestHostComponent {
-  @Input() name: string;
-  @Input() label: string;
+  @Input() name?: string;
+  @Input() label?: string;
 }
 
 @Component({
@@ -668,7 +668,7 @@ class TestHostComponent {
   template: '',
 })
 class WithGetterTestHostComponent {
-  getterCalled: boolean;
+  getterCalled = false;
 
   get name(): string {
     this.getterCalled = true;
@@ -682,10 +682,10 @@ class WithGetterTestHostComponent {
   template: '',
 })
 class WithSetterTestHostComponent {
-  setterCalled: boolean;
-  _name: string;
+  setterCalled = false;
+  _name?: string;
 
-  @Input() set name(name: string) {
+  @Input() set name(name: string | undefined) {
     this.setterCalled = true;
     this._name = name;
   }
@@ -698,17 +698,17 @@ class WithSetterTestHostComponent {
   providers: [{ provide: BaseHostComponent, useExisting: WithGetterAndSetterTestHostComponent }],
 })
 class WithGetterAndSetterTestHostComponent {
-  getterCalled: boolean;
-  setterCalled: boolean;
-  _name: string;
+  getterCalled = false;
+  setterCalled = false;
+  _name?: string;
 
   @Input()
-  get name(): string {
+  get name(): string | undefined {
     this.getterCalled = true;
     return this._name;
   }
 
-  set name(name: string) {
+  set name(name: string | undefined) {
     this.setterCalled = true;
     this._name = name;
   }
@@ -721,15 +721,15 @@ class WithGetterAndSetterTestHostComponent {
   providers: [{ provide: BaseHostComponent, useExisting: WithMethodCallInSetterTestHostComponent }],
 })
 class WithMethodCallInSetterTestHostComponent {
-  _name: string;
+  _name?: string;
 
-  get name(): string {
+  get name(): string | undefined {
     this.method();
     return this._name;
   }
 
   @Input()
-  set name(name: string) {
+  set name(name: string | undefined) {
     this._name = name;
     this.method();
   }
@@ -755,10 +755,10 @@ class WithMethodCallInSetterTestHostComponent {
 class TestComponent {
   name = 'Angular';
   label = 'Framework';
-  names: string[];
+  names: string[] = [];
   component: any = DynamicComponent;
   activatedComponent: any;
-  projectableNodes: any[][];
+  projectableNodes: any[][] | null = null;
 
   @ViewChild(BaseHostComponent, { static: true }) hostComponent: any;
 }

@@ -14,7 +14,7 @@ import { Item } from './Item';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemEntityComponent extends DynamicEntityComponentBase {
-  @Input() override entity: Item;
+  @Input() override entity?: Item;
 
   trackById: TrackByFunction<DynamicEntityObject> = (index, { id }) => id;
 }

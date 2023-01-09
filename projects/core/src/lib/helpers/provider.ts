@@ -1,6 +1,6 @@
 import { InjectionToken, Type, ValueProvider } from '@angular/core';
 
-export abstract class NgxdProvider<TType, TComponent> {
+export interface NgxdProvider<TType, TComponent> {
   type: TType | Type<TType>;
   component: TComponent;
 }

@@ -17,8 +17,8 @@ import { TableColumn } from './dynamic-table-column';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicTableComponent {
-  @Input() schema: TableColumn[];
-  @Input() dataSource: DataSource<any>;
+  @Input() schema: TableColumn[] = [];
+  @Input() dataSource?: DataSource<any>;
 
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 

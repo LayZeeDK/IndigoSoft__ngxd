@@ -6,10 +6,10 @@ import { getPropertyDescriptor, PRIVATE_CONTEXT_PREFIX } from '../utils';
 export const PRIVATE_HOST_INPUT_ADAPTER = PRIVATE_CONTEXT_PREFIX + 'HOST_INPUT_ADAPTER';
 
 export class HostInputAdapter<TComponent> {
-  changes: Subject<any>;
+  changes: Subject<any> = new Subject<any>();
   defaultDescriptor?: PropertyDescriptor;
   value: any;
-  refCount: number;
+  refCount = 0;
   disposed = false;
 
   constructor(private host: TComponent, private name: string) {
@@ -20,7 +20,6 @@ export class HostInputAdapter<TComponent> {
     host[(PRIVATE_HOST_INPUT_ADAPTER + name) as keyof TComponent] =
       this as TComponent[keyof TComponent];
 
-    this.changes = new Subject<any>();
     this.defaultDescriptor = getPropertyDescriptor(host, name);
 
     if (this.defaultDescriptor && this.defaultDescriptor.get && !this.defaultDescriptor.set) {
@@ -39,7 +38,6 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
   }`);
       }
     }
-    this.refCount = 0;
 
     const defaultValue = host[name as keyof TComponent];
 

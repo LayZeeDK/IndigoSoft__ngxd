@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00001Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -20,7 +20,7 @@ export class Dynamic00001Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00002Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -32,7 +32,7 @@ export class Dynamic00002Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00003Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -44,7 +44,7 @@ export class Dynamic00003Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00004Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -56,7 +56,7 @@ export class Dynamic00004Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00005Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -68,7 +68,7 @@ export class Dynamic00005Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00006Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -80,7 +80,7 @@ export class Dynamic00006Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00007Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -92,7 +92,7 @@ export class Dynamic00007Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00008Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -104,7 +104,7 @@ export class Dynamic00008Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00009Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -116,7 +116,7 @@ export class Dynamic00009Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00010Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -128,7 +128,7 @@ export class Dynamic00010Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00011Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -140,7 +140,7 @@ export class Dynamic00011Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00012Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -152,7 +152,7 @@ export class Dynamic00012Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00013Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -164,7 +164,7 @@ export class Dynamic00013Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00014Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -176,7 +176,7 @@ export class Dynamic00014Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00015Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -188,7 +188,7 @@ export class Dynamic00015Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00016Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -200,7 +200,7 @@ export class Dynamic00016Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00017Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -212,7 +212,7 @@ export class Dynamic00017Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00018Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -224,7 +224,7 @@ export class Dynamic00018Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00019Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 
@@ -236,7 +236,7 @@ export class Dynamic00019Component {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dynamic00020Component {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 

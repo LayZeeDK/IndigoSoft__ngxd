@@ -21,17 +21,17 @@ import { NgxComponentOutletAdapterRef } from '../adapter/adapter-ref';
 
 @Directive({ selector: '[ngxComponentOutlet]' })
 export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
-  @Input() ngxComponentOutlet: Type<any> | null;
-  @Input() ngxComponentOutletInjector: Injector | null;
-  @Input() ngxComponentOutletContent: any[][] | null;
-  @Input() ngxComponentOutletContext: any | null;
-  @Input() ngxComponentOutletNgModuleFactory: NgModuleFactory<any> | null;
+  @Input() ngxComponentOutlet: Type<any> | null = null;
+  @Input() ngxComponentOutletInjector: Injector | null = null;
+  @Input() ngxComponentOutletContent: any[][] | null = null;
+  @Input() ngxComponentOutletContext: any | null = null;
+  @Input() ngxComponentOutletNgModuleFactory: NgModuleFactory<any> | null = null;
 
   @Output() ngxComponentOutletActivate = new EventEmitter<any>();
   @Output() ngxComponentOutletDeactivate = new EventEmitter<any>();
 
-  private _adapterRef: NgxComponentOutletAdapterRef<any> | null;
-  private _ngModuleRef: NgModuleRef<any> | null;
+  private _adapterRef: NgxComponentOutletAdapterRef<any> | null = null;
+  private _ngModuleRef: NgModuleRef<any> | null = null;
 
   private get componentFactoryResolver(): ComponentFactoryResolver {
     return this._ngModuleRef

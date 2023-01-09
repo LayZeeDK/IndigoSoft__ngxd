@@ -8,8 +8,8 @@ import { DynamicEntityObject } from '@app/dynamics';
   templateUrl: 'entity-schema-modal.component.html',
 })
 export class EntitySchemaModalComponent {
-  invalid: boolean;
-  schema: DynamicEntityObject;
+  invalid?: boolean;
+  schema?: DynamicEntityObject;
 
   constructor(@Inject(MAT_DIALOG_DATA) public defaultSchema: DynamicEntityObject) {}
 }

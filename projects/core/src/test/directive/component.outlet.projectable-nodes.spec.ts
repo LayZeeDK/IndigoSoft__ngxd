@@ -35,7 +35,7 @@ describe('NgxComponentOutlet check custom projectable nodes', () => {
   template: 'Dynamic Component name: {{ name }} <ng-content></ng-content>',
 })
 class DynamicComponent {
-  @Input() name: string;
+  @Input() name?: string;
 }
 
 @Component({
@@ -44,7 +44,7 @@ class DynamicComponent {
   template: '',
 })
 class TestHostComponent {
-  @Input() name: string;
+  @Input() name?: string;
 }
 
 @Component({
@@ -60,10 +60,10 @@ class TestHostComponent {
   `,
 })
 class TestComponent {
-  @Input() name: string;
+  @Input() name?: string;
   component: any = DynamicComponent;
 
-  projectableNodes: any[][];
+  projectableNodes: any[][] | null = null;
 
   @ViewChild(TemplateRef, { static: true }) set templateRef(templateRef: TemplateRef<any>) {
     if (this.viewContainerRef && templateRef) {

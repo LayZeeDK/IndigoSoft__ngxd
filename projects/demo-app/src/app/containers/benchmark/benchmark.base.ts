@@ -4,8 +4,8 @@ import { Item, Items, ItemsService, MeasureService, MeasureType } from './benchm
 
 @Directive() // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class BenchmarkComponentBase implements AfterViewChecked {
-  @Input() count: number;
-  @Input() repeat: number;
+  @Input() count = 0;
+  @Input() repeat = 0;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 
   items$: Observable<Items> = this.items.getItems();

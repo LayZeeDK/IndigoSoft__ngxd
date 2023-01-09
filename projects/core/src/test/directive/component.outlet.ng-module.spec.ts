@@ -44,7 +44,7 @@ class DynamicModule {}
 })
 class TestComponent {
   component: any = DynamicComponent;
-  module: NgModuleFactory<any>;
+  module: NgModuleFactory<any> | null = null;
 }
 
 @NgModule({

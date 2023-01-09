@@ -7,7 +7,7 @@ import { TableColumn } from '@app/dynamics';
   templateUrl: 'table-column-schema-modal.component.html',
 })
 export class TableColumnSchemaModalComponent {
-  invalid: boolean;
+  invalid?: boolean;
 
   schema: TableSchema = [new TableColumn({})];
 }

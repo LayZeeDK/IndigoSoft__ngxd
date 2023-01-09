@@ -15,8 +15,8 @@ import { DynamicEntityObject, EntityComponentResolver } from './dynamic-entity';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicEntitiesComponent {
-  @Input() name: string;
-  @Input() entities: DynamicEntityObject[];
+  @Input() name?: string;
+  @Input() entities: DynamicEntityObject[] = [];
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(public resolver: EntityComponentResolver) {}

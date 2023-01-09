@@ -31,7 +31,7 @@ export class Top100ComponentResolver extends ComponentResolver {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxdHostBenchmarkComponent {
-  @Input() id: number;
+  @Input() id?: number;
   @Output() event: EventEmitter<number> = new EventEmitter<number>();
 }
 

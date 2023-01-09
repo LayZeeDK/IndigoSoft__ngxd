@@ -51,7 +51,8 @@ export class NgxComponentOutletAdapterRef<TComponent> {
       toPropertyDef(this.context, this.componentRef.instance, this.host)
     );
 
-    this.attachHost();
+    this.hostAdapter = new HostAdapter<TComponent>(this.host);
+    this.hostAdapter.attach();
     this.attachInputs();
     this.attachLifecycle();
     this.attachOutputs();
@@ -112,11 +113,6 @@ export class NgxComponentOutletAdapterRef<TComponent> {
 
   private getBindingDef(outsidePropName: string): BindingDef<TComponent> | undefined {
     return this.bindingDefs.find((_) => _.outsidePropName === outsidePropName);
-  }
-
-  private attachHost(): void {
-    this.hostAdapter = new HostAdapter<TComponent>(this.host);
-    this.hostAdapter.attach();
   }
 
   private detachHost(): void {

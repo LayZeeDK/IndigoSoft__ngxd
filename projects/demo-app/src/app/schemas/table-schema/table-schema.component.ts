@@ -24,7 +24,7 @@ import { TableSchemaService } from './table-schema.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableSchemaComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() schema: TableSchema;
+  @Input() schema?: TableSchema;
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() invalid: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() schemaChange: EventEmitter<TableSchema> = new EventEmitter<TableSchema>();
@@ -44,7 +44,7 @@ export class TableSchemaComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['schema']) {
+    if (changes['schema'] && this.schema !== undefined) {
       this.service.createForm(this.schema);
     }
   }

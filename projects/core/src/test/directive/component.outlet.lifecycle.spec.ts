@@ -39,7 +39,7 @@ class HookLogger {
   log(
     ctor: Type<any>,
     name: string,
-    state: { name: string; label: string },
+    state: { name?: string; label?: string },
     changes?: SimpleChanges
   ) {
     this.hooks.push({ ctor, name, state, changes });
@@ -48,8 +48,8 @@ class HookLogger {
 
 @Directive()
 class DynamicComponentBase {
-  @Input() name: string;
-  @Input() label: string;
+  @Input() name?: string;
+  @Input() label?: string;
 
   get componentName(): string {
     return this.constructor.name;
@@ -250,8 +250,8 @@ class ChildOfFullLifecycleDynamicComponent extends FullLifecycleDynamicComponent
 
 @Component({ selector: 'app-test-host', template: '' })
 class TestHostComponent {
-  @Input() name: string;
-  @Input() label: string;
+  @Input() name?: string;
+  @Input() label?: string;
 }
 
 @Component({
@@ -266,8 +266,8 @@ class TestHostComponent {
   `,
 })
 class TestComponent {
-  name: string;
-  label: string;
+  name?: string;
+  label?: string;
   component: any;
   activatedComponent: any;
 }
@@ -277,8 +277,8 @@ class TestComponent {
   template: '<ng-container *ngxComponentOutlet="component"></ng-container>',
 })
 class TestNgContainerComponent {
-  name: string;
-  label: string;
+  name?: string;
+  label?: string;
   component: any;
   activatedComponent: any;
 }
@@ -290,8 +290,8 @@ class TestNgContainerComponent {
   `,
 })
 class TestNgContainerWithContextComponent {
-  name: string;
-  label: string;
+  name?: string;
+  label?: string;
   component: any;
   activatedComponent: any;
 }

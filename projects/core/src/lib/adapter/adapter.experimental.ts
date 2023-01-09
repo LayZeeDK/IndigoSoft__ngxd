@@ -125,7 +125,7 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
     return (this.componentRef as any)._elDef;
   }
 
-  private _onDestroy: () => void;
+  private _onDestroy: () => void = () => undefined;
   private componentAdapterRef: NgxComponentOutletAdapterRef<T>;
 
   constructor(
