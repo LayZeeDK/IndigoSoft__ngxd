@@ -1,5 +1,5 @@
-<table mat-table [dataSource]="dataSource">
-  <ng-container *ngFor="let column of schema; trackBy: trackById" [matColumnDef]="column.def">
+<table mat-table [dataSource]="dataSource ?? []">
+  <ng-container *ngFor="let column of schema; trackBy: trackById" [matColumnDef]="column.def ?? ''">
     <th mat-header-cell *matHeaderCellDef>
       {{ column.header }}
     </th>

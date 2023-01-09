@@ -15,8 +15,8 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class DynamicFormComponent {
-  @Input() form?: AbstractControl;
-  @Input() schema?: AbstractControlSchema;
+  @Input() form: AbstractControl | null = null;
+  @Input() schema: AbstractControlSchema | null = null;
 
   isControl(schema?: AbstractControlSchema): boolean {
     return schema instanceof FormControlSchema;

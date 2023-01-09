@@ -1,4 +1,4 @@
-import { DataSource } from '@angular/cdk/table';
+import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,13 +17,13 @@ import { TableColumn } from './dynamic-table-column';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicTableComponent {
-  @Input() schema: TableColumn[] = [];
-  @Input() dataSource?: DataSource<any>;
+  @Input() schema: TableColumn[] | null = null;
+  @Input() dataSource: CdkTableDataSourceInput<any> | null = null;
 
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
   get displayedColumns(): string[] {
-    return this.schema
+    return (this.schema ?? [])
       .filter(({ def }) => def)
       .filter(({ visible }) => visible)
       .map(({ def }) => def as string);
