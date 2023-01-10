@@ -5,7 +5,7 @@ import { DynamicEntityComponentBase } from './dynamic-entity.base';
 import { DynamicEntityObject } from './DynamicEntityObject';
 
 export type DynamicEntityProvider = NgxdProvider<
-  Type<DynamicEntityObject>,
+  DynamicEntityObject,
   Type<DynamicEntityComponentBase>
 >;
 

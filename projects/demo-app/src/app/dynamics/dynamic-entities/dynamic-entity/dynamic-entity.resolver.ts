@@ -7,7 +7,7 @@ import { DynamicEntityObject } from './DynamicEntityObject';
 
 @Injectable()
 export class EntityComponentResolver extends NgxdResolver<
-  Type<DynamicEntityObject>,
+  DynamicEntityObject,
   Type<DynamicEntityComponentBase>
 > {
   constructor(@Inject(ENTITY_PROVIDER) providers: DynamicEntityProvider[]) {
