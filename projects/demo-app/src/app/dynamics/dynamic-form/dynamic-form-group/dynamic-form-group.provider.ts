@@ -8,7 +8,7 @@ export type FormGroupProvider = NgxdProvider<FormGroupSchema, Type<DynamicFormGr
 export const FORM_GROUP_PROVIDER = new InjectionToken<FormGroupProvider[]>('Form Group Provider');
 
 export function provideFormGroup(
-  type: FormGroupSchema,
+  type: Type<FormGroupSchema>,
   component: Type<DynamicFormGroupComponentBase>
 ): Provider {
   return [

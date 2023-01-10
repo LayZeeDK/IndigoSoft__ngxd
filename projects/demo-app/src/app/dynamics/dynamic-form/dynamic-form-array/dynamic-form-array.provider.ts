@@ -9,7 +9,7 @@ export type FormArrayProvider = NgxdProvider<FormArraySchema, Type<DynamicFormAr
 export const FORM_ARRAY_PROVIDER = new InjectionToken<FormArrayProvider[]>('Form Array Provider');
 
 export function provideFormArray(
-  type: FormArraySchema,
+  type: Type<FormArraySchema>,
   component: Type<DynamicFormArrayComponentBase>
 ): ValueProvider[] {
   return [

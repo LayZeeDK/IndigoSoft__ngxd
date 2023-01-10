@@ -14,7 +14,7 @@ export const FORM_CONTROL_PROVIDER = new InjectionToken<FormControlProvider[]>(
 );
 
 export function provideControl(
-  type: FormControlSchema,
+  type: Type<FormControlSchema>,
   component: Type<DynamicFormControlComponentBase>
 ): Provider {
   return [
