@@ -5,7 +5,7 @@ import { FormControlSchema } from '@ngxd/forms';
 import { DynamicFormControlComponentBase } from './dynamic-form-control.base';
 
 export type FormControlProvider = NgxdProvider<
-  Type<FormControlSchema>,
+  FormControlSchema,
   Type<DynamicFormControlComponentBase>
 >;
 
@@ -14,11 +14,15 @@ export const FORM_CONTROL_PROVIDER = new InjectionToken<FormControlProvider[]>(
 );
 
 export function provideControl(
-  type: Type<FormControlSchema>,
+  type: FormControlSchema,
   component: Type<DynamicFormControlComponentBase>
 ): Provider {
   return [
-    { provide: FORM_CONTROL_PROVIDER, useValue: { type, component }, multi: true },
+    {
+      provide: FORM_CONTROL_PROVIDER,
+      useValue: { type, component } as FormControlProvider,
+      multi: true,
+    },
     { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: component, multi: true },
   ];
 }

@@ -10,7 +10,7 @@ export const LAZY_PROVIDER = new InjectionToken<LazyProvider[]>('Lazy Provider')
 export function provideLazy(type: string, component: Type<DynamicLazyComponentBase>): Provider {
   return {
     provide: LAZY_PROVIDER,
-    useValue: { type, component },
+    useValue: { type, component } as LazyProvider,
     multi: true,
   };
 }

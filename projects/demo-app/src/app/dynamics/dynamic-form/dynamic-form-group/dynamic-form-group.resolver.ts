@@ -7,7 +7,7 @@ import { FORM_GROUP_PROVIDER, FormGroupProvider } from './dynamic-form-group.pro
 
 @Injectable()
 export class FormGroupComponentResolver extends NgxdResolver<
-  Type<FormGroupSchema>,
+  FormGroupSchema,
   Type<DynamicFormGroupComponentBase>
 > {
   constructor(@Inject(FORM_GROUP_PROVIDER) providers: FormGroupProvider[]) {

@@ -7,7 +7,7 @@ import { FORM_ARRAY_PROVIDER, FormArrayProvider } from './dynamic-form-array.pro
 
 @Injectable()
 export class FormArrayComponentResolver extends NgxdResolver<
-  Type<FormArraySchema>,
+  FormArraySchema,
   Type<DynamicFormArrayComponentBase>
 > {
   constructor(@Inject(FORM_ARRAY_PROVIDER) providers: FormArrayProvider[]) {

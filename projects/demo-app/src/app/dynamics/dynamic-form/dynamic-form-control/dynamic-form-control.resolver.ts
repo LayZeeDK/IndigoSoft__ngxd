@@ -7,7 +7,7 @@ import { FORM_CONTROL_PROVIDER, FormControlProvider } from './dynamic-form-contr
 
 @Injectable()
 export class FormControlComponentResolver extends NgxdResolver<
-  Type<FormControlSchema>,
+  FormControlSchema,
   Type<DynamicFormControlComponentBase>
 > {
   constructor(@Inject(FORM_CONTROL_PROVIDER) providers: FormControlProvider[]) {
