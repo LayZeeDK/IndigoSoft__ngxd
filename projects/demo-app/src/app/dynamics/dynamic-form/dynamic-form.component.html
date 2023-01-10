@@ -1,15 +1,15 @@
 <app-dynamic-form-control
   *ngIf="isControl(schema)"
-  [control]="form"
+  [control]="$any(form)"
   [schema]="schema"
 ></app-dynamic-form-control>
 <app-dynamic-form-group
   *ngIf="isGroup(schema)"
-  [group]="form"
+  [group]="$any(form)"
   [schema]="schema"
 ></app-dynamic-form-group>
 <app-dynamic-form-array
   *ngIf="isArray(schema)"
-  [array]="form"
+  [array]="$any(form)"
   [schema]="schema"
 ></app-dynamic-form-array>
