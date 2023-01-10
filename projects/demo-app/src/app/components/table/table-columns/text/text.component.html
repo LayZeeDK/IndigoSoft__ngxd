@@ -1,1 +1,1 @@
-<i>{{ row[column?.def] }}</i>
+<i *ngIf="row && column.def">{{ row[column.def] }}</i>

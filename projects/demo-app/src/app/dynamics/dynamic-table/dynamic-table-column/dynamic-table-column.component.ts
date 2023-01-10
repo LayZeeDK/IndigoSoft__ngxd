@@ -11,7 +11,7 @@ import { TableColumn } from './TableColumn';
 })
 export class DynamicTableColumnComponent extends DynamicTableColumnComponentBase {
   @Input() override row: any;
-  @Input() override column?: TableColumn;
+  @Input() override column: TableColumn = new TableColumn({});
   @Output() override action: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(public resolver: TableColumnComponentResolver) {

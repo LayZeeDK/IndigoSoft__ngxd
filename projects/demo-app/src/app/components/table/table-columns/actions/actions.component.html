@@ -1,5 +1,7 @@
-<button mat-button [matMenuTriggerFor]="menu">Actions</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="action.emit({ type: 'edit', data: row })">Edit</button>
-  <button mat-menu-item (click)="action.emit({ type: 'delete', data: row })">Delete</button>
-</mat-menu>
+<ng-container *ngIf="row">
+  <button mat-button [matMenuTriggerFor]="menu">Actions</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="action.emit({ type: 'edit', data: row })">Edit</button>
+    <button mat-menu-item (click)="action.emit({ type: 'delete', data: row })">Delete</button>
+  </mat-menu>
+</ng-container>

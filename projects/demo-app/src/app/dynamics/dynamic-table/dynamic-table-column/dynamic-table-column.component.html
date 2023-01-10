@@ -1,1 +1,3 @@
-<ng-container *ngxComponentOutlet="resolver | resolve : column?.type"></ng-container>
+<ng-container *ngIf="row && column.type">
+  <ng-container *ngxComponentOutlet="resolver | resolve : column.type"></ng-container>
+</ng-container>

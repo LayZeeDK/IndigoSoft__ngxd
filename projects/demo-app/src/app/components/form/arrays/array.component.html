@@ -1,4 +1,4 @@
-<div *ngIf="schema?.controls.length ?? 0 > 0" class="container">
+<div *ngIf="array && schema && (schema?.controls?.length ?? 0 > 0)" class="container">
   <h2 mat-line>{{ schema.label || 'Unknown' }}</h2>
   <ng-container *ngFor="let control of schema?.controls; trackBy: trackByIndex; index as index">
     <app-dynamic-form [form]="array.at(index)" [schema]="control"></app-dynamic-form>

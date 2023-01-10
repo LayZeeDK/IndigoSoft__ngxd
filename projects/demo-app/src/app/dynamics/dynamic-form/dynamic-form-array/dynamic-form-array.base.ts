@@ -4,6 +4,6 @@ import { FormArraySchema } from '@ngxd/forms';
 
 @Directive() // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class DynamicFormArrayComponentBase {
-  @Input() array?: UntypedFormArray;
-  @Input() schema?: FormArraySchema;
+  @Input() array: UntypedFormArray | null = null;
+  @Input() schema: FormArraySchema | null = null;
 }

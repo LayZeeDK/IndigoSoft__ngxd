@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 import { COMPONENT, PROVIDERS } from './icon.component';
 
 @NgModule({
-  imports: [CommonModule, MatCardModule],
+  imports: [NgIf, MatCardModule],
   declarations: [COMPONENT],
   providers: [PROVIDERS],
 })

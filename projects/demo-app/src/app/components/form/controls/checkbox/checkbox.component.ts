@@ -9,7 +9,7 @@ import { CheckboxControl } from './CheckboxControl';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextboxControlComponent extends DynamicFormControlComponentBase {
-  @Input() override schema?: CheckboxControl;
+  @Input() override schema: CheckboxControl | null = null;
 }
 
 export const COMPONENT = TextboxControlComponent;

@@ -10,7 +10,7 @@ import { Ability } from './Ability';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AbilityEntityComponent extends DynamicEntityComponentBase {
-  @Input() override entity?: Ability;
+  @Input() override entity: Ability | null = null;
 }
 
 export const COMPONENT = AbilityEntityComponent;

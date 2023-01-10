@@ -4,6 +4,6 @@ import { FormControlSchema } from '@ngxd/forms';
 
 @Directive() // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class DynamicFormControlComponentBase {
-  @Input() control?: UntypedFormControl;
-  @Input() schema?: FormControlSchema;
+  @Input() control: UntypedFormControl | null = null;
+  @Input() schema: FormControlSchema | null = null;
 }

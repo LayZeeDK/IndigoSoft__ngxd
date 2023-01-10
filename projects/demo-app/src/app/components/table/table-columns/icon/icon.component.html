@@ -1,1 +1,1 @@
-<div [ngClass]="row[column?.def]" mat-card-avatar></div>
+<div *ngIf="row && column.def" [class]="row[column.def]" mat-card-avatar></div>

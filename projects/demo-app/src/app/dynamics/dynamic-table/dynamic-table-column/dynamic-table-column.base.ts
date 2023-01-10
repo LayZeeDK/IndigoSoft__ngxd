@@ -5,6 +5,6 @@ import { TableColumn } from './TableColumn';
 @Directive() // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class DynamicTableColumnComponentBase {
   @Input() row: any;
-  @Input() column?: TableColumn;
+  @Input() column: TableColumn = new TableColumn({});
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 }

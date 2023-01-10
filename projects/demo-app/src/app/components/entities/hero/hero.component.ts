@@ -14,7 +14,7 @@ import { Hero } from './Hero';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroEntityComponent extends DynamicEntityComponentBase {
-  @Input() override entity?: Hero;
+  @Input() override entity: Hero | null = null;
   @Input() name?: string;
   @Input() forInput?: string;
 

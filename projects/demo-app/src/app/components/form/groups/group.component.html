@@ -1,9 +1,11 @@
 <h3 mat-line>
   {{ schema?.label ?? 'Unknown' }}
-  <small *ngIf="schema?.subtitle" mat-subheader>{{ schema.subtitle }}</small>
+  <small *ngIf="schema && schema.subtitle" mat-subheader>{{ schema.subtitle }}</small>
 </h3>
-<app-dynamic-form
-  *ngFor="let control of toArray(schema?.controls); trackBy: trackByKey"
-  [form]="group.get(control.key)"
-  [schema]="control"
-></app-dynamic-form>
+<ng-container *ngIf="group">
+  <app-dynamic-form
+    *ngFor="let control of toArray(schema?.controls); trackBy: trackByKey"
+    [form]="(control.key && group.get(control.key)) || null"
+    [schema]="control"
+  ></app-dynamic-form>
+</ng-container>
