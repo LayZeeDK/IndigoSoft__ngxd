@@ -12,6 +12,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "@typescript-eslint/no-explicit-any": "error",
         "deprecation/deprecation": "warn"
       }
     },
