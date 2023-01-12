@@ -10,7 +10,9 @@ import {
   templateUrl: 'text.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextTableColumnEntityComponent extends DynamicTableColumnComponentBase {}
+export class TextTableColumnEntityComponent<
+  TItem extends { [key: string]: unknown }
+> extends DynamicTableColumnComponentBase<TItem> {}
 
 export const COMPONENT = TextTableColumnEntityComponent;
 export const PROVIDERS = provideTableColumn(TableColumnTypes.Text, TextTableColumnEntityComponent);

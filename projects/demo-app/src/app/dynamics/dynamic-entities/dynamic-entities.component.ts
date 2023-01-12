@@ -17,7 +17,7 @@ import { DynamicEntityObject, EntityComponentResolver } from './dynamic-entity';
 export class DynamicEntitiesComponent {
   @Input() name?: string;
   @Input() entities: DynamicEntityObject[] | null = null;
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Output() action: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(public resolver: EntityComponentResolver) {}
 

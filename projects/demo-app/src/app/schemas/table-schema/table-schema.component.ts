@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { TableSchema } from '@app/components';
+import { TableColumn } from '@app/dynamics';
 import { AbstractControlSchema } from '@ngxd/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -30,7 +31,7 @@ export class TableSchemaComponent implements OnInit, OnChanges, OnDestroy {
   @Output() schemaChange: EventEmitter<TableSchema> = new EventEmitter<TableSchema>();
 
   form$: Observable<AbstractControl> = this.service.getForm();
-  formSchema$: Observable<AbstractControlSchema> = this.service.getFormSchema();
+  formSchema$: Observable<AbstractControlSchema<TableColumn>> = this.service.getFormSchema();
 
   private formRawValue$: Observable<TableSchema> = this.service.getFormRawValue();
   private formIsInvalid$: Observable<boolean> = this.service.getFormIsInvalid();

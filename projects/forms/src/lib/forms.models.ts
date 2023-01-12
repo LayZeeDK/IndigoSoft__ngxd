@@ -1,50 +1,54 @@
 import { Type } from '@angular/core';
-import { AsyncValidatorFn, ValidatorFn } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
-function _find(
-  control: AbstractControlSchema,
-  path: Array<string | number> | string,
+function _find<T extends { [P in keyof T]: T[K] }, K extends keyof T = keyof T>(
+  control: AbstractControlSchema<T, K>,
+  path: Array<K> | string | null,
   delimiter: string
-): AbstractControlSchema | null {
-  if (path == null) {
+): AbstractControlSchema<T, K> | null {
+  if (path == null || path.length) {
     return null;
   }
 
-  if (!(path instanceof Array)) {
-    path = path.split(delimiter);
-  }
+  const pathArray = Array.isArray(path) ? path : (path.split(delimiter) as Array<K>);
 
-  if (path instanceof Array && path.length === 0) {
+  if (pathArray.length === 0) {
     return null;
   }
 
-  return path.reduce((v: AbstractControlSchema | null, name) => {
-    if (v instanceof FormGroupSchema) {
-      return name in v.controls ? v.controls[name] : null;
-    }
+  return pathArray.reduce(
+    (v: AbstractControlSchema<T, K> | null, name: K): AbstractControlSchema<T, K> | null => {
+      if (v instanceof FormGroupSchema) {
+        return name in v.controls ? v.controls[name] : null;
+      }
 
-    if (v instanceof FormArraySchema) {
-      return v.at(<number>name) || null;
-    }
+      if (v instanceof FormArraySchema) {
+        return v.at(<number>name) || null;
+      }
 
-    return null;
-  }, control);
+      return null;
+    },
+    control
+  );
 }
 
-export abstract class AbstractControlSchema {
-  key?: string;
+export abstract class AbstractControlSchema<
+  T extends { [P in keyof T]: T[K] },
+  K extends keyof T = keyof T
+> {
+  key?: K | string;
   label?: string;
   subtitle?: string;
   disabled?: boolean;
-  schema: AbstractControlSchema;
-  $type?: Type<any>;
+  schema: AbstractControlSchema<T, K>;
+  $type?: Type<T>;
 
-  protected constructor(schema: Partial<AbstractControlSchema>) {
+  protected constructor(schema: Partial<AbstractControlSchema<T, K>>) {
     this.key = schema.key;
     this.label = schema.label;
     this.subtitle = schema.subtitle;
     this.disabled = schema.disabled;
-    this.schema = schema as AbstractControlSchema;
+    this.schema = schema as AbstractControlSchema<T, K>;
     this.$type = schema.$type;
   }
 
@@ -54,13 +58,16 @@ export abstract class AbstractControlSchema {
   }
 }
 
-export class FormControlSchema extends AbstractControlSchema {
+export class FormControlSchema<
+  T extends { [P in keyof T]: T[K] },
+  K extends keyof T = keyof T
+> extends AbstractControlSchema<T, K> {
   formState: any;
   validator?: ValidatorFn | ValidatorFn[] | null;
   asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null;
 
   constructor(
-    schema: Partial<FormControlSchema>,
+    schema: Partial<FormControlSchema<T, K>>,
     formState?: any,
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
@@ -73,14 +80,27 @@ export class FormControlSchema extends AbstractControlSchema {
   }
 }
 
-export class FormGroupSchema extends AbstractControlSchema {
-  controls: { [key: string]: AbstractControlSchema };
+export type FormGroupControls<
+  T extends { [P in keyof T]: T[K] },
+  K extends keyof T = keyof T
+> = Record<K, AbstractControlSchema<T, K>>;
+
+export type FormAbstractControls<
+  T extends { [P in keyof T]: T[K] },
+  K extends keyof T = keyof T
+> = Record<K, AbstractControl>;
+
+export class FormGroupSchema<
+  T extends { [P in keyof T]: T[K] },
+  K extends keyof T = keyof T
+> extends AbstractControlSchema<T, K> {
+  controls: FormGroupControls<T, K>;
   validator?: ValidatorFn | ValidatorFn[] | null;
   asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null;
 
   constructor(
-    schema: Partial<FormGroupSchema>,
-    controls: { [key: string]: AbstractControlSchema },
+    schema: Partial<FormGroupSchema<T, K>>,
+    controls: FormGroupControls<T, K>,
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
@@ -91,19 +111,22 @@ export class FormGroupSchema extends AbstractControlSchema {
     this.asyncValidator = (schema && schema.asyncValidator) || asyncValidator;
   }
 
-  get(path: Array<string | number> | string): AbstractControlSchema | null {
+  get(path: Array<K> | string): AbstractControlSchema<T, K> | null {
     return _find(this, path, '.');
   }
 }
 
-export class FormArraySchema extends AbstractControlSchema {
-  controls: AbstractControlSchema[];
+export class FormArraySchema<
+  T extends { [P in keyof T]: T[K] },
+  K extends keyof T = keyof T
+> extends AbstractControlSchema<T, K> {
+  controls: AbstractControlSchema<T, K>[];
   validator?: ValidatorFn | ValidatorFn[] | null;
   asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null;
 
   constructor(
-    schema: Partial<FormArraySchema>,
-    controls: AbstractControlSchema[],
+    schema: Partial<FormArraySchema<T, K>>,
+    controls: AbstractControlSchema<T, K>[],
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
@@ -114,11 +137,11 @@ export class FormArraySchema extends AbstractControlSchema {
     this.asyncValidator = (schema && schema.asyncValidator) || asyncValidator;
   }
 
-  push(control: AbstractControlSchema): void {
+  push(control: AbstractControlSchema<T, K>): void {
     this.controls.push(control);
   }
 
-  at(index: number): AbstractControlSchema {
+  at(index: number): AbstractControlSchema<T, K> {
     return this.controls[index];
   }
 }

@@ -1,9 +1,9 @@
 import { ValidatorFn, AsyncValidatorFn } from '@angular/forms';
 import { FormControlSchema } from '@ngxd/forms';
 
-export class CheckboxControl extends FormControlSchema {
+export class CheckboxControl<T, K extends keyof T = keyof T> extends FormControlSchema<Pick<T, K>> {
   constructor(
-    { ...args }: Partial<CheckboxControl>,
+    { ...args }: Partial<CheckboxControl<T, K>>,
     formState?: any,
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null

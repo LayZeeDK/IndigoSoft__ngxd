@@ -1,3 +1,4 @@
+import { DynamicEntityObject, TableColumn } from '@app/dynamics';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import {
   ChangeDetectionStrategy,
@@ -8,19 +9,17 @@ import {
   TrackByFunction,
 } from '@angular/core';
 
-import { TableColumn } from './dynamic-table-column';
-
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: 'dynamic-table.component.html',
   styleUrls: ['dynamic-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicTableComponent {
+export class DynamicTableComponent<TAction> {
   @Input() schema: TableColumn[] | null = null;
-  @Input() dataSource: CdkTableDataSourceInput<any> | null = null;
+  @Input() dataSource: CdkTableDataSourceInput<DynamicEntityObject> | null = null;
 
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Output() action: EventEmitter<TAction> = new EventEmitter<TAction>();
 
   get displayedColumns(): string[] {
     return (this.schema ?? [])

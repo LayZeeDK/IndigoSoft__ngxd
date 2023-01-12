@@ -7,8 +7,8 @@ import { DropdownControl } from './DropdownControl';
   templateUrl: 'dropdown.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DropdownControlComponent extends DynamicFormControlComponentBase {
-  @Input() override schema: DropdownControl | null = null;
+export class DropdownControlComponent<T> extends DynamicFormControlComponentBase<T> {
+  @Input() override schema: DropdownControl<T> | null = null;
 }
 
 export const COMPONENT = DropdownControlComponent;

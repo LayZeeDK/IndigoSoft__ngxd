@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { DynamicTableColumnComponentBase } from './dynamic-table-column.base';
+import { DynamicAction, DynamicTableColumnComponentBase } from './dynamic-table-column.base';
 import { TableColumnComponentResolver } from './dynamic-table-column.resolver';
 import { TableColumn } from './TableColumn';
 
@@ -9,10 +9,14 @@ import { TableColumn } from './TableColumn';
   templateUrl: 'dynamic-table-column.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicTableColumnComponent extends DynamicTableColumnComponentBase {
-  @Input() override row: any;
+export class DynamicTableColumnComponent<
+  TItem extends { [key: string]: unknown }
+> extends DynamicTableColumnComponentBase<TItem> {
+  @Input() override row: TItem | null = null;
   @Input() override column: TableColumn = new TableColumn({});
-  @Output() override action: EventEmitter<any> = new EventEmitter<any>();
+  @Output() override action: EventEmitter<DynamicAction<TItem>> = new EventEmitter<
+    DynamicAction<TItem>
+  >();
 
   constructor(public resolver: TableColumnComponentResolver) {
     super();

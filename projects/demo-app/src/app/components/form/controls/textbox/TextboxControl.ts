@@ -1,11 +1,11 @@
 import { AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 import { FormControlSchema } from '@ngxd/forms';
 
-export class TextboxControl extends FormControlSchema {
+export class TextboxControl<T, K extends keyof T = keyof T> extends FormControlSchema<Pick<T, K>> {
   type?: string;
 
   constructor(
-    { type, ...args }: Partial<TextboxControl>,
+    { type, ...args }: Partial<TextboxControl<T, K>>,
     formState?: any,
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null

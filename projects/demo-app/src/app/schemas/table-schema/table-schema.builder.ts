@@ -19,20 +19,20 @@ import {
 export class TableSchemaBuilder {
   constructor(private fsb: FormSchemaBuilder) {}
 
-  form(formSchema: AbstractControlSchema): AbstractControl {
+  form(formSchema: AbstractControlSchema<TableColumn>): AbstractControl {
     return this.fsb.form(formSchema);
   }
 
-  formSchema(schema: TableSchema): FormArraySchema {
+  formSchema(schema: TableSchema): FormArraySchema<TableColumn> {
     return this.fsb.array(
       { label: 'Table Schema' },
       schema.map((column) => this.groupSchema(column))
     );
   }
 
-  groupSchema(column: TableColumn): FormGroupSchema {
+  groupSchema(column: TableColumn): FormGroupSchema<TableColumn> {
     return this.fsb.group(
-      { key: column.def, label: column.header },
+      { key: column.def, label: column.header, $type: TableColumn },
       {
         def: new TextboxControl({
           key: 'def',
@@ -55,8 +55,14 @@ export class TableSchemaBuilder {
           ),
           validator: [Validators.required],
         }),
-        visible: new CheckboxControl({ key: 'visible', label: 'Visible' }),
-        editable: new CheckboxControl({ key: 'editable', label: 'Editable' }),
+        visible: new CheckboxControl({
+          key: 'visible',
+          label: 'Visible',
+        }),
+        editable: new CheckboxControl({
+          key: 'editable',
+          label: 'Editable',
+        }),
       }
     );
   }

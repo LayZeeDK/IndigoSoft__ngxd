@@ -11,11 +11,11 @@ export class DropdownControlOptions {
   }
 }
 
-export class DropdownControl extends FormControlSchema {
+export class DropdownControl<T, K extends keyof T = keyof T> extends FormControlSchema<Pick<T, K>> {
   options: DropdownControlOptions[] = [];
 
   constructor(
-    { options, ...args }: Partial<DropdownControl>,
+    { options, ...args }: Partial<DropdownControl<T, K>>,
     formState?: any,
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null

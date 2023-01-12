@@ -9,11 +9,11 @@ import { DynamicFormArrayComponentBase, provideFormArray } from '@app/dynamics';
   styleUrls: ['array.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormArrayComponent extends DynamicFormArrayComponentBase {
+export class FormArrayComponent<T> extends DynamicFormArrayComponentBase<T> {
   @Input() override array: UntypedFormArray | null = null;
-  @Input() override schema: FormArraySchema | null = null;
+  @Input() override schema: FormArraySchema<T> | null = null;
 
-  trackByIndex: TrackByFunction<AbstractControlSchema> = (index) => String(index);
+  trackByIndex: TrackByFunction<AbstractControlSchema<T>> = (index) => String(index);
 }
 
 export const COMPONENT = FormArrayComponent;

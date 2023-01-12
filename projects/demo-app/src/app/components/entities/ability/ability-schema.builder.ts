@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { DropdownControl, DropdownControlOptions, TextboxControl } from '@app/components/form';
+import { DynamicEntityObject } from '@app/dynamics';
 import { provideSchemaBuilder, SchemaBuilder } from '@app/schemas';
 import { AbstractControlSchema, FormSchemaBuilder } from '@ngxd/forms';
 import { Ability } from './Ability';
@@ -23,42 +24,41 @@ const ICONS = [
 ];
 
 @Injectable()
-export class AbilitySchemaBuilder extends SchemaBuilder {
+export class AbilitySchemaBuilder extends SchemaBuilder<DynamicEntityObject> {
   constructor(private fsb: FormSchemaBuilder) {
     super();
   }
 
-  schema(entity: Ability): AbstractControlSchema {
+  schema(entity: Ability): AbstractControlSchema<DynamicEntityObject> {
     return this.fsb.group(
       { key: 'entity', label: entity.name, subtitle: 'Ability', $type: Ability },
       {
-        $type: Ability,
-        id: new TextboxControl({
+        id: new TextboxControl<Ability>({
           key: 'id',
           label: 'Entity Def',
           type: 'text',
           validator: [Validators.required],
         }),
-        name: new TextboxControl({
+        name: new TextboxControl<Ability>({
           key: 'name',
           label: 'Name',
           type: 'text',
           validator: [Validators.required, Validators.minLength(2)],
         }),
-        amount: new TextboxControl({
+        amount: new TextboxControl<Ability>({
           key: 'amount',
           label: 'Amount',
           type: 'text',
           validator: [Validators.required],
         }),
-        icon: new DropdownControl({
+        icon: new DropdownControl<Ability>({
           key: 'icon',
           label: 'Icon',
           options: ICONS.map((icon) => new DropdownControlOptions({ key: icon, value: icon })),
           validator: [Validators.required],
         }),
       }
-    );
+    ) as AbstractControlSchema<DynamicEntityObject>;
   }
 }
 

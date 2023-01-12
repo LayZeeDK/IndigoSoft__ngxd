@@ -8,8 +8,8 @@ import { FormGroupComponentResolver } from './dynamic-form-group.resolver';
   templateUrl: 'dynamic-form-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicFormGroupComponent extends DynamicFormGroupComponentBase {
-  constructor(public resolver: FormGroupComponentResolver) {
+export class DynamicFormGroupComponent<T> extends DynamicFormGroupComponentBase<T> {
+  constructor(public resolver: FormGroupComponentResolver<T>) {
     super();
   }
 }

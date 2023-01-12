@@ -14,19 +14,19 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class DynamicFormComponent {
+export class DynamicFormComponent<T> {
   @Input() form: AbstractControl | null = null;
-  @Input() schema: AbstractControlSchema | null = null;
+  @Input() schema: AbstractControlSchema<T> | null = null;
 
-  isControl(schema: AbstractControlSchema | null): boolean {
+  isControl(schema: AbstractControlSchema<T> | null): boolean {
     return schema instanceof FormControlSchema;
   }
 
-  isGroup(schema: AbstractControlSchema | null): boolean {
+  isGroup(schema: AbstractControlSchema<T> | null): boolean {
     return schema instanceof FormGroupSchema;
   }
 
-  isArray(schema: AbstractControlSchema | null): boolean {
+  isArray(schema: AbstractControlSchema<T> | null): boolean {
     return schema instanceof FormArraySchema;
   }
 }

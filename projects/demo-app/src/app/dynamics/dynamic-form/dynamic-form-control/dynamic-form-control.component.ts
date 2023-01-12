@@ -8,8 +8,8 @@ import { FormControlComponentResolver } from './dynamic-form-control.resolver';
   templateUrl: 'dynamic-form-control.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicFormControlComponent extends DynamicFormControlComponentBase {
-  constructor(public resolver: FormControlComponentResolver) {
+export class DynamicFormControlComponent<T> extends DynamicFormControlComponentBase<T> {
+  constructor(public resolver: FormControlComponentResolver<T>) {
     super();
   }
 }

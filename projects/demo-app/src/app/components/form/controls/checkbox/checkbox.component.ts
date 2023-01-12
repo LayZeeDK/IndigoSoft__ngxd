@@ -8,8 +8,8 @@ import { CheckboxControl } from './CheckboxControl';
   styleUrls: ['checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextboxControlComponent extends DynamicFormControlComponentBase {
-  @Input() override schema: CheckboxControl | null = null;
+export class TextboxControlComponent<T> extends DynamicFormControlComponentBase<T> {
+  @Input() override schema: CheckboxControl<T> | null = null;
 }
 
 export const COMPONENT = TextboxControlComponent;

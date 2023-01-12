@@ -11,7 +11,9 @@ import {
   styleUrls: ['actions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ActionsTableColumnEntityComponent extends DynamicTableColumnComponentBase {}
+export class ActionsTableColumnEntityComponent<
+  TItem extends { [key: string]: unknown }
+> extends DynamicTableColumnComponentBase<TItem> {}
 
 export const COMPONENT = ActionsTableColumnEntityComponent;
 export const PROVIDERS = provideTableColumn(

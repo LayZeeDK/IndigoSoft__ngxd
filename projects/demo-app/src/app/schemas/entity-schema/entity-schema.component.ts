@@ -23,21 +23,22 @@ import { EntitySchemaService } from './entity-schema.service';
   providers: [EntitySchemaService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EntitySchemaComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() schema?: DynamicEntityObject;
+export class EntitySchemaComponent<T extends DynamicEntityObject>
+  implements OnInit, OnChanges, OnDestroy
+{
+  @Input() schema?: T;
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() invalid: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() schemaChange: EventEmitter<DynamicEntityObject> =
-    new EventEmitter<DynamicEntityObject>();
+  @Output() schemaChange: EventEmitter<T> = new EventEmitter<T>();
 
   form$: Observable<AbstractControl> = this.service.getForm();
-  formSchema$: Observable<AbstractControlSchema> = this.service.getFormSchema();
+  formSchema$: Observable<AbstractControlSchema<T>> = this.service.getFormSchema();
 
-  private formValue$: Observable<DynamicEntityObject> = this.service.getFormValue();
+  private formValue$: Observable<T> = this.service.getFormValue();
   private formIsInvalid$: Observable<boolean> = this.service.getFormIsInvalid();
   private ngOnDestroy$: Subject<null> = new Subject<null>();
 
-  constructor(private service: EntitySchemaService) {}
+  constructor(private service: EntitySchemaService<T>) {}
 
   ngOnInit() {
     this.formValue$.pipe(takeUntil(this.ngOnDestroy$)).subscribe(this.schemaChange);

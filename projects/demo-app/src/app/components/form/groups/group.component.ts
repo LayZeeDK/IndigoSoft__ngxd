@@ -8,12 +8,12 @@ import { AbstractControlSchema, FormGroupSchema } from '@ngxd/forms';
   styleUrls: ['group.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormGroupComponent extends DynamicFormGroupComponentBase {
-  toArray<T>(object: { [key: string]: T } = {}): T[] {
+export class FormGroupComponent<T> extends DynamicFormGroupComponentBase<T> {
+  toArray(object: { [key: string]: T } = {}): T[] {
     return Object.keys(object).map((key) => object[key]);
   }
 
-  trackByKey: TrackByFunction<AbstractControlSchema> = (index, schema) => schema.key;
+  trackByKey: TrackByFunction<AbstractControlSchema<T>> = (index, schema) => schema.key;
 }
 
 export const COMPONENT = FormGroupComponent;

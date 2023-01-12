@@ -6,11 +6,10 @@ import { TABLE_COLUMN_PROVIDER, TableColumnProvider } from './dynamic-table-colu
 import { TableColumnTypes } from './TableColumnTypes';
 
 @Injectable()
-export class TableColumnComponentResolver extends NgxdResolver<
-  TableColumnTypes,
-  Type<DynamicTableColumnComponentBase>
-> {
-  constructor(@Inject(TABLE_COLUMN_PROVIDER) providers: TableColumnProvider[]) {
+export class TableColumnComponentResolver<
+  TItem extends { [key: string]: unknown }
+> extends NgxdResolver<TableColumnTypes, Type<DynamicTableColumnComponentBase<TItem>>> {
+  constructor(@Inject(TABLE_COLUMN_PROVIDER) providers: TableColumnProvider<TItem>[]) {
     super(providers);
   }
 }

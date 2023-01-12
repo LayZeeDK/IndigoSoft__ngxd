@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import { TableSchema } from '@app/components';
+import { TableColumn } from '@app/dynamics';
 import { AbstractControlSchema, FormArraySchema } from '@ngxd/forms';
 import { concat, Observable, of, ReplaySubject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -9,8 +10,9 @@ import { TableSchemaBuilder } from './table-schema.builder';
 @Injectable()
 export class TableSchemaService implements OnDestroy {
   private form$: ReplaySubject<AbstractControl> = new ReplaySubject<AbstractControl>(1);
-  private formSchema$: ReplaySubject<AbstractControlSchema> =
-    new ReplaySubject<AbstractControlSchema>(1);
+  private formSchema$: ReplaySubject<AbstractControlSchema<TableColumn>> = new ReplaySubject<
+    AbstractControlSchema<TableColumn>
+  >(1);
 
   constructor(private builder: TableSchemaBuilder) {}
 
@@ -18,7 +20,7 @@ export class TableSchemaService implements OnDestroy {
     return this.form$.asObservable();
   }
 
-  getFormSchema(): Observable<AbstractControlSchema> {
+  getFormSchema(): Observable<AbstractControlSchema<TableColumn>> {
     return this.formSchema$.asObservable();
   }
 
@@ -31,7 +33,7 @@ export class TableSchemaService implements OnDestroy {
   }
 
   createForm(schema: TableSchema): void {
-    const formSchema: FormArraySchema = this.builder.formSchema(schema);
+    const formSchema: FormArraySchema<TableColumn> = this.builder.formSchema(schema);
     const form: AbstractControl = this.builder.form(formSchema);
     form.patchValue(schema);
     form.markAsDirty();

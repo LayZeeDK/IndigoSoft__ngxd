@@ -23,7 +23,7 @@ export class TablePageComponent {
     private dialog: MatDialog
   ) {}
 
-  onTableAction($event: { type: 'delete' | 'edit'; data: any }) {
+  onTableAction($event: { type: 'delete' | 'edit'; data: DynamicEntityObject }) {
     switch ($event.type) {
       case 'edit':
         return this.onEditEntity($event.data);

@@ -1,4 +1,5 @@
 import { Inject, Injectable, Injector, Type } from '@angular/core';
+import { DynamicEntityObject } from '@app/dynamics';
 import { SchemaBuilder } from './schema.builder';
 import { SCHEMA_BUILDER_PROVIDER, SchemaBuilderProvider } from './schema-builder.provider';
 import {
@@ -9,12 +10,12 @@ import {
 } from '@ngxd/forms';
 
 @Injectable()
-export class SchemaBuilderResolver {
-  private providers: Map<Type<any>, Type<SchemaBuilder>>;
-  private builders: Map<Type<any>, SchemaBuilder> = new Map();
+export class SchemaBuilderResolver<T extends DynamicEntityObject> {
+  private providers: Map<Type<T>, Type<SchemaBuilder<T>>>;
+  private builders: Map<Type<T>, SchemaBuilder<T>> = new Map();
 
   constructor(
-    @Inject(SCHEMA_BUILDER_PROVIDER) providers: SchemaBuilderProvider[],
+    @Inject(SCHEMA_BUILDER_PROVIDER) providers: SchemaBuilderProvider<T>[],
     private injector: Injector
   ) {
     this.providers = providers.reduce(
@@ -23,11 +24,12 @@ export class SchemaBuilderResolver {
     );
   }
 
-  resolve(type: Type<any>): SchemaBuilder {
-    const ctor = type.constructor as any;
+  resolve(type: T): SchemaBuilder<T> {
+    const ctor = type.constructor as Type<T>;
 
     if (!this.builders.has(ctor)) {
-      const builder: SchemaBuilder = this.injector.get(this.providers.get(ctor));
+      const provider = this.providers.get(ctor)!;
+      const builder = this.injector.get(provider);
 
       this.builders.set(ctor, builder);
     }
@@ -37,25 +39,31 @@ export class SchemaBuilderResolver {
 }
 
 @Injectable()
-export class CompositeSchemaBuilder {
-  constructor(private resolver: SchemaBuilderResolver) {}
+export class CompositeSchemaBuilder<T extends DynamicEntityObject> {
+  constructor(private resolver: SchemaBuilderResolver<T>) {}
 
-  schema(type: any): AbstractControlSchema {
+  schema(type: T): AbstractControlSchema<T> {
     return this.resolver.resolve(type).schema(type);
   }
 
-  extract(schema: AbstractControlSchema, rawValue: any): any {
+  extract(schema: AbstractControlSchema<T>, rawValue: T | T[]): any {
     if (schema instanceof FormArraySchema) {
-      return (rawValue as Array<any>).map((value, index) =>
-        this.extract(schema.controls[index], value)
+      return (rawValue as T[]).map((value, index) =>
+        this.extract((schema as FormArraySchema<T>).controls[index], value)
       );
     }
 
     if (schema instanceof FormGroupSchema) {
       const ctor = schema.$type;
-      const item = Object.keys(rawValue).reduce(
-        (acc, key) => ({ ...acc, [key]: this.extract(schema.controls[key], rawValue[key]) }),
-        {}
+      const item: T = Object.keys(rawValue as T).reduce(
+        (acc, key): T => ({
+          ...acc,
+          [key]: this.extract(
+            ((schema as FormGroupSchema<T>).controls as any)[key] as any,
+            (rawValue as any)[key] as any
+          ),
+        }),
+        {} as T
       );
 
       return ctor !== undefined ? new ctor(item) : item;
