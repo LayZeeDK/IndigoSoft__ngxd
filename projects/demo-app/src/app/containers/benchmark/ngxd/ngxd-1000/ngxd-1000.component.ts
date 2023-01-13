@@ -8,8 +8,12 @@ import { ComponentResolver, NgxdBenchmarkComponent } from '../ngxd.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ItemsService],
 })
-export class Ngxd1000BenchmarkComponent extends NgxdBenchmarkComponent {
-  constructor(resolver: ComponentResolver, items: ItemsService, measures: MeasureService) {
+export class Ngxd1000BenchmarkComponent<TComponent> extends NgxdBenchmarkComponent<TComponent> {
+  constructor(
+    resolver: ComponentResolver<TComponent>,
+    items: ItemsService,
+    measures: MeasureService
+  ) {
     super(resolver, items, measures);
   }
 }

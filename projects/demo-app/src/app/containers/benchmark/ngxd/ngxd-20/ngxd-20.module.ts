@@ -7,6 +7,7 @@ import {
   NgModule,
   Output,
   Injectable,
+  Type,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -18,9 +19,9 @@ import { ComponentResolver } from '../ngxd.component';
 import { Ngxd20BenchmarkComponent } from './ngxd-20.component';
 
 @Injectable()
-export class Top20ComponentResolver extends ComponentResolver {
+export class Top20ComponentResolver<TComponent> extends ComponentResolver<TComponent> {
   constructor() {
-    super(TOP_20_COMPONENTS);
+    super(TOP_20_COMPONENTS as Type<TComponent>[]);
   }
 }
 
