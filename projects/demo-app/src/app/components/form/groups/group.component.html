@@ -5,7 +5,7 @@
 <ng-container *ngIf="group">
   <app-dynamic-form
     *ngFor="let control of toArray(schema?.controls); trackBy: trackByKey"
-    [form]="(control.key && group.get(control.key)) || null"
+    [form]="(control.key && group.get(String(control.key))) || null"
     [schema]="control"
   ></app-dynamic-form>
 </ng-container>

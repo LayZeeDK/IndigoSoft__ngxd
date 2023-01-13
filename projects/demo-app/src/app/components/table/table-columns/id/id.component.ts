@@ -10,9 +10,7 @@ import {
   templateUrl: 'id.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IdTableColumnEntityComponent<
-  TItem extends { [key: string]: unknown }
-> extends DynamicTableColumnComponentBase<TItem> {}
+export class IdTableColumnEntityComponent extends DynamicTableColumnComponentBase {}
 
 export const COMPONENT = IdTableColumnEntityComponent;
 export const PROVIDERS = provideTableColumn(TableColumnTypes.Id, IdTableColumnEntityComponent);

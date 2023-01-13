@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 import { DynamicFormGroupComponentBase, provideFormGroup } from '@app/dynamics';
-import { AbstractControlSchema, FormGroupSchema } from '@ngxd/forms';
+import { AbstractControlSchema, FormGroupControls, FormGroupSchema } from '@ngxd/forms';
 
 @Component({
   selector: 'app-form-group',
@@ -9,8 +9,10 @@ import { AbstractControlSchema, FormGroupSchema } from '@ngxd/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormGroupComponent<T> extends DynamicFormGroupComponentBase<T> {
-  toArray(object: { [key: string]: T } = {}): T[] {
-    return Object.keys(object).map((key) => object[key]);
+  String = String;
+
+  toArray(controls: FormGroupControls<T> = {} as FormGroupControls<T>): AbstractControlSchema<T>[] {
+    return Object.values(controls);
   }
 
   trackByKey: TrackByFunction<AbstractControlSchema<T>> = (index, schema) => schema.key;

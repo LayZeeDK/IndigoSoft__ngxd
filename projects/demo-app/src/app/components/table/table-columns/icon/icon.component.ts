@@ -11,9 +11,7 @@ import {
   styleUrls: ['icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IconTableColumnEntityComponent<
-  TItem extends { [key: string]: unknown }
-> extends DynamicTableColumnComponentBase<TItem> {}
+export class IconTableColumnEntityComponent extends DynamicTableColumnComponentBase {}
 
 export const COMPONENT = IconTableColumnEntityComponent;
 export const PROVIDERS = provideTableColumn(TableColumnTypes.Icon, IconTableColumnEntityComponent);
