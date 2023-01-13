@@ -1,4 +1,5 @@
 import { EventEmitter, Input, Output, Directive } from '@angular/core';
+import { DynamicEntityObject } from '@app/dynamics';
 
 import { TableColumn } from './TableColumn';
 
@@ -8,8 +9,10 @@ export interface DynamicAction<TItem> {
 }
 
 @Directive() // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export class DynamicTableColumnComponentBase<TItem extends { [key: string]: unknown }> {
-  @Input() row: TItem | null = null;
+export class DynamicTableColumnComponentBase {
+  @Input() row: DynamicEntityObject | null = null;
   @Input() column: TableColumn = new TableColumn({});
-  @Output() action: EventEmitter<DynamicAction<TItem>> = new EventEmitter<DynamicAction<TItem>>();
+  @Output() action: EventEmitter<DynamicAction<DynamicEntityObject>> = new EventEmitter<
+    DynamicAction<DynamicEntityObject>
+  >();
 }

@@ -4,18 +4,18 @@ import { NgxdProvider } from '@ngxd/core';
 import { DynamicTableColumnComponentBase } from './dynamic-table-column.base';
 import { TableColumnTypes } from './TableColumnTypes';
 
-export type TableColumnProvider<TItem extends { [key: string]: unknown }> = NgxdProvider<
+export type TableColumnProvider = NgxdProvider<
   TableColumnTypes,
-  Type<DynamicTableColumnComponentBase<TItem>>
+  Type<DynamicTableColumnComponentBase>
 >;
 
-export const TABLE_COLUMN_PROVIDER = new InjectionToken<
-  TableColumnProvider<{ [key: string]: unknown }>[]
->('Table Column Provider');
+export const TABLE_COLUMN_PROVIDER = new InjectionToken<TableColumnProvider[]>(
+  'Table Column Provider'
+);
 
-export function provideTableColumn<TItem extends { [key: string]: unknown }>(
+export function provideTableColumn(
   type: TableColumnTypes,
-  component: Type<DynamicTableColumnComponentBase<TItem>>
+  component: Type<DynamicTableColumnComponentBase>
 ): Provider[] {
   return [
     { provide: TABLE_COLUMN_PROVIDER, useValue: { type, component }, multi: true },
