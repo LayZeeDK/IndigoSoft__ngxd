@@ -3,9 +3,9 @@ import { DynamicEntityObject } from '@app/dynamics';
 
 import { TableColumn } from './TableColumn';
 
-export interface DynamicAction<TItem> {
+export interface DynamicAction<T extends DynamicEntityObject> {
   type: 'delete' | 'edit';
-  data: TItem;
+  data: T;
 }
 
 @Directive() // eslint-disable-next-line @angular-eslint/directive-class-suffix
