@@ -13,15 +13,15 @@ export const PRIVATE_PREFIX = '__ngxOnChanges_';
 
 export type Disposable = () => void;
 
-export function hasOnChangesHook(component: unknown): component is OnChanges {
+export function hasOnChangesHook(component: Partial<OnChanges>): component is OnChanges {
   return !!component && hasProperty(component, 'ngOnChanges');
 }
 
-export function hasDoCheckHook(component: unknown): component is DoCheck {
+export function hasDoCheckHook(component: Partial<DoCheck>): component is DoCheck {
   return !!component && hasProperty(component, 'ngDoCheck');
 }
 
-export function hasOnInitHook(component: unknown): component is OnInit {
+export function hasOnInitHook(component: Partial<OnInit>): component is OnInit {
   return !!component && hasProperty(component, 'ngOnInit');
 }
 
@@ -34,9 +34,9 @@ export function createComponentRef<T>(
   return viewContainerRef.createComponent(componentFactory, viewContainerRef.length);
 }
 
-export function runOnChangesHook<TComponent extends { [PRIVATE_PREFIX]?: SimpleChanges | null }>(
-  context: TComponent
-): void {
+export function runOnChangesHook<
+  TComponent extends { [PRIVATE_PREFIX]?: SimpleChanges | null } & Partial<OnChanges>
+>(context: TComponent): void {
   const simpleChanges = context[PRIVATE_PREFIX];
 
   if (simpleChanges != null && hasOnChangesHook(context)) {
@@ -45,7 +45,10 @@ export function runOnChangesHook<TComponent extends { [PRIVATE_PREFIX]?: SimpleC
   context[PRIVATE_PREFIX] = null;
 }
 
-export function hasProperty(context: any, name: string): boolean {
+export function hasProperty<T extends { [key: string]: T[keyof T] }>(
+  context: T,
+  name: string
+): boolean {
   if (name in context) {
     return true;
   }
@@ -59,7 +62,10 @@ export function hasProperty(context: any, name: string): boolean {
   return false;
 }
 
-export function getPropertyDescriptor(context: any, name: string): PropertyDescriptor | undefined {
+export function getPropertyDescriptor<T extends { [key: string]: T[keyof T] }>(
+  context: T,
+  name: string
+): PropertyDescriptor | undefined {
   const descriptor = Object.getOwnPropertyDescriptor(context, name);
 
   if (descriptor) {
@@ -75,7 +81,10 @@ export function getPropertyDescriptor(context: any, name: string): PropertyDescr
   return void 0;
 }
 
-export function deletePropertyDescriptor(context: any, name: string): void {
+export function deletePropertyDescriptor<T extends { [key: string]: T[keyof T] }>(
+  context: T,
+  name: string
+): void {
   const descriptor = Object.getOwnPropertyDescriptor(context, name);
 
   if (descriptor) {

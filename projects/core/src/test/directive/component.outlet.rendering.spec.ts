@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { NgxdModule } from '@ngxd/core';
 
@@ -142,15 +142,15 @@ class TestHostComponent {}
   `,
 })
 class TestComponent {
-  component: any = DynamicComponent;
-  activatedComponent: any;
-  deactivatedComponent: any;
+  component: Type<DynamicComponent> | null = DynamicComponent;
+  activatedComponent?: DynamicComponent;
+  deactivatedComponent?: DynamicComponent;
 
-  onActivate($event: any) {
+  onActivate($event: DynamicComponent) {
     this.activatedComponent = $event;
   }
 
-  onDeactivate($event: any) {
+  onDeactivate($event: DynamicComponent) {
     this.deactivatedComponent = $event;
   }
 }

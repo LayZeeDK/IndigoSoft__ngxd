@@ -5,7 +5,7 @@ import { getPropertyDescriptor, PRIVATE_CONTEXT_PREFIX } from '../utils';
 
 export const PRIVATE_HOST_INPUT_ADAPTER = PRIVATE_CONTEXT_PREFIX + 'HOST_INPUT_ADAPTER';
 
-export class HostInputAdapter<TComponent> {
+export class HostInputAdapter<TComponent extends { [P in keyof TComponent]: TComponent[P] }> {
   changes: Subject<any> = new Subject<any>();
   defaultDescriptor?: PropertyDescriptor;
   value: any;
@@ -13,7 +13,7 @@ export class HostInputAdapter<TComponent> {
   disposed = false;
 
   constructor(private host: TComponent, private name: string) {
-    if (isObject<HostInputAdapter<TComponent>>(host) && PRIVATE_HOST_INPUT_ADAPTER + name in host) {
+    if (isObject<TComponent>(host) && PRIVATE_HOST_INPUT_ADAPTER + name in host) {
       return host[(PRIVATE_HOST_INPUT_ADAPTER + name) as keyof TComponent];
     }
 
@@ -24,7 +24,7 @@ export class HostInputAdapter<TComponent> {
 
     if (this.defaultDescriptor && this.defaultDescriptor.get && !this.defaultDescriptor.set) {
       if (isDevMode()) {
-        const constructorName = (host as any).constructor.name;
+        const constructorName = host.constructor.name;
         console.log(`You should use get and set descriptors both with dynamic components:
 ERROR: not found '${name}' input, it has setter only, please add getter!
 

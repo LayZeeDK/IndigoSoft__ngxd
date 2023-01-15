@@ -9,6 +9,7 @@ import {
   Output,
   SimpleChanges,
   TemplateRef,
+  Type,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -42,13 +43,13 @@ class BaseHostComponent {}
 class DynamicComponent implements OnInit, OnChanges {
   @Input() name?: string;
   @Input() label?: string;
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Output() action: EventEmitter<unknown> = new EventEmitter<unknown>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() submit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() submit: EventEmitter<unknown> = new EventEmitter<unknown>();
 
-  inputsOnChanges: any;
+  inputsOnChanges?: Pick<DynamicComponent, 'name' | 'label'>;
   simpleChanges?: SimpleChanges;
-  inputsOnInit: any;
+  inputsOnInit?: Pick<DynamicComponent, 'name' | 'label'>;
 
   ngOnChanges(changes: SimpleChanges) {
     this.inputsOnChanges = { name: this.name, label: this.label };
@@ -67,9 +68,9 @@ class DynamicComponent implements OnInit, OnChanges {
 class AnotherDynamicComponent {
   @Input() name?: string;
   @Input() label?: string;
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Output() action: EventEmitter<unknown> = new EventEmitter<unknown>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() submit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() submit: EventEmitter<unknown> = new EventEmitter<unknown>();
 }
 
 @Component({
@@ -82,9 +83,9 @@ class DifferentPropertiesDynamicComponent {
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('customLabel') label?: string;
   // eslint-disable-next-line @angular-eslint/no-output-rename
-  @Output('action') customAction: EventEmitter<any> = new EventEmitter<any>();
+  @Output('action') customAction: EventEmitter<unknown> = new EventEmitter<unknown>();
   // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
-  @Output('customSubmit') submit: EventEmitter<any> = new EventEmitter<any>();
+  @Output('customSubmit') submit: EventEmitter<unknown> = new EventEmitter<unknown>();
 }
 
 @Component({
@@ -143,9 +144,9 @@ class EmptyDynamicComponent {}
 class TestHostComponent extends BaseHostComponent {
   @Input() name?: string;
   @Input() label?: string;
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Output() action: EventEmitter<unknown> = new EventEmitter<unknown>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() submit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() submit: EventEmitter<unknown> = new EventEmitter<unknown>();
 }
 
 @Component({
@@ -218,19 +219,19 @@ class WithGetterAndSetterTestHostComponent extends BaseHostComponent {
   `,
 })
 class TestComponent {
-  @Input() name = 'Angular';
-  label = 'Framework';
-  component: any = DynamicComponent;
-  activatedComponent: any;
-  deactivatedComponent: any;
-  action: any;
-  submit: any;
+  @Input() name?: string | number[] = 'Angular';
+  label? = 'Framework';
+  component: Type<Pick<TestComponent, 'name' | 'label'>> = DynamicComponent;
+  activatedComponent?: Pick<TestComponent, 'name' | 'label'>;
+  deactivatedComponent?: Pick<TestComponent, 'name' | 'label'>;
+  action: unknown;
+  submit: unknown;
 
-  projectableNodes: any[][] | null = null;
+  projectableNodes: Node[][] | null = null;
 
-  @ViewChild(BaseHostComponent, { static: true }) hostComponent: any;
+  @ViewChild(BaseHostComponent, { static: true }) hostComponent!: TestHostComponent;
 
-  @ViewChild(TemplateRef, { static: true }) set templateRef(templateRef: TemplateRef<any>) {
+  @ViewChild(TemplateRef, { static: true }) set templateRef(templateRef: TemplateRef<HTMLElement>) {
     if (this.viewContainerRef && templateRef) {
       this.projectableNodes = [this.viewContainerRef.createEmbeddedView(templateRef).rootNodes];
     }

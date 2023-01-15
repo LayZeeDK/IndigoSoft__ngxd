@@ -30,14 +30,14 @@ const LIBRARY = 'Library';
 @Injectable()
 class HookLogger {
   hooks: {
-    ctor?: Type<any>;
+    ctor?: Type<unknown>;
     name: string;
     state: { name?: string; label?: string };
     changes?: SimpleChanges;
   }[] = [];
 
   log(
-    ctor: Type<any>,
+    ctor: Type<unknown>,
     name: string,
     state: { name?: string; label?: string },
     changes?: SimpleChanges
@@ -59,7 +59,7 @@ class DynamicComponentBase {
 
   protected log(name: string, changes?: SimpleChanges) {
     this.logger.log(
-      this.constructor as Type<any>,
+      this.constructor as Type<unknown>,
       name,
       { name: this.name, label: this.label },
       changes
@@ -268,8 +268,8 @@ class TestHostComponent {
 class TestComponent {
   name?: string;
   label?: string;
-  component: any;
-  activatedComponent: any;
+  component?: Type<unknown>;
+  activatedComponent?: unknown;
 }
 
 @Component({
@@ -279,8 +279,8 @@ class TestComponent {
 class TestNgContainerComponent {
   name?: string;
   label?: string;
-  component: any;
-  activatedComponent: any;
+  component?: Type<unknown>;
+  activatedComponent?: unknown;
 }
 
 @Component({
@@ -292,8 +292,8 @@ class TestNgContainerComponent {
 class TestNgContainerWithContextComponent {
   name?: string;
   label?: string;
-  component: any;
-  activatedComponent: any;
+  component?: Type<unknown>;
+  activatedComponent?: unknown;
 }
 
 const DYNAMIC_COMPONENTS = [
@@ -339,10 +339,13 @@ const STRATEGIES = [ChangeDetectionStrategy.Default, ChangeDetectionStrategy.OnP
 })
 class TestModule {}
 
-function makeTestWithComponent(componentType: Type<any>, component: Type<any>) {
+function makeTestWithComponent(
+  componentType: typeof DYNAMIC_COMPONENTS[number],
+  component: typeof TEST_COMPONENTS[number]
+) {
   const builder: TestCaseBuilder = TestBed.get(TestCaseBuilder);
   const logger: HookLogger = TestBed.get(HookLogger);
-  const fixture: ComponentFixture<TestComponent> = TestBed.createComponent(component);
+  const fixture: ComponentFixture<unknown> = TestBed.createComponent(component);
 
   const report = builder
     .operations([

@@ -7,6 +7,7 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
+  Type,
   ViewChild,
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
@@ -69,8 +70,8 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
 
       component.component = AnotherDynamicComponent;
 
@@ -80,8 +81,8 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Another Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
     }));
 
     it('should detect changes when component OnPush', fakeAsync(() => {
@@ -101,8 +102,8 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
 
       component.component = AnotherDynamicComponent;
 
@@ -112,8 +113,8 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Another Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
     }));
 
     it('should binding when dynamic and host components have different input name', fakeAsync(() => {
@@ -126,8 +127,8 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
 
       component.component = DifferentPropertiesDynamicComponent;
 
@@ -137,8 +138,10 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Different Properties Component');
       expect(content).toContain('name: Angular');
       expect(content).not.toContain('label: Framework');
-      expect(component.activatedComponent.customName).toBe('Angular');
-      expect(component.activatedComponent.label).toBeUndefined();
+      expect((component.activatedComponent as DifferentPropertiesDynamicComponent).customName).toBe(
+        'Angular'
+      );
+      expect(component.activatedComponent?.label).toBeUndefined();
     }));
 
     it('should binding when dynamic and host component have different set of inputs', fakeAsync(() => {
@@ -151,8 +154,8 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
 
       component.component = DifferentPropertiesDynamicComponent;
 
@@ -162,8 +165,10 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Different Properties Component');
       expect(content).toContain('name: Angular');
       expect(content).not.toContain('label: Framework');
-      expect(component.activatedComponent.customName).toBe('Angular');
-      expect(component.activatedComponent.label).toBeUndefined();
+      expect((component.activatedComponent as DifferentPropertiesDynamicComponent).customName).toBe(
+        'Angular'
+      );
+      expect(component.activatedComponent?.label).toBeUndefined();
     }));
 
     it('should raise exception when dynamic component have input with getter only', fakeAsync(() => {
@@ -176,10 +181,10 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
 
-      component.component = WithGetterDynamicComponent;
+      component.component = WithGetterDynamicComponent as unknown as Type<TestComponent>;
 
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
@@ -188,8 +193,8 @@ describe('check use of context', () => {
       expect(content).not.toContain('name: Angular');
       expect(content).not.toContain('label: Framework');
       expect(component.activatedComponent).toEqual(jasmine.any(WithGetterDynamicComponent));
-      expect(component.activatedComponent.name).toBeUndefined();
-      expect(component.activatedComponent.label).toBeUndefined();
+      expect(component.activatedComponent?.name).toBeUndefined();
+      expect(component.activatedComponent?.label).toBeUndefined();
       expect(console.log).toHaveBeenCalledOnceWith(
         jasmine.stringContaining(WithGetterDynamicComponent.name)
       );
@@ -212,10 +217,10 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
 
-      component.component = WithSetterDynamicComponent;
+      component.component = WithSetterDynamicComponent as unknown as Type<TestComponent>;
 
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
@@ -223,8 +228,8 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic With Setter Component');
       expect(content).not.toContain('name: Angular');
       expect(content).not.toContain('label: Framework');
-      expect(component.activatedComponent.name).toBeUndefined();
-      expect(component.activatedComponent.label).toBeUndefined();
+      expect(component.activatedComponent?.name).toBeUndefined();
+      expect(component.activatedComponent?.label).toBeUndefined();
     }));
 
     it('should binding when dynamic component have input with getter and setter', fakeAsync(() => {
@@ -237,10 +242,10 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic Component');
       expect(content).toContain('name: Angular');
       expect(content).toContain('label: Framework');
-      expect(component.activatedComponent.name).toBe('Angular');
-      expect(component.activatedComponent.label).toBe('Framework');
+      expect(component.activatedComponent?.name).toBe('Angular');
+      expect(component.activatedComponent?.label).toBe('Framework');
 
-      component.component = WithGetterAndSetterDynamicComponent;
+      component.component = WithGetterAndSetterDynamicComponent as unknown as Type<TestComponent>;
 
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
@@ -248,8 +253,10 @@ describe('check use of context', () => {
       expect(content).toContain('Dynamic With Getter And Setter Component');
       expect(content).toContain('name: Angular');
       expect(content).not.toContain('label: Framework');
-      expect(component.activatedComponent.customName).toBe('Angular');
-      expect(component.activatedComponent.label).toBeUndefined();
+      expect(
+        (component.activatedComponent as unknown as WithGetterAndSetterDynamicComponent).customName
+      ).toBe('Angular');
+      expect(component.activatedComponent?.label).toBeUndefined();
     }));
 
     it('should have input value when lifecycle hook onInit called', fakeAsync(() => {
@@ -258,21 +265,22 @@ describe('check use of context', () => {
 
       fixture.detectChanges();
 
-      const inputsOnInit = component.activatedComponent.inputsOnChanges;
+      const activatedComponent = component.activatedComponent as unknown as DynamicComponent;
+      const inputsOnInit = activatedComponent.inputsOnChanges;
 
-      expect(component.activatedComponent.inputsOnChanges.length).toBe(1);
-      expect(component.activatedComponent.inputsOnInit[0].name).toContain('Angular');
-      expect(component.activatedComponent.inputsOnInit[0].label).toContain('Framework');
+      expect(activatedComponent.inputsOnChanges.length).toBe(1);
+      expect(activatedComponent.inputsOnInit[0].name).toContain('Angular');
+      expect(activatedComponent.inputsOnInit[0].label).toContain('Framework');
 
       component.component = AnotherDynamicComponent;
       fixture.detectChanges();
       component.component = DynamicComponent;
       fixture.detectChanges();
 
-      expect(component.activatedComponent.inputsOnInit).not.toBe(inputsOnInit);
-      expect(component.activatedComponent.inputsOnInit.length).toBe(1);
-      expect(component.activatedComponent.inputsOnInit[0].name).toContain('Angular');
-      expect(component.activatedComponent.inputsOnInit[0].label).toContain('Framework');
+      expect(activatedComponent.inputsOnInit).not.toBe(inputsOnInit);
+      expect(activatedComponent.inputsOnInit.length).toBe(1);
+      expect(activatedComponent.inputsOnInit[0].name).toContain('Angular');
+      expect(activatedComponent.inputsOnInit[0].label).toContain('Framework');
     }));
 
     it('should have input value when lifecycle hook onChanges called', fakeAsync(() => {
@@ -281,17 +289,18 @@ describe('check use of context', () => {
 
       fixture.detectChanges();
 
-      expect(component.activatedComponent.inputsOnChanges.length).toBe(1);
-      expect(component.activatedComponent.inputsOnChanges[0].name).toBe('Angular');
-      expect(component.activatedComponent.inputsOnChanges[0].label).toBe('Framework');
+      const activatedComponent = component.activatedComponent as unknown as DynamicComponent;
+      expect(activatedComponent.inputsOnChanges.length).toBe(1);
+      expect(activatedComponent.inputsOnChanges[0].name).toBe('Angular');
+      expect(activatedComponent.inputsOnChanges[0].label).toBe('Framework');
 
       component.name = 'React';
       component.context = { label: 'Library' };
       fixture.detectChanges();
 
-      expect(component.activatedComponent.inputsOnChanges.length).toBe(2);
-      expect(component.activatedComponent.inputsOnChanges[1].name).toBe('React');
-      expect(component.activatedComponent.inputsOnChanges[1].label).toBe('Library');
+      expect(activatedComponent.inputsOnChanges.length).toBe(2);
+      expect(activatedComponent.inputsOnChanges[1].name).toBe('React');
+      expect(activatedComponent.inputsOnChanges[1].label).toBe('Library');
     }));
 
     it('should update saved value for binding', () => {
@@ -305,50 +314,50 @@ describe('check use of context', () => {
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
 
-      expect(component.activatedComponent.name).toEqual([]);
+      expect(component.activatedComponent?.name).toEqual([]);
       expect(content).toContain('name: []');
 
-      component.context = { name: [...component.context.name, 1] };
+      component.context = { name: [...(component.context.name as number[]), 1] };
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
 
-      expect(component.activatedComponent.name).toEqual([1]);
+      expect(component.activatedComponent?.name).toEqual([1]);
       expect(content).toContain('name: [\n  1\n]');
 
       component.component = AnotherDynamicComponent;
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
 
-      expect(component.activatedComponent.name).toEqual([1]);
+      expect(component.activatedComponent?.name).toEqual([1]);
       expect(content).toContain('name: [\n  1\n]');
 
-      component.context = { name: [...component.context.name, 2] };
+      component.context = { name: [...(component.context.name as number[]), 2] };
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
 
-      expect(component.activatedComponent.name).toEqual([1, 2]);
+      expect(component.activatedComponent?.name).toEqual([1, 2]);
       expect(content).toContain('name: [\n  1,\n  2\n]');
 
       component.component = DynamicComponent;
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
 
-      expect(component.activatedComponent.name).toEqual([1, 2]);
+      expect(component.activatedComponent?.name).toEqual([1, 2]);
       expect(content).toContain('name: [\n  1,\n  2\n]');
 
-      component.context = { name: [...component.context.name, 3] };
+      component.context = { name: [...(component.context.name as number[]), 3] };
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
 
-      expect(component.activatedComponent.name).toEqual([1, 2, 3]);
+      expect(component.activatedComponent?.name).toEqual([1, 2, 3]);
       expect(content).toContain('name: [\n  1,\n  2,\n  3\n]');
 
       component.component = AnotherDynamicComponent;
-      component.context = { name: [...component.context.name, 4] };
+      component.context = { name: [...(component.context.name as number[]), 4] };
       fixture.detectChanges();
       content = fixture.debugElement.nativeElement.innerHTML;
 
-      expect(component.activatedComponent.name).toEqual([1, 2, 3, 4]);
+      expect(component.activatedComponent?.name).toEqual([1, 2, 3, 4]);
       expect(content).toContain('name: [\n  1,\n  2,\n  3,\n  4\n]');
     });
   });
@@ -427,9 +436,9 @@ class DynamicComponent implements OnInit, OnChanges {
   @Input() name?: string;
   @Input() label?: string;
 
-  inputsOnChanges: any[] = [];
+  inputsOnChanges: Pick<DynamicComponent, 'name' | 'label'>[] = [];
   simpleChanges: SimpleChanges[] = [];
-  inputsOnInit: any = [];
+  inputsOnInit: Pick<DynamicComponent, 'name' | 'label'>[] = [];
 
   ngOnChanges(changes: SimpleChanges) {
     this.inputsOnChanges.push({ name: this.name, label: this.label });
@@ -543,15 +552,15 @@ class TestHostComponent {
   `,
 })
 class TestComponent {
-  name = 'Angular';
-  label = 'Framework';
+  name?: string | number[] = 'Angular';
+  label? = 'Framework';
   customLabel = 'Library';
-  context: any = { label: 'Framework' };
+  context: Partial<TestComponent> | null = { label: 'Framework' };
   names: string[] = [];
-  component: any = DynamicComponent;
-  activatedComponent: any;
+  component: Type<Pick<TestComponent, 'name' | 'label'>> = DynamicComponent;
+  activatedComponent?: TestComponent;
 
-  @ViewChild(BaseHostComponent) hostComponent: any;
+  @ViewChild(BaseHostComponent, { static: true }) hostComponent!: TestHostComponent;
 }
 
 @NgModule({

@@ -4,7 +4,7 @@ import { HostInputAdapter } from './host-input.adapter';
 
 export const PRIVATE_HOST_ADAPTER = PRIVATE_CONTEXT_PREFIX + 'HOST_ADAPTER';
 
-export class HostAdapter<TComponent> {
+export class HostAdapter<TComponent extends { [P in keyof TComponent]: TComponent[P] }> {
   inputs: Map<string, HostInputAdapter<TComponent>> = new Map<
     string,
     HostInputAdapter<TComponent>
@@ -13,8 +13,8 @@ export class HostAdapter<TComponent> {
   refCount = 0;
 
   constructor(private host: TComponent) {
-    if (isObject<HostAdapter<TComponent>>(host) && PRIVATE_HOST_ADAPTER in host) {
-      return host[PRIVATE_HOST_ADAPTER];
+    if (isObject<TComponent>(host) && PRIVATE_HOST_ADAPTER in host) {
+      return host[PRIVATE_HOST_ADAPTER as keyof TComponent];
     }
 
     host[PRIVATE_HOST_ADAPTER as keyof TComponent] = this as TComponent[keyof TComponent];

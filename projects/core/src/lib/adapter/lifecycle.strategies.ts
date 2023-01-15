@@ -2,10 +2,12 @@ import {
   ComponentFactoryResolver,
   ComponentRef,
   DoCheck,
+  OnChanges,
   OnInit,
   Type,
   ViewContainerRef,
 } from '@angular/core';
+import { isObject } from '../objects/is-object';
 import { NonNullish } from '../objects/non-nullish';
 import { createComponentRef, Disposable, hasOnChangesHook, hasProperty } from '../utils';
 import {
@@ -119,7 +121,7 @@ export function attachLifecycle<TComponent>(
     doCheckComponentRef: lifecycleComponents.doCheckComponentRef ?? componentRef,
   };
 
-  if (hasOnChangesHook(component)) {
+  if (isObject<Partial<OnChanges>>(component) && hasOnChangesHook(component)) {
     if (isLifecycleComponent(components.onInitComponentRef.instance)) {
       components.onInitComponentRef.instance.attach(component, componentRef.changeDetectorRef);
     } else {

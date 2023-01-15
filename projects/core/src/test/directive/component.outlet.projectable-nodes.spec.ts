@@ -3,6 +3,7 @@ import {
   Input,
   NgModule,
   TemplateRef,
+  Type,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -61,11 +62,11 @@ class TestHostComponent {
 })
 class TestComponent {
   @Input() name?: string;
-  component: any = DynamicComponent;
+  component: Type<DynamicComponent> = DynamicComponent;
 
-  projectableNodes: any[][] | null = null;
+  projectableNodes: Node[][] | null = null;
 
-  @ViewChild(TemplateRef, { static: true }) set templateRef(templateRef: TemplateRef<any>) {
+  @ViewChild(TemplateRef, { static: true }) set templateRef(templateRef: TemplateRef<HTMLElement>) {
     if (this.viewContainerRef && templateRef) {
       this.projectableNodes = [this.viewContainerRef.createEmbeddedView(templateRef).rootNodes];
     }

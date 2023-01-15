@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/component-selector */
-import { Compiler, Component, Injector, NgModule, NgModuleFactory } from '@angular/core';
+import { Compiler, Component, Injector, NgModule, NgModuleFactory, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { NgxdModule } from '@ngxd/core';
 
@@ -43,8 +43,8 @@ class DynamicModule {}
     '<ng-container *ngxComponentOutlet="component; ngModuleFactory: module"></ng-container>',
 })
 class TestComponent {
-  component: any = DynamicComponent;
-  module: NgModuleFactory<any> | null = null;
+  component: Type<DynamicComponent> = DynamicComponent;
+  module: NgModuleFactory<DynamicModule> | null = null;
 }
 
 @NgModule({

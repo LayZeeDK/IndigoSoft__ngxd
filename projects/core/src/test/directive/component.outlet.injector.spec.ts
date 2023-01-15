@@ -1,4 +1,4 @@
-import { Component, Injector, NgModule } from '@angular/core';
+import { Component, Injector, NgModule, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { NgxdModule } from '@ngxd/core';
 
@@ -22,7 +22,7 @@ describe('NgxComponentOutlet check custom injector', () => {
 
     fixture.detectChanges();
 
-    expect(component.activatedComponent.injector.get(mock)).toBe(mock);
+    expect(component.activatedComponent?.injector.get(mock)).toBe(mock);
   }));
 
   it('should create a new component when injector changes', fakeAsync(() => {
@@ -45,7 +45,7 @@ describe('NgxComponentOutlet check custom injector', () => {
 
     fixture.detectChanges();
 
-    expect(component.activatedComponent.injector.get(mock)).toBe(newMock);
+    expect(component.activatedComponent?.injector.get(mock)).toBe(newMock);
   }));
 });
 
@@ -66,8 +66,8 @@ class DynamicComponent {
 })
 class TestComponent {
   injector: Injector | null = null;
-  component: any = DynamicComponent;
-  activatedComponent: any;
+  component: Type<DynamicComponent> = DynamicComponent;
+  activatedComponent?: DynamicComponent;
 }
 
 @NgModule({

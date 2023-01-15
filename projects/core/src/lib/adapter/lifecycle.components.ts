@@ -17,7 +17,7 @@ interface LifeCycleComponent {
 }
 
 export function isLifecycleComponent(component: unknown): component is LifeCycleComponent {
-  return isObject<boolean>(component) && component[lifeCycleComponentSymbol];
+  return isObject<{ [key: symbol]: boolean }>(component) && component[lifeCycleComponentSymbol];
 }
 
 @Component({
