@@ -40,7 +40,7 @@ export class DynamicComponentFactoryResolver<TComponent> implements ComponentFac
  * @experimental
  */
 export class DynamicComponentFactory<T> implements ComponentFactory<T> {
-  get componentType(): Type<any> {
+  get componentType(): Type<T> {
     return this.componentFactory.componentType;
   }
 
@@ -73,9 +73,9 @@ export class DynamicComponentFactory<T> implements ComponentFactory<T> {
 
   create(
     injector: Injector,
-    projectableNodes?: any[][],
-    rootSelectorOrNode?: string | any,
-    ngModule?: NgModuleRef<any>
+    projectableNodes?: Node[][],
+    rootSelectorOrNode?: string | Node,
+    ngModule?: NgModuleRef<unknown>
   ): ComponentRef<T> {
     const componentRef: ComponentRef<T> = this.componentFactory.create(
       injector,
@@ -178,7 +178,7 @@ export class DynamicComponentAdapterBuilder {
     componentType: Type<TComponent>,
     viewContainerRef: ViewContainerRef,
     injector: Injector,
-    projectableNodes: any[][],
+    projectableNodes: Node[][],
     host: TComponent,
     componentFactoryResolver: ComponentFactoryResolver
   ): DynamicComponentRef<TComponent> {

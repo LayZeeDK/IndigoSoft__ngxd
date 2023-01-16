@@ -20,7 +20,9 @@ export interface NgxComponentOutletAdapterRefConfig<TComponent> {
   host: TComponent;
 }
 
-export class NgxComponentOutletAdapterRef<TComponent> {
+export class NgxComponentOutletAdapterRef<
+  TComponent extends { [P in keyof TComponent]: TComponent[P] }
+> {
   componentFactory: ComponentFactory<TComponent>;
   componentRef: ComponentRef<TComponent>;
   host: TComponent;
@@ -167,7 +169,7 @@ export class NgxComponentOutletAdapterRef<TComponent> {
           return bindingDef.dynamicContext[insidePropName as keyof TComponent];
         }
       },
-      set: (value: any): void => {
+      set: (value: TComponent[keyof TComponent]): void => {
         if (bindingDef.dynamicContext[insidePropName as keyof TComponent] === value) {
           return void 0;
         }
@@ -202,7 +204,7 @@ export class NgxComponentOutletAdapterRef<TComponent> {
         } catch (e) {
           // Todo: add more debug
           if (isDevMode()) {
-            const constructorName = (bindingDef.dynamicContext as any).constructor.name;
+            const constructorName = bindingDef.dynamicContext.constructor.name;
             console.log(`You should use get and set descriptors both with dynamic components:
 ERROR: not found '${insidePropName}' input, it has getter only, please add setter!
 
@@ -251,9 +253,9 @@ ERROR: not found '${insidePropName}' input, it has getter only, please add sette
         const subscription = (
           this.componentRef.instance[
             propertyDef.insidePropName as keyof TComponent
-          ] as Observable<any>
+          ] as Observable<unknown>
         ).subscribe(
-          this.host[propertyDef.outsidePropName as keyof TComponent] as PartialObserver<any>
+          this.host[propertyDef.outsidePropName as keyof TComponent] as PartialObserver<unknown>
         );
         this.attachedOutputs.push(subscription);
       }

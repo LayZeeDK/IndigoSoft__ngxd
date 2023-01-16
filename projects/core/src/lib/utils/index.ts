@@ -98,10 +98,10 @@ export function deletePropertyDescriptor<T extends { [key: string]: T[keyof T] }
   }
 }
 
-export interface PropertyDef<T> {
-  context: T;
-  dynamicContext: T;
-  hostContext: T;
+export interface PropertyDef<TComponent extends { [P in keyof TComponent]: TComponent[P] }> {
+  context: TComponent;
+  dynamicContext: TComponent;
+  hostContext: TComponent;
   insidePropName: string;
   outsidePropName: string;
 }
