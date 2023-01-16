@@ -60,10 +60,6 @@ export class DynamicComponentFactory<T> implements ComponentFactory<T> {
     return this.componentFactory.selector;
   }
 
-  get viewDefFactory(): any {
-    return (this.componentFactory as any).viewDefFactory;
-  }
-
   constructor(
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -119,10 +115,6 @@ export class DynamicComponentRef<T> implements ComponentRef<T> {
 
   get location(): ElementRef {
     return this.componentRef.location;
-  }
-
-  get _elDef(): any {
-    return (this.componentRef as any)._elDef;
   }
 
   private _onDestroy: () => void = () => undefined;
