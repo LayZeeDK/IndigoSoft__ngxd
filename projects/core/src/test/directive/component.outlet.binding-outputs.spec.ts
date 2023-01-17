@@ -13,14 +13,10 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { NgxdModule } from '@ngxd/core';
 
 describe('NgxComponentOutlet check binding outputs', () => {
-  let fixture: ComponentFixture<TestComponent>;
-  let component: TestComponent;
-  let content: string;
-
   beforeEach(() => {
     TestBed.configureTestingModule({ imports: [TestModule] });
   });

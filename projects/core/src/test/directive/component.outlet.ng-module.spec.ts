@@ -1,11 +1,10 @@
 /* eslint-disable @angular-eslint/component-selector */
-import { Compiler, Component, Injector, NgModule, NgModuleFactory, Type } from '@angular/core';
+import { Compiler, Component, NgModule, NgModuleFactory, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { NgxdModule } from '@ngxd/core';
 
 describe('NgxComponentOutlet check custom ngModule', () => {
   let fixture: ComponentFixture<TestComponent>;
-  let component: TestComponent;
   let compiler: Compiler;
   let content: string;
 
@@ -16,7 +15,6 @@ describe('NgxComponentOutlet check custom ngModule', () => {
   it('should use custom ngModuleFactory', fakeAsync(() => {
     compiler = TestBed.inject(Compiler);
     fixture = TestBed.createComponent(TestComponent);
-    component = fixture.componentInstance;
 
     fixture.componentInstance.module = compiler.compileModuleSync(DynamicModule);
     fixture.detectChanges();

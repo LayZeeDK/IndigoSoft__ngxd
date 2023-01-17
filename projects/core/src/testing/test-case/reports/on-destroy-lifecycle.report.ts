@@ -15,7 +15,7 @@ export class OnDestroyLifecycleReport extends SimpleLifecycleReport {
     return this.componentIsChanged(oldState, newState);
   }
 
-  override report(oldState: ContextState, newState: ContextState): LifecycleState {
+  override report(oldState: ContextState): LifecycleState {
     return {
       ctor: oldState.type,
       name: this.name,
