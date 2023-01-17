@@ -343,8 +343,8 @@ function makeTestWithComponent(
   componentType: typeof DYNAMIC_COMPONENTS[number],
   component: typeof TEST_COMPONENTS[number]
 ) {
-  const builder: TestCaseBuilder = TestBed.get(TestCaseBuilder);
-  const logger: HookLogger = TestBed.get(HookLogger);
+  const builder: TestCaseBuilder = TestBed.inject(TestCaseBuilder);
+  const logger: HookLogger = TestBed.inject(HookLogger);
   const fixture: ComponentFixture<unknown> = TestBed.createComponent(component);
 
   const report = builder

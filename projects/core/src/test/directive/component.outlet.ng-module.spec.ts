@@ -14,7 +14,7 @@ describe('NgxComponentOutlet check custom ngModule', () => {
   });
 
   it('should use custom ngModuleFactory', fakeAsync(() => {
-    compiler = TestBed.get(Compiler);
+    compiler = TestBed.inject(Compiler);
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
 
