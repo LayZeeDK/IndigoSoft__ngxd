@@ -9,7 +9,6 @@ export class HostAdapter<TComponent extends { [P in keyof TComponent]: TComponen
     string,
     HostInputAdapter<TComponent>
   >();
-  state: any = {};
   refCount = 0;
 
   constructor(private host: TComponent) {
