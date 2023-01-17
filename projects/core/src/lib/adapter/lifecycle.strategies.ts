@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { isObject } from '../objects/is-object';
 import { NonNullish } from '../objects/non-nullish';
-import { createComponentRef, Disposable, hasOnChangesHook, hasProperty } from '../utils';
+import { createComponentRef, Disposable, hasOnChangesHook } from '../utils';
 import {
   DoCheckOnlyComponent,
   isLifecycleComponent,
@@ -24,7 +24,7 @@ enum LifecycleStrategyType {
   OnInitAndDoCheck,
 }
 
-type LifecycleComponent = (OnInit & DoCheck) | OnInit | DoCheck;
+export type LifecycleComponent = (OnInit & DoCheck) | OnInit | DoCheck;
 
 interface StrategyConfig {
   componentType?: Type<LifecycleComponent>;
@@ -59,32 +59,16 @@ const FEATURE_COMPONENTS_DISABLE = {
   doCheckComponentRef: null,
 };
 
-function resolveLifecycleStrategy(component: Type<unknown>) {
-  const hasNgOnInit: boolean = hasProperty(component.prototype, 'ngOnInit');
-  const hasNgDoCheck: boolean = hasProperty(component.prototype, 'ngDoCheck');
-  const hasNgOnChanges: boolean = hasProperty(component.prototype, 'ngOnChanges');
-
-  let type;
-  if (hasNgOnChanges && !hasNgOnInit && !hasNgDoCheck) {
-    type = LifecycleStrategyType.OnInitAndDoCheck;
-  } else if (hasNgOnChanges && !hasNgOnInit) {
-    type = LifecycleStrategyType.OnInitOnly;
-  } else if (!hasNgDoCheck) {
-    type = LifecycleStrategyType.DoCheckOnly;
-  } else {
-    type = LifecycleStrategyType.Default;
-  }
-
+function resolveLifecycleStrategy() {
   const USE_ONLY_INIT_AND_DO_CHECK_STRATEGY_FOR_IVY = LifecycleStrategyType.OnInitAndDoCheck;
   return STRATEGY_CONFIG[USE_ONLY_INIT_AND_DO_CHECK_STRATEGY_FOR_IVY];
 }
 
 function createLifecycleComponents(
-  componentType: Type<LifecycleComponent>,
   viewContainerRef: ViewContainerRef,
   componentFactoryResolver: ComponentFactoryResolver
 ): LifecycleComponents {
-  const config: StrategyConfig = resolveLifecycleStrategy(componentType);
+  const config: StrategyConfig = resolveLifecycleStrategy();
 
   if (!config.componentType) {
     return FEATURE_COMPONENTS_DISABLE;
@@ -108,14 +92,8 @@ export function attachLifecycle(
   componentFactoryResolver: ComponentFactoryResolver
 ): Disposable {
   const component = componentRef.instance;
-  const componentType: Type<LifecycleComponent> = (component as object)
-    .constructor as Type<LifecycleComponent>;
 
-  const lifecycleComponents = createLifecycleComponents(
-    componentType,
-    viewContainerRef,
-    componentFactoryResolver
-  );
+  const lifecycleComponents = createLifecycleComponents(viewContainerRef, componentFactoryResolver);
   const components: NonNullish<LifecycleComponents> = {
     ...lifecycleComponents,
     onInitComponentRef: lifecycleComponents.onInitComponentRef ?? componentRef,

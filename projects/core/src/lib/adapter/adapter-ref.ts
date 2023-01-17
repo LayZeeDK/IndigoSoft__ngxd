@@ -12,7 +12,7 @@ import {
 import { Observable, PartialObserver, Subscription } from 'rxjs';
 import { BindingDef, Disposable, PRIVATE_PREFIX, PropertyDef, toPropertyDef } from '../utils';
 import { HostAdapter } from './host.adapter';
-import { attachLifecycle } from './lifecycle.strategies';
+import { attachLifecycle, LifecycleComponent } from './lifecycle.strategies';
 
 export interface NgxComponentOutletAdapterRefConfig<TContext> {
   componentFactory: ComponentFactory<TContext>;
@@ -221,7 +221,7 @@ ERROR: not found '${insidePropName}' input, it has getter only, please add sette
 
   private attachLifecycle(): void {
     this.detachLifecycle = attachLifecycle(
-      this.componentRef,
+      this.componentRef as ComponentRef<LifecycleComponent>,
       this.viewContainerRef,
       this.componentFactoryResolver
     );
