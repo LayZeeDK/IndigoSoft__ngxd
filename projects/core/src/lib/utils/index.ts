@@ -35,8 +35,8 @@ export function createComponentRef<T>(
 }
 
 export function runOnChangesHook<
-  TComponent extends { [PRIVATE_PREFIX]?: SimpleChanges | null } & Partial<OnChanges>
->(context: TComponent): void {
+  TContext extends { [PRIVATE_PREFIX]?: SimpleChanges | null } & Partial<OnChanges>
+>(context: TContext): void {
   const simpleChanges = context[PRIVATE_PREFIX];
 
   if (simpleChanges != null && hasOnChangesHook(context)) {
@@ -45,10 +45,7 @@ export function runOnChangesHook<
   context[PRIVATE_PREFIX] = null;
 }
 
-export function hasProperty<T extends { [key: string]: T[keyof T] }>(
-  context: T,
-  name: string
-): boolean {
+export function hasProperty<TContext>(context: TContext, name: string): boolean {
   if (name in context) {
     return true;
   }
@@ -62,8 +59,8 @@ export function hasProperty<T extends { [key: string]: T[keyof T] }>(
   return false;
 }
 
-export function getPropertyDescriptor<T extends { [key: string]: T[keyof T] }>(
-  context: T,
+export function getPropertyDescriptor<TContext>(
+  context: TContext,
   name: string
 ): PropertyDescriptor | undefined {
   const descriptor = Object.getOwnPropertyDescriptor(context, name);
@@ -81,14 +78,11 @@ export function getPropertyDescriptor<T extends { [key: string]: T[keyof T] }>(
   return void 0;
 }
 
-export function deletePropertyDescriptor<T extends { [key: string]: T[keyof T] }>(
-  context: T,
-  name: string
-): void {
+export function deletePropertyDescriptor<TContext>(context: TContext, name: string): void {
   const descriptor = Object.getOwnPropertyDescriptor(context, name);
 
   if (descriptor) {
-    delete context[name];
+    delete context[name as keyof TContext];
   }
 
   const prototype = Object.getPrototypeOf(context);
@@ -98,31 +92,31 @@ export function deletePropertyDescriptor<T extends { [key: string]: T[keyof T] }
   }
 }
 
-export interface PropertyDef<TComponent extends { [P in keyof TComponent]: TComponent[P] }> {
-  context: TComponent;
-  dynamicContext: TComponent;
-  hostContext: TComponent;
-  insidePropName: string;
-  outsidePropName: string;
+export interface PropertyDef<TContext> {
+  context: TContext;
+  dynamicContext: TContext;
+  hostContext: TContext;
+  insidePropName: string & keyof TContext;
+  outsidePropName: string & keyof TContext;
 }
 
 // {propName: "insidePropName", templateName: "outsidePropName"}
-export function toPropertyDef<T>(
-  context: T,
-  dynamicContext: T,
-  hostContext: T
-): (property: { propName: string; templateName: string }) => PropertyDef<T> {
+export function toPropertyDef<TContext>(
+  context: TContext,
+  dynamicContext: TContext,
+  hostContext: TContext
+): (property: { propName: string; templateName: string }) => PropertyDef<TContext> {
   return (property: { propName: string; templateName: string }) => ({
     context: context,
     dynamicContext: dynamicContext,
     hostContext: hostContext,
-    insidePropName: property.propName,
-    outsidePropName: property.templateName,
+    insidePropName: property.propName as string & keyof TContext,
+    outsidePropName: property.templateName as string & keyof TContext,
   });
 }
 
 export const PRIVATE_CONTEXT_PREFIX = '__ngxContext__';
 
-export interface BindingDef<T> extends PropertyDef<T> {
+export interface BindingDef<TContext> extends PropertyDef<TContext> {
   defaultDescriptor?: PropertyDescriptor;
 }

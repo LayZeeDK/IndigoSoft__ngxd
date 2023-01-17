@@ -5,14 +5,17 @@ import { getPropertyDescriptor, PRIVATE_CONTEXT_PREFIX } from '../utils';
 
 export const PRIVATE_HOST_INPUT_ADAPTER = PRIVATE_CONTEXT_PREFIX + 'HOST_INPUT_ADAPTER';
 
-export class HostInputAdapter<TComponent extends { [P in keyof TComponent]: TComponent[P] }> {
-  changes: Subject<any> = new Subject<any>();
+export class HostInputAdapter<
+  TComponent extends { [P in keyof TComponent]: TComponent[P] },
+  TInputValue extends TComponent[keyof TComponent] = TComponent[keyof TComponent]
+> {
+  changes: Subject<TInputValue | null> = new Subject<TInputValue | null>();
   defaultDescriptor?: PropertyDescriptor;
-  value: any;
+  value?: TInputValue;
   refCount = 0;
   disposed = false;
 
-  constructor(private host: TComponent, private name: string) {
+  constructor(private host: TComponent, private name: string & keyof TComponent) {
     if (isObject<TComponent>(host) && PRIVATE_HOST_INPUT_ADAPTER + name in host) {
       return host[(PRIVATE_HOST_INPUT_ADAPTER + name) as keyof TComponent];
     }
@@ -39,16 +42,16 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
       }
     }
 
-    const defaultValue = host[name as keyof TComponent];
+    const defaultValue = host[name];
 
     Object.defineProperty(host, name, {
-      get: () => {
+      get: (): TInputValue | undefined => {
         if (this.defaultDescriptor && this.defaultDescriptor.get) {
           return this.defaultDescriptor.get.call(host);
         }
         return this.value;
       },
-      set: (value: any) => {
+      set: (value: TInputValue | undefined) => {
         if (this.defaultDescriptor && this.defaultDescriptor.set) {
           this.defaultDescriptor.set.call(host, value);
         }
@@ -60,7 +63,7 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
     });
 
     if (typeof defaultValue !== 'undefined') {
-      host[name as keyof TComponent] = defaultValue;
+      host[name] = defaultValue;
     }
   }
 
@@ -77,7 +80,7 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
   }
 
   private dispose(): void {
-    const defaultValue = this.host[this.name as keyof TComponent];
+    const defaultValue = this.host[this.name];
 
     this.disposed = true;
     this.changes.complete();
@@ -89,11 +92,11 @@ ERROR: not found '${name}' input, it has setter only, please add getter!
       }
       Object.defineProperty(this.host, this.name, this.defaultDescriptor);
       if (this.defaultDescriptor.set) {
-        this.host[this.name as keyof TComponent] = defaultValue;
+        this.host[this.name] = defaultValue;
       }
     } else {
-      delete this.host[this.name as keyof TComponent];
-      this.host[this.name as keyof TComponent] = defaultValue;
+      delete this.host[this.name];
+      this.host[this.name] = defaultValue;
     }
   }
 }
