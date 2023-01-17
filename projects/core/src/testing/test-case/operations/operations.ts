@@ -12,7 +12,7 @@ export class Operations extends Executable {
     return this;
   }
 
-  report<TComponent>(): TestCaseState {
+  report(): TestCaseState {
     return this.operations.reduce((state: TestCaseState, operation) => operation.report(state), {
       context: {
         host: { name: void 0, label: void 0 },

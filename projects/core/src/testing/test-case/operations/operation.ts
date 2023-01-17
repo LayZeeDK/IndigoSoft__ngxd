@@ -28,7 +28,7 @@ export class Operation extends Executable {
     return this;
   }
 
-  report<TComponent extends TestComponent>(oldState: TestCaseState): TestCaseState {
+  report(oldState: TestCaseState): TestCaseState {
     const newState = this.operations.reduce((acc, operation) => operation.report(acc), oldState);
     const report = this.makeReport(oldState, newState);
 
@@ -59,10 +59,7 @@ export class Operation extends Executable {
     }
   }
 
-  private makeReport<TComponent>(
-    oldState: TestCaseState,
-    newState: TestCaseState
-  ): LifecycleState[] {
+  private makeReport(oldState: TestCaseState, newState: TestCaseState): LifecycleState[] {
     return this.reports
       .filter((reportMaker) => reportMaker.canReport(oldState.context, newState.context))
       .map((reportMaker) => reportMaker.report(oldState.context, newState.context));

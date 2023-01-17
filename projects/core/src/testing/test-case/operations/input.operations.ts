@@ -12,7 +12,7 @@ export class SimpleChangeInput extends Executable {
     return this;
   }
 
-  report<TComponent>(state: TestCaseState): TestCaseState {
+  report(state: TestCaseState): TestCaseState {
     return {
       ...state,
       context: {

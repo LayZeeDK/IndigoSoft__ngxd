@@ -6,7 +6,7 @@ export class AfterContentInitLifecycleReport extends SimpleLifecycleReport {
     super('ngAfterContentInit');
   }
 
-  override canReport<TComponent>(oldState: ContextState, newState: ContextState): boolean {
+  override canReport(oldState: ContextState, newState: ContextState): boolean {
     if (!super.canReport(oldState, newState)) {
       return false;
     }

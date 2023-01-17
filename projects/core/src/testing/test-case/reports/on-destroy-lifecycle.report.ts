@@ -7,7 +7,7 @@ export class OnDestroyLifecycleReport extends SimpleLifecycleReport {
     super('ngOnDestroy');
   }
 
-  override canReport<TComponent>(oldState: ContextState, newState: ContextState): boolean {
+  override canReport(oldState: ContextState, newState: ContextState): boolean {
     if (!(oldState.type && hasProperty(oldState.type.prototype, this.name))) {
       return false;
     }
@@ -15,7 +15,7 @@ export class OnDestroyLifecycleReport extends SimpleLifecycleReport {
     return this.componentIsChanged(oldState, newState);
   }
 
-  override report<TComponent>(oldState: ContextState, newState: ContextState): LifecycleState {
+  override report(oldState: ContextState, newState: ContextState): LifecycleState {
     return {
       ctor: oldState.type,
       name: this.name,

@@ -7,7 +7,7 @@ export class ChangeComponent extends SimpleChangeInput {
     super('component', value);
   }
 
-  override report<TComponent>(state: TestCaseState): TestCaseState {
+  override report(state: TestCaseState): TestCaseState {
     return {
       ...state,
       context: {

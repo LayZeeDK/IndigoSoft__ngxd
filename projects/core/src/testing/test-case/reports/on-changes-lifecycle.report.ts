@@ -7,7 +7,7 @@ export class OnChangesLifecycleReport extends SimpleLifecycleReport {
     super('ngOnChanges');
   }
 
-  override canReport<TComponent>(oldState: ContextState, newState: ContextState): boolean {
+  override canReport(oldState: ContextState, newState: ContextState): boolean {
     if (!super.canReport(oldState, newState)) {
       return false;
     }
@@ -22,7 +22,7 @@ export class OnChangesLifecycleReport extends SimpleLifecycleReport {
     );
   }
 
-  override report<TComponent>(oldState: ContextState, newState: ContextState): LifecycleState {
+  override report(oldState: ContextState, newState: ContextState): LifecycleState {
     const report: LifecycleState = super.report(oldState, newState);
 
     if (this.componentIsChanged(oldState, newState)) {

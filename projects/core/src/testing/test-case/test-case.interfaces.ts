@@ -31,7 +31,7 @@ export abstract class Executable {
 }
 
 export abstract class LifecycleReport {
-  abstract canReport<TComponent>(oldState: ContextState, newState: ContextState): boolean;
+  abstract canReport(oldState: ContextState, newState: ContextState): boolean;
 
-  abstract report<TComponent>(oldState: ContextState, newState: ContextState): LifecycleState;
+  abstract report(oldState: ContextState, newState: ContextState): LifecycleState;
 }
