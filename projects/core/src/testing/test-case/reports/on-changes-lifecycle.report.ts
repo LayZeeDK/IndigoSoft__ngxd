@@ -1,4 +1,4 @@
-import { SimpleChange } from '@angular/core';
+import { SimpleChange, SimpleChanges } from '@angular/core';
 import { ContextState, LifecycleState } from '../test-case.interfaces';
 import { SimpleLifecycleReport } from './simple-lifecycle.report';
 
@@ -35,14 +35,14 @@ export class OnChangesLifecycleReport extends SimpleLifecycleReport {
       };
     }
 
-    const changes: any = {};
+    const changes: SimpleChanges = {};
 
     if (oldState.dynamic.name !== newState.dynamic.name) {
-      changes.name = new SimpleChange(oldState.dynamic.name, newState.dynamic.name, false);
+      changes['name'] = new SimpleChange(oldState.dynamic.name, newState.dynamic.name, false);
     }
 
     if (oldState.dynamic.label !== newState.dynamic.label) {
-      changes.label = new SimpleChange(oldState.dynamic.label, newState.dynamic.label, false);
+      changes['label'] = new SimpleChange(oldState.dynamic.label, newState.dynamic.label, false);
     }
 
     return { ...report, changes };

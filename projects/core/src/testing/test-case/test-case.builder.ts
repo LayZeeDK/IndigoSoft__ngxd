@@ -19,7 +19,7 @@ export class TestCaseBuilder {
     return new Operation(operations);
   }
 
-  changeInput(name: string, value: any): ChangeInput {
+  changeInput(name: string, value: unknown): ChangeInput {
     return new ChangeInput(name, value);
   }
 
@@ -27,7 +27,7 @@ export class TestCaseBuilder {
     return new ResetInput(name);
   }
 
-  changeComponent(component: Type<any>): ChangeComponent {
+  changeComponent(component: Type<unknown>): ChangeComponent {
     return new ChangeComponent(component);
   }
 

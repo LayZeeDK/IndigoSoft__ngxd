@@ -9,11 +9,11 @@ export interface ComponentState {
 export interface ContextState {
   host: ComponentState;
   dynamic: ComponentState;
-  type?: Type<any>;
+  type?: Type<unknown>;
 }
 
 export interface LifecycleState {
-  ctor?: Type<any>;
+  ctor?: Type<unknown>;
   name: string;
   state: ComponentState;
   changes?: SimpleChanges;
@@ -25,7 +25,7 @@ export interface TestCaseState {
 }
 
 export abstract class Executable {
-  abstract execute(fixture: ComponentFixture<any>): Executable;
+  abstract execute(fixture: ComponentFixture<unknown>): Executable;
 
   abstract report(state: TestCaseState): TestCaseState;
 }

@@ -2,12 +2,13 @@ import { ComponentFixture } from '@angular/core/testing';
 import { Executable, TestCaseState } from '../test-case.interfaces';
 
 export class SimpleChangeInput extends Executable {
-  constructor(protected name: string, protected value?: any) {
+  constructor(protected name: string, protected value?: unknown) {
     super();
   }
 
   execute<TComponent>(fixture: ComponentFixture<TComponent>) {
-    fixture.componentInstance[this.name as keyof TComponent] = this.value;
+    fixture.componentInstance[this.name as keyof TComponent] = this
+      .value as TComponent[keyof TComponent];
 
     return this;
   }
