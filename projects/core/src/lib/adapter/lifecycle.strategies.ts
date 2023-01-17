@@ -24,7 +24,7 @@ enum LifecycleStrategyType {
   OnInitAndDoCheck,
 }
 
-type LifecycleComponent = (OnInit & DoCheck) | OnInit | DoCheck | any;
+type LifecycleComponent = (OnInit & DoCheck) | OnInit | DoCheck;
 
 interface StrategyConfig {
   componentType?: Type<LifecycleComponent>;
@@ -59,7 +59,7 @@ const FEATURE_COMPONENTS_DISABLE = {
   doCheckComponentRef: null,
 };
 
-function resolveLifecycleStrategy(component: Type<any>) {
+function resolveLifecycleStrategy(component: Type<unknown>) {
   const hasNgOnInit: boolean = hasProperty(component.prototype, 'ngOnInit');
   const hasNgDoCheck: boolean = hasProperty(component.prototype, 'ngDoCheck');
   const hasNgOnChanges: boolean = hasProperty(component.prototype, 'ngOnChanges');
@@ -102,13 +102,14 @@ function createLifecycleComponents(
   };
 }
 
-export function attachLifecycle<TComponent>(
-  componentRef: ComponentRef<TComponent>,
+export function attachLifecycle(
+  componentRef: ComponentRef<LifecycleComponent>,
   viewContainerRef: ViewContainerRef,
   componentFactoryResolver: ComponentFactoryResolver
 ): Disposable {
   const component = componentRef.instance;
-  const componentType: Type<TComponent> = (component as object).constructor as Type<TComponent>;
+  const componentType: Type<LifecycleComponent> = (component as object)
+    .constructor as Type<LifecycleComponent>;
 
   const lifecycleComponents = createLifecycleComponents(
     componentType,
