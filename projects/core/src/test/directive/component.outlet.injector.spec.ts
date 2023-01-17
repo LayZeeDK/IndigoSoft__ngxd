@@ -1,4 +1,4 @@
-import { Component, Injector, NgModule, Type } from '@angular/core';
+import { Component, InjectionToken, Injector, NgModule, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { NgxdModule } from '@ngxd/core';
 
@@ -15,14 +15,15 @@ describe('NgxComponentOutlet check custom injector', () => {
     component = fixture.componentInstance;
 
     const mock = {};
+    const mockToken = new InjectionToken('mockToken');
     component.injector = Injector.create({
-      providers: [{ provide: mock, useValue: mock }],
+      providers: [{ provide: mockToken, useValue: mock }],
       parent: fixture.componentRef.injector,
     });
 
     fixture.detectChanges();
 
-    expect(component.activatedComponent?.injector.get(mock)).toBe(mock);
+    expect(component.activatedComponent?.injector.get(mockToken)).toBe(mock);
   }));
 
   it('should create a new component when injector changes', fakeAsync(() => {
@@ -30,8 +31,9 @@ describe('NgxComponentOutlet check custom injector', () => {
     component = fixture.componentInstance;
 
     const mock = {};
+    const mockToken = new InjectionToken('mockToken');
     component.injector = Injector.create({
-      providers: [{ provide: mock, useValue: mock }],
+      providers: [{ provide: mockToken, useValue: mock }],
       parent: fixture.componentRef.injector,
     });
 
@@ -39,13 +41,13 @@ describe('NgxComponentOutlet check custom injector', () => {
 
     const newMock = {};
     component.injector = Injector.create({
-      providers: [{ provide: mock, useValue: newMock }],
+      providers: [{ provide: mockToken, useValue: newMock }],
       parent: fixture.componentRef.injector,
     });
 
     fixture.detectChanges();
 
-    expect(component.activatedComponent?.injector.get(mock)).toBe(newMock);
+    expect(component.activatedComponent?.injector.get(mockToken)).toBe(newMock);
   }));
 });
 
