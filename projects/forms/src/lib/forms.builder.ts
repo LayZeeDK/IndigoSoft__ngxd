@@ -17,11 +17,14 @@ export class FormSchemaBuilder {
   group<T extends { [P in keyof T]: T[K] }, K extends keyof T = keyof T>(
     schema: Partial<AbstractControlSchema<T, K>>,
     controlsConfig: FormGroupControls<T, K>,
-    extra?: { [p: string]: any } | null
+    extra?: {
+      validator?: ValidatorFn | ValidatorFn[] | null;
+      asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null;
+    } | null
   ): FormGroupSchema<T, K> {
     const controls = this._reduceControls(controlsConfig);
-    const validator: ValidatorFn = extra != null ? extra['validator'] : null;
-    const asyncValidator: AsyncValidatorFn = extra != null ? extra['asyncValidator'] : null;
+    const validator = extra != null ? extra['validator'] : null;
+    const asyncValidator = extra != null ? extra['asyncValidator'] : null;
 
     return new FormGroupSchema(schema, controls, validator, asyncValidator);
   }
