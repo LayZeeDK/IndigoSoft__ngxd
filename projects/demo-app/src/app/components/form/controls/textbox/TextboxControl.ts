@@ -6,7 +6,7 @@ export class TextboxControl<T, K extends keyof T = keyof T> extends FormControlS
 
   constructor(
     { type, ...args }: Partial<TextboxControl<T, K>>,
-    formState?: any,
+    formState: T | null = null,
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
