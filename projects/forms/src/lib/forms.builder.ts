@@ -28,7 +28,7 @@ export class FormSchemaBuilder {
 
   control<T extends { [P in keyof T]: T[K] }, K extends keyof T = keyof T>(
     schema: Partial<AbstractControlSchema<T, K>>,
-    formState: any | null,
+    formState: T | null,
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): FormControlSchema<T, K> {

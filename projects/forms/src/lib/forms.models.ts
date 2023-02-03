@@ -62,13 +62,13 @@ export class FormControlSchema<
   T extends { [P in keyof T]: T[K] },
   K extends keyof T = keyof T
 > extends AbstractControlSchema<T, K> {
-  formState: any;
+  formState: T | null = null;
   validator?: ValidatorFn | ValidatorFn[] | null;
   asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null;
 
   constructor(
     schema: Partial<FormControlSchema<T, K>>,
-    formState?: any,
+    formState: T | null,
     validator?: ValidatorFn | ValidatorFn[] | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
