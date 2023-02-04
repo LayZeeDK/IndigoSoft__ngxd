@@ -20,18 +20,23 @@ import { NgxComponentOutletAdapterBuilder } from '../adapter/adapter.builder';
 import { NgxComponentOutletAdapterRef } from '../adapter/adapter-ref';
 
 @Directive({ selector: '[ngxComponentOutlet]' })
-export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
-  @Input() ngxComponentOutlet: Type<any> | null = null;
+export class NgxComponentOutletDirective<
+  TComponent extends { [P in keyof TComponent]: TComponent[P] },
+  TContext extends { [P in keyof TContext]: TContext[P] },
+  TModule
+> implements OnChanges, OnDestroy
+{
+  @Input() ngxComponentOutlet: Type<TComponent> | null = null;
   @Input() ngxComponentOutletInjector: Injector | null = null;
   @Input() ngxComponentOutletContent: Node[][] | null = null;
-  @Input() ngxComponentOutletContext: any | null = null;
-  @Input() ngxComponentOutletNgModuleFactory: NgModuleFactory<any> | null = null;
+  @Input() ngxComponentOutletContext: TContext | null = null;
+  @Input() ngxComponentOutletNgModuleFactory: NgModuleFactory<TModule> | null = null;
 
-  @Output() ngxComponentOutletActivate = new EventEmitter<any>();
-  @Output() ngxComponentOutletDeactivate = new EventEmitter<any>();
+  @Output() ngxComponentOutletActivate = new EventEmitter<TComponent>();
+  @Output() ngxComponentOutletDeactivate = new EventEmitter<TComponent>();
 
-  private _adapterRef: NgxComponentOutletAdapterRef<any> | null = null;
-  private _ngModuleRef: NgModuleRef<any> | null = null;
+  private _adapterRef: NgxComponentOutletAdapterRef<TComponent> | null = null;
+  private _ngModuleRef: NgModuleRef<TModule> | null = null;
 
   private get componentFactoryResolver(): ComponentFactoryResolver {
     return this._ngModuleRef
@@ -39,14 +44,14 @@ export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
       : this._componentFactoryResolver;
   }
 
-  cached: any;
+  cached?: TContext;
 
-  private get host(): any {
+  private get host(): TContext {
     if (this.cached) {
       return this.cached;
     }
 
-    const { context } = this.changeDetectorRef as EmbeddedViewRef<any>;
+    const { context } = this.changeDetectorRef as EmbeddedViewRef<TContext>;
 
     return (this.cached = context);
   }

@@ -2,7 +2,9 @@ import { Directive, Type } from '@angular/core';
 import { BenchmarkComponentBase } from '../benchmark.base';
 import { ItemsService, MeasureService } from '../benchmark.service';
 
-export abstract class ComponentResolver<TComponent> {
+export abstract class ComponentResolver<
+  TComponent extends { [P in keyof TComponent]: TComponent[P] }
+> {
   count: number;
 
   protected constructor(private components: Type<TComponent>[] = []) {
@@ -15,7 +17,9 @@ export abstract class ComponentResolver<TComponent> {
 }
 
 @Directive()
-export abstract class NgxdBenchmarkComponent<TComponent> extends BenchmarkComponentBase {
+export abstract class NgxdBenchmarkComponent<
+  TComponent extends { [P in keyof TComponent]: TComponent[P] }
+> extends BenchmarkComponentBase {
   constructor(
     public resolver: ComponentResolver<TComponent>,
     items: ItemsService,

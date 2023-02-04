@@ -74,7 +74,7 @@ export class NgxComponentOutletAdapterRef<TContext> {
     }
   }
 
-  updateContext(context: Partial<TContext>): void {
+  updateContext(context: Partial<TContext> | null): void {
     const contextProps: (string & keyof TContext)[] = context
       ? (Object.keys(context) as (string & keyof TContext)[])
       : [];
@@ -85,7 +85,11 @@ export class NgxComponentOutletAdapterRef<TContext> {
       }
 
       const propertyDef = this.getPropertyDef(contextPropName);
-      if (propertyDef && this.context[propertyDef.outsidePropName] !== context[contextPropName]) {
+      if (
+        propertyDef &&
+        context &&
+        this.context[propertyDef.outsidePropName] !== context[contextPropName]
+      ) {
         this.context[propertyDef.outsidePropName] = context[contextPropName] as TContext[string &
           keyof TContext];
       }
