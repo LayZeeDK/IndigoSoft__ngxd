@@ -23,7 +23,7 @@ import { NgxComponentOutletAdapterRef } from '../adapter/adapter-ref';
 export class NgxComponentOutletDirective implements OnChanges, OnDestroy {
   @Input() ngxComponentOutlet: Type<any> | null = null;
   @Input() ngxComponentOutletInjector: Injector | null = null;
-  @Input() ngxComponentOutletContent: any[][] | null = null;
+  @Input() ngxComponentOutletContent: Node[][] | null = null;
   @Input() ngxComponentOutletContext: any | null = null;
   @Input() ngxComponentOutletNgModuleFactory: NgModuleFactory<any> | null = null;
 
