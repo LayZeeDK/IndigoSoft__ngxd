@@ -46,11 +46,11 @@ export class CompositeSchemaBuilder<T extends DynamicEntityObject> {
     return this.resolver.resolve(type).schema(type);
   }
 
-  extract(schema: AbstractControlSchema<T>, rawValue: T | T[]): any {
+  extract(schema: AbstractControlSchema<T>, rawValue: T | T[]): T | T[] {
     if (schema instanceof FormArraySchema) {
       return (rawValue as T[]).map((value, index) =>
         this.extract((schema as FormArraySchema<T>).controls[index], value)
-      );
+      ) as T[];
     }
 
     if (schema instanceof FormGroupSchema) {
@@ -59,8 +59,8 @@ export class CompositeSchemaBuilder<T extends DynamicEntityObject> {
         (acc, key): T => ({
           ...acc,
           [key]: this.extract(
-            ((schema as FormGroupSchema<T>).controls as any)[key] as any,
-            (rawValue as any)[key] as any
+            (schema as FormGroupSchema<T>).controls[key as keyof T],
+            (rawValue as T)[key as keyof T] as T
           ),
         }),
         {} as T

@@ -53,7 +53,7 @@ export class EntitySchemaService<T extends DynamicEntityObject> implements OnDes
       map(() => {
         const rawValue = (<UntypedFormGroup>form).getRawValue();
 
-        return this.builder.extract(schema, rawValue);
+        return this.builder.extract(schema, rawValue) as T;
       })
     );
   }
