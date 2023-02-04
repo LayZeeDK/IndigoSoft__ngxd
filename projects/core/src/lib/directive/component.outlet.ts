@@ -107,13 +107,13 @@ export class NgxComponentOutletDirective<
       if (this.ngxComponentOutletContext) {
         this.applyContext();
       }
-      this.ngxComponentOutletActivate.emit(this._adapterRef.componentRef!.instance);
+      this.ngxComponentOutletActivate.emit(this._adapterRef.componentRef.instance);
     }
   }
 
   private destroyAdapterRef() {
     if (this._adapterRef) {
-      this.ngxComponentOutletDeactivate.emit(this._adapterRef.componentRef!.instance);
+      this.ngxComponentOutletDeactivate.emit(this._adapterRef.componentRef.instance);
       this._adapterRef.dispose();
       this._adapterRef = null;
     }
