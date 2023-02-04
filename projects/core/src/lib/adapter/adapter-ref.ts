@@ -151,11 +151,15 @@ export class NgxComponentOutletAdapterRef<TContext> {
       context[bindingDef.outsidePropName] = defaultValue;
     }
 
-    const subscription = hostAdapter.getInputAdapter(bindingDef).changes.subscribe((value) => {
-      context[bindingDef.outsidePropName] = value as TContext[string & keyof TContext];
-    });
+    const inputAdapter = hostAdapter.getInputAdapter(bindingDef);
 
-    this.attachedInputs.push(subscription);
+    if (inputAdapter) {
+      const subscription = inputAdapter.changes.subscribe((value) => {
+        context[bindingDef.outsidePropName] = value as TContext[string & keyof TContext];
+      });
+
+      this.attachedInputs.push(subscription);
+    }
   }
 
   private attachContextPropertyToComponentInput(bindingDef: BindingDef<TContext>): void {

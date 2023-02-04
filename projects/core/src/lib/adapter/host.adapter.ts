@@ -30,8 +30,8 @@ export class HostAdapter<TComponent extends { [P in keyof TComponent]: TComponen
     return { ...propertyDef, defaultDescriptor: adapter.defaultDescriptor };
   }
 
-  getInputAdapter(bindingDef: BindingDef<TComponent>): HostInputAdapter<TComponent> {
-    return this.inputs.get(bindingDef.outsidePropName)!;
+  getInputAdapter(bindingDef: BindingDef<TComponent>): HostInputAdapter<TComponent> | undefined {
+    return this.inputs.get(bindingDef.outsidePropName);
   }
 
   detachInput(bindingDef: BindingDef<TComponent>): void {
