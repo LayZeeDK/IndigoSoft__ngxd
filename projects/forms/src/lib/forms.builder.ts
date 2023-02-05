@@ -80,8 +80,8 @@ export class FormSchemaBuilder {
 
     if (schema instanceof FormGroupSchema) {
       return this.fb.group(this._reduceForm(schema), {
-        validator: schema.validator,
-        asyncValidator: schema.asyncValidator,
+        validators: schema.validator,
+        asyncValidators: schema.asyncValidator,
       });
     }
 
