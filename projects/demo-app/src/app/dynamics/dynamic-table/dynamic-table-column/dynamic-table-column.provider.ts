@@ -1,4 +1,4 @@
-import { ANALYZE_FOR_ENTRY_COMPONENTS, InjectionToken, Provider, Type } from '@angular/core';
+import { InjectionToken, Provider, Type } from '@angular/core';
 import { NgxdProvider } from '@ngxd/core';
 
 import { DynamicTableColumnComponentBase } from './dynamic-table-column.base';
@@ -17,8 +17,5 @@ export function provideTableColumn(
   type: TableColumnTypes,
   component: Type<DynamicTableColumnComponentBase>
 ): Provider[] {
-  return [
-    { provide: TABLE_COLUMN_PROVIDER, useValue: { type, component }, multi: true },
-    { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: component, multi: true },
-  ];
+  return [{ provide: TABLE_COLUMN_PROVIDER, useValue: { type, component }, multi: true }];
 }

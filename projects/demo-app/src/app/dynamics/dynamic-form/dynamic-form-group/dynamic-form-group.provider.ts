@@ -1,4 +1,4 @@
-import { ANALYZE_FOR_ENTRY_COMPONENTS, InjectionToken, Provider, Type } from '@angular/core';
+import { InjectionToken, Provider, Type } from '@angular/core';
 import { DynamicFormGroupComponentBase } from './dynamic-form-group.base';
 import { NgxdProvider } from '@ngxd/core';
 import { FormGroupSchema } from '@ngxd/forms';
@@ -22,6 +22,5 @@ export function provideFormGroup<T>(
       useValue: { type, component } as FormGroupProvider<T>,
       multi: true,
     },
-    { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: component, multi: true },
   ];
 }

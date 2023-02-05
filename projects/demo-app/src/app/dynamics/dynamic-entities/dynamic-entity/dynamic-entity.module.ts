@@ -1,4 +1,4 @@
-import { ANALYZE_FOR_ENTRY_COMPONENTS, NgModule, Provider, Type } from '@angular/core';
+import { NgModule, Provider, Type } from '@angular/core';
 import { NgxdModule } from '@ngxd/core';
 
 import { DynamicEntityComponentBase } from './dynamic-entity.base';
@@ -24,7 +24,6 @@ export class DynamicEntityModule {
         useValue: { type, component } as DynamicEntityProvider,
         multi: true,
       },
-      { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: component, multi: true },
     ];
   }
 }

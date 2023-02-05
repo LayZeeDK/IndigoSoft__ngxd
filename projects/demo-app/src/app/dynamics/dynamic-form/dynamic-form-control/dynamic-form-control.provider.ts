@@ -1,4 +1,4 @@
-import { ANALYZE_FOR_ENTRY_COMPONENTS, InjectionToken, Provider, Type } from '@angular/core';
+import { InjectionToken, Provider, Type } from '@angular/core';
 import { NgxdProvider } from '@ngxd/core';
 import { FormControlSchema } from '@ngxd/forms';
 
@@ -23,6 +23,5 @@ export function provideControl<T>(
       useValue: { type, component } as FormControlProvider<T>,
       multi: true,
     },
-    { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: component, multi: true },
   ];
 }

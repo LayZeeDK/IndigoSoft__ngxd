@@ -1,4 +1,4 @@
-import { ANALYZE_FOR_ENTRY_COMPONENTS, InjectionToken, Type, ValueProvider } from '@angular/core';
+import { InjectionToken, Type, ValueProvider } from '@angular/core';
 import { NgxdProvider } from '@ngxd/core';
 import { FormArraySchema } from '@ngxd/forms';
 
@@ -23,6 +23,5 @@ export function provideFormArray<T>(
       useValue: { type, component } as FormArrayProvider<T>,
       multi: true,
     },
-    { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: component, multi: true },
   ];
 }
