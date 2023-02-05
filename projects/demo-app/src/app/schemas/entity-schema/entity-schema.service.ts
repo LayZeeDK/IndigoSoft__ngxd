@@ -24,7 +24,7 @@ export class EntitySchemaService<T extends DynamicEntityObject> implements OnDes
   }
 
   getFormValue(): Observable<T> {
-    return combineLatest(this.getFormSchema(), this.getForm()).pipe(
+    return combineLatest([this.getFormSchema(), this.getForm()]).pipe(
       switchMap(([schema, form]) => this.extractValue(schema, form))
     );
   }
