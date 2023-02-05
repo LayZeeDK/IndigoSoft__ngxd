@@ -8,6 +8,8 @@ import {
   FormControlSchema,
   FormGroupSchema,
 } from '@ngxd/forms';
+import { NgxdDemoAppNoSchemaBuilderProvidedError } from '../../errors/no-schema-builder-provided-error';
+import { NgxdDemoAppNoSchemaBuilderRegisteredError } from '../../errors/no-schema-builder-registered-error';
 
 @Injectable()
 export class SchemaBuilderResolver<T extends DynamicEntityObject> {
@@ -28,13 +30,24 @@ export class SchemaBuilderResolver<T extends DynamicEntityObject> {
     const ctor = type.constructor as Type<T>;
 
     if (!this.builders.has(ctor)) {
-      const provider = this.providers.get(ctor)!;
+      const provider = this.providers.get(ctor);
+
+      if (!provider) {
+        throw new NgxdDemoAppNoSchemaBuilderProvidedError(ctor);
+      }
+
       const builder = this.injector.get(provider);
 
       this.builders.set(ctor, builder);
     }
 
-    return this.builders.get(ctor)!;
+    const builder = this.builders.get(ctor);
+
+    if (!builder) {
+      throw new NgxdDemoAppNoSchemaBuilderRegisteredError(ctor);
+    }
+
+    return builder;
   }
 }
 
