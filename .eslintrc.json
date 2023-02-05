@@ -14,7 +14,7 @@
       "rules": {
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-non-null-assertion": "error",
-        "deprecation/deprecation": "warn"
+        "deprecation/deprecation": "error"
       }
     },
     {
