@@ -18,6 +18,9 @@ import { NgxComponentOutletResolvePipe } from './helpers/resolve.pipe';
     OnInitAndDoCheckComponent,
   ],
   exports: [NgxComponentOutletDirective, NgxComponentOutletResolvePipe],
+  // Allow `NgxComponentOutletAdapterBuilder` until we have a replacement or
+  // mark it as stable.
+  // eslint-disable-next-line deprecation/deprecation
   providers: [NgxComponentOutletAdapterBuilder],
 })
 export class NgxdModule {}

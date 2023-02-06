@@ -64,6 +64,9 @@ export class NgxComponentOutletDirective<
     private _componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef,
     private changeDetectorRef: ChangeDetectorRef,
+    // Allow `NgxComponentOutletAdapterBuilder` until we have a replacement or
+    // mark it as stable.
+    // eslint-disable-next-line deprecation/deprecation
     private builder: NgxComponentOutletAdapterBuilder
   ) {}
 
