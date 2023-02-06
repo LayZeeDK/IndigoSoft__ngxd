@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   ComponentFactoryResolver,
+  createNgModule,
   Directive,
   EmbeddedViewRef,
   EventEmitter,
@@ -30,7 +31,14 @@ export class NgxComponentOutletDirective<
   @Input() ngxComponentOutletInjector: Injector | null = null;
   @Input() ngxComponentOutletContent: Node[][] | null = null;
   @Input() ngxComponentOutletContext: TContext | null = null;
+  /**
+   * @deprecated `NgModuleFactory` is deprecated. Pass an `NgModule` to
+   * `ngxComponentOutletNgModule` instead.
+   */
+  // Allow `NgModuleFactory` until we remove this deprecated property.
+  // eslint-disable-next-line deprecation/deprecation
   @Input() ngxComponentOutletNgModuleFactory: NgModuleFactory<TModule> | null = null;
+  @Input() ngxComponentOutletNgModule: Type<TModule> | null = null;
 
   @Output() ngxComponentOutletActivate = new EventEmitter<TComponent>();
   @Output() ngxComponentOutletDeactivate = new EventEmitter<TComponent>();
@@ -72,7 +80,7 @@ export class NgxComponentOutletDirective<
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['ngxComponentOutlet'] || changes['ngxComponentOutletInjector']) {
-      if (changes['ngxComponentOutletNgModuleFactory']) {
+      if (changes['ngxComponentOutletNgModule'] || changes['ngxComponentOutletNgModuleFactory']) {
         this.destroyNgModuleRef();
         this.createNgModuleRef();
       }
@@ -99,7 +107,7 @@ export class NgxComponentOutletDirective<
 
   private createAdapterRef() {
     if (this.ngxComponentOutlet) {
-      this._adapterRef = this.builder.create(
+      this._adapterRef = this.builder.create<TComponent>(
         this.ngxComponentOutlet,
         this.viewContainerRef,
         this.injector,
@@ -123,7 +131,9 @@ export class NgxComponentOutletDirective<
   }
 
   private createNgModuleRef() {
-    if (this.ngxComponentOutletNgModuleFactory) {
+    if (this.ngxComponentOutletNgModule) {
+      this._ngModuleRef = createNgModule(this.ngxComponentOutletNgModule, this.injector);
+    } else if (this.ngxComponentOutletNgModuleFactory) {
       this._ngModuleRef = this.ngxComponentOutletNgModuleFactory.create(this.injector);
     }
   }
