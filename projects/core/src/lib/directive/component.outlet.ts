@@ -1,6 +1,5 @@
 import {
   ChangeDetectorRef,
-  ComponentFactoryResolver,
   createNgModule,
   Directive,
   EmbeddedViewRef,
@@ -46,12 +45,6 @@ export class NgxComponentOutletDirective<
   private _adapterRef: NgxComponentOutletAdapterRef<TComponent> | null = null;
   private _ngModuleRef: NgModuleRef<TModule> | null = null;
 
-  private get componentFactoryResolver(): ComponentFactoryResolver {
-    return this._ngModuleRef
-      ? this._ngModuleRef.componentFactoryResolver
-      : this._componentFactoryResolver;
-  }
-
   cached?: TContext;
 
   private get host(): TContext {
@@ -69,7 +62,6 @@ export class NgxComponentOutletDirective<
   }
 
   constructor(
-    private _componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef,
     private changeDetectorRef: ChangeDetectorRef,
     // Allow `NgxComponentOutletAdapterBuilder` until we have a replacement or
@@ -107,13 +99,13 @@ export class NgxComponentOutletDirective<
 
   private createAdapterRef() {
     if (this.ngxComponentOutlet) {
-      this._adapterRef = this.builder.create<TComponent>(
+      this._adapterRef = this.builder.create<TComponent, TModule>(
         this.ngxComponentOutlet,
         this.viewContainerRef,
         this.injector,
         this.ngxComponentOutletContent ?? undefined,
         this.host,
-        this.componentFactoryResolver
+        this._ngModuleRef ?? undefined
       );
       if (this.ngxComponentOutletContext) {
         this.applyContext();
@@ -133,7 +125,13 @@ export class NgxComponentOutletDirective<
   private createNgModuleRef() {
     if (this.ngxComponentOutletNgModule) {
       this._ngModuleRef = createNgModule(this.ngxComponentOutletNgModule, this.injector);
+      // Allow `NgxComponentOutletDirective#ngxComponentOutletNgModuleFactory`
+      // until we remove this deprecated property.
+      // eslint-disable-next-line deprecation/deprecation
     } else if (this.ngxComponentOutletNgModuleFactory) {
+      // Allow `NgxComponentOutletDirective#ngxComponentOutletNgModuleFactory`
+      // until we remove this deprecated property.
+      // eslint-disable-next-line deprecation/deprecation
       this._ngModuleRef = this.ngxComponentOutletNgModuleFactory.create(this.injector);
     }
   }

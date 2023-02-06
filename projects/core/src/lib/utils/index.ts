@@ -1,5 +1,4 @@
 import {
-  ComponentFactoryResolver,
   ComponentRef,
   DoCheck,
   OnChanges,
@@ -27,11 +26,9 @@ export function hasOnInitHook(component: Partial<OnInit>): component is OnInit {
 
 export function createComponentRef<T>(
   componentType: Type<T>,
-  viewContainerRef: ViewContainerRef,
-  componentFactoryResolver: ComponentFactoryResolver
+  viewContainerRef: ViewContainerRef
 ): ComponentRef<T> {
-  const componentFactory = componentFactoryResolver.resolveComponentFactory(componentType);
-  return viewContainerRef.createComponent(componentFactory, viewContainerRef.length);
+  return viewContainerRef.createComponent(componentType, { index: viewContainerRef.length });
 }
 
 export function runOnChangesHook<

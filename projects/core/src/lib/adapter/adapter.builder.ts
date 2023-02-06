@@ -1,12 +1,4 @@
-import {
-  ComponentFactory,
-  ComponentFactoryResolver,
-  ComponentRef,
-  Injectable,
-  Injector,
-  Type,
-  ViewContainerRef,
-} from '@angular/core';
+import { Injectable, Injector, NgModuleRef, Type, ViewContainerRef } from '@angular/core';
 import { NgxComponentOutletAdapterRef } from './adapter-ref';
 
 /**
@@ -14,33 +6,29 @@ import { NgxComponentOutletAdapterRef } from './adapter-ref';
  */
 @Injectable()
 export class NgxComponentOutletAdapterBuilder {
-  create<TComponent>(
+  create<TComponent, TModule>(
     componentType: Type<TComponent>,
     viewContainerRef: ViewContainerRef,
     injector: Injector,
     projectableNodes: Node[][] | undefined = undefined,
     host: TComponent,
-    componentFactoryResolver: ComponentFactoryResolver
+    ngModuleRef?: NgModuleRef<TModule>
   ): NgxComponentOutletAdapterRef<TComponent> {
-    const componentFactory: ComponentFactory<TComponent> =
-      componentFactoryResolver.resolveComponentFactory(componentType);
-
-    const componentRef: ComponentRef<TComponent> = componentFactory.create(
+    const componentRef = viewContainerRef.createComponent(componentType, {
       injector,
-      projectableNodes
-    );
+      projectableNodes,
+      ngModuleRef,
+      index: viewContainerRef.length,
+    });
 
     const adapterRef = new NgxComponentOutletAdapterRef(
       {
-        componentFactory,
         componentRef,
+        componentType,
         host,
       },
-      viewContainerRef,
-      componentFactoryResolver
+      viewContainerRef
     );
-
-    viewContainerRef.insert(componentRef.hostView, viewContainerRef.length);
 
     return adapterRef;
   }

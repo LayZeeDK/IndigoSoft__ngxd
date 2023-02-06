@@ -1,27 +1,26 @@
 import {
   ChangeDetectorRef,
-  ComponentFactory,
-  ComponentFactoryResolver,
   ComponentRef,
   isDevMode,
+  reflectComponentType,
   SimpleChange,
   SimpleChanges,
   Type,
   ViewContainerRef,
 } from '@angular/core';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
+import { NgxdUnexpectedComponentTypeError } from '../errors/unexpected-component-type-error';
 import { BindingDef, Disposable, PRIVATE_PREFIX, PropertyDef, toPropertyDef } from '../utils';
 import { HostAdapter } from './host.adapter';
 import { attachLifecycle, LifecycleComponent } from './lifecycle.strategies';
 
 export interface NgxComponentOutletAdapterRefConfig<TContext> {
-  componentFactory: ComponentFactory<TContext>;
   componentRef: ComponentRef<TContext>;
+  componentType: Type<TContext>;
   host: TContext;
 }
 
 export class NgxComponentOutletAdapterRef<TContext> {
-  componentFactory: ComponentFactory<TContext>;
   componentRef: ComponentRef<TContext>;
   host: TContext;
   context: TContext = {} as TContext;
@@ -36,18 +35,22 @@ export class NgxComponentOutletAdapterRef<TContext> {
   private detachLifecycle?: Disposable;
 
   constructor(
-    config: NgxComponentOutletAdapterRefConfig<TContext>,
-    private viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private config: NgxComponentOutletAdapterRefConfig<TContext>,
+    private viewContainerRef: ViewContainerRef
   ) {
-    this.componentFactory = config.componentFactory;
     this.componentRef = config.componentRef;
     this.host = config.host;
     this.changeDetectorRef = this.componentRef.injector.get<ChangeDetectorRef>(
       ChangeDetectorRef as Type<ChangeDetectorRef>,
       this.componentRef.changeDetectorRef
     );
-    this.propertyDefs = this.componentFactory.inputs.map(
+    const mirror = reflectComponentType(config.componentType);
+
+    if (mirror === null) {
+      throw new NgxdUnexpectedComponentTypeError(config.componentType);
+    }
+
+    this.propertyDefs = mirror.inputs.map(
       toPropertyDef(this.context, this.componentRef.instance, this.host)
     );
 
@@ -230,8 +233,7 @@ ERROR: not found '${insidePropName}' input, it has getter only, please add sette
   private attachLifecycle(): void {
     this.detachLifecycle = attachLifecycle(
       this.componentRef as ComponentRef<LifecycleComponent>,
-      this.viewContainerRef,
-      this.componentFactoryResolver
+      this.viewContainerRef
     );
   }
 
@@ -248,7 +250,13 @@ ERROR: not found '${insidePropName}' input, it has getter only, please add sette
   }
 
   private attachOutputs(): void {
-    const propertyDefs = this.componentFactory.outputs.map(
+    const mirror = reflectComponentType(this.config.componentType);
+
+    if (mirror === null) {
+      throw new NgxdUnexpectedComponentTypeError(this.config.componentType);
+    }
+
+    const propertyDefs = mirror.outputs.map(
       toPropertyDef(this.context, this.componentRef.instance, this.host)
     );
     for (const propertyDef of propertyDefs) {
